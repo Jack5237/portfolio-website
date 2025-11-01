@@ -59,16 +59,20 @@ interface MasonryBackgroundProps {
  */
 export const MasonryBackground = ({
   items,
-  ease: _ease = "power3.out",
-  duration: _duration = 0.6,
+  // Props for future animation enhancements (currently unused but kept for API compatibility)
+  ease = "power3.out",
+  duration = 0.6,
   stagger = 0.05,
   animateFrom = "bottom",
   scaleOnHover = true,
-  hoverScale: _hoverScale = 0.95,
+  hoverScale = 0.95,
   blurToFocus = true,
-  colorShiftOnHover: _colorShiftOnHover = false,
+  colorShiftOnHover = false,
   className,
 }: MasonryBackgroundProps) => {
+  // Suppress ESLint warnings for props that are part of the API but not yet implemented
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _unusedProps = { ease, duration, hoverScale, colorShiftOnHover };
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   logger.debug("Rendering masonry background", { 
