@@ -1,7 +1,12 @@
+# Build artifacts and cache
 node_modules
 .turbo
 **/.turbo
 .pnpm-store
 *.log
 .DS_Store
+
+# Explicitly include workspace packages (needed for monorepo)
+!packages/logger
+!packages/logger/**
 
