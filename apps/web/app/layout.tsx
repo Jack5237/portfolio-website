@@ -5,6 +5,8 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import "@fontsource-variable/inter";
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { DotGridBackground } from "@/components/background/dot-grid-background";
@@ -98,6 +100,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         >
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
