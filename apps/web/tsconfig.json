@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "jsx": "preserve",
     "lib": [
       "dom",
@@ -10,6 +11,9 @@
     "module": "esnext",
     "noEmit": true,
     "paths": {
+      "@/*": [
+        "./*"
+      ],
       "@/components/*": [
         "./components/*"
       ],
