@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 import type { Company } from "@/lib/content";
 import { Button } from "@/components/ui/button";
@@ -69,9 +68,9 @@ export const CompaniesSection = ({ companies }: CompaniesSectionProps) => {
 
           if (company.href) {
             return (
-              <Link key={company.name} href={company.href} target="_blank" rel="noreferrer">
+              <a key={company.name} href={company.href} target="_blank" rel="noreferrer" className="block">
                 {content}
-              </Link>
+              </a>
             );
           }
 

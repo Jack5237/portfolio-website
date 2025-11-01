@@ -56,44 +56,44 @@ export const Footer = ({ email, socialLinks }: FooterProps) => {
               </h3>
               <nav className="flex flex-wrap gap-x-4 gap-y-2 sm:gap-x-6 sm:gap-y-2.5">
                 {socialLinks.twitter && (
-                  <Link
+                  <a
                     href={socialLinks.twitter}
                     target="_blank"
                     rel="noreferrer"
                     className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground transition-colors hover:text-foreground"
                   >
                     Twitter
-                  </Link>
+                  </a>
                 )}
                 {socialLinks.github && (
-                  <Link
+                  <a
                     href={socialLinks.github}
                     target="_blank"
                     rel="noreferrer"
                     className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground transition-colors hover:text-foreground"
                   >
                     GitHub
-                  </Link>
+                  </a>
                 )}
                 {socialLinks.linkedin && (
-                  <Link
+                  <a
                     href={socialLinks.linkedin}
                     target="_blank"
                     rel="noreferrer"
                     className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground transition-colors hover:text-foreground"
                   >
                     LinkedIn
-                  </Link>
+                  </a>
                 )}
                 {socialLinks.discord && (
-                  <Link
+                  <a
                     href={socialLinks.discord}
                     target="_blank"
                     rel="noreferrer"
                     className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground transition-colors hover:text-foreground"
                   >
                     Discord
-                  </Link>
+                  </a>
                 )}
               </nav>
             </div>

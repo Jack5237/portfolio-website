@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import type { Project } from "@/lib/content";
 import { DecryptedText } from "@/components/ui/decrypted-text";
 import { ScrollSlide } from "@/components/ui/scroll-slide";
@@ -64,7 +62,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                 <span>{project.category}</span>
                 <span>{project.discipline}</span>
               </div>
-              <Link
+              <a
                 href={project.href}
                 target="_blank"
                 rel="noreferrer"
@@ -83,7 +81,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                   parentClassName="block"
                   encryptedClassName="opacity-70"
                 />
-              </Link>
+              </a>
             </article>
             </ScrollSlide>
           );
