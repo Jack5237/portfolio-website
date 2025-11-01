@@ -1,0 +1,144 @@
+import Link from "next/link";
+
+import { getWebLogger } from "@/lib/logger";
+
+const logger = getWebLogger();
+logger.info("Initialized footer module", { component: "Footer" });
+
+interface FooterProps {
+  /**
+   * Email address for contact.
+   */
+  readonly email: string;
+  /**
+   * Optional social links.
+   */
+  readonly socialLinks?: {
+    readonly twitter?: string;
+    readonly github?: string;
+    readonly linkedin?: string;
+    readonly discord?: string;
+  };
+}
+
+/**
+ * Enhanced footer component with improved design and comprehensive information.
+ * @param props - Footer configuration including contact and social information.
+ * @returns The footer markup.
+ */
+export const Footer = ({ email, socialLinks }: FooterProps) => {
+  logger.debug("Rendering footer", { component: "Footer", email });
+
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-foreground/20 bg-muted/30 py-10 sm:py-12 md:py-16">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8">
+        <div className="grid gap-8 sm:gap-10 md:gap-12 md:grid-cols-3">
+          {/* Contact Section */}
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="text-[10px] sm:text-xs uppercase tracking-[0.35rem] sm:tracking-[0.4rem] text-muted-foreground">
+              Get in Touch
+            </h3>
+            <Link
+              href={`mailto:${email}?subject=Let's%20collaborate`}
+              className="inline-block rounded-full border border-foreground/25 bg-background px-4 py-1.5 sm:px-6 sm:py-2.5 text-[10px] sm:text-xs font-medium uppercase tracking-wider transition-all hover:border-foreground hover:bg-foreground hover:text-background"
+            >
+              {email}
+            </Link>
+          </div>
+
+          {/* Social Links */}
+          {socialLinks && (
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="text-[10px] sm:text-xs uppercase tracking-[0.35rem] sm:tracking-[0.4rem] text-muted-foreground">
+                Connect
+              </h3>
+              <nav className="flex flex-wrap gap-x-4 gap-y-2 sm:gap-x-6 sm:gap-y-2.5">
+                {socialLinks.twitter && (
+                  <Link
+                    href={socialLinks.twitter}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Twitter
+                  </Link>
+                )}
+                {socialLinks.github && (
+                  <Link
+                    href={socialLinks.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    GitHub
+                  </Link>
+                )}
+                {socialLinks.linkedin && (
+                  <Link
+                    href={socialLinks.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    LinkedIn
+                  </Link>
+                )}
+                {socialLinks.discord && (
+                  <Link
+                    href={socialLinks.discord}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Discord
+                  </Link>
+                )}
+              </nav>
+            </div>
+          )}
+
+          {/* Location */}
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="text-[10px] sm:text-xs uppercase tracking-[0.35rem] sm:tracking-[0.4rem] text-muted-foreground">
+              Location
+            </h3>
+            <p className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-foreground">
+              Scotland, UK
+            </p>
+            <p className="text-[10px] sm:text-xs text-muted-foreground">
+              Full stack developer building end-to-end solutions.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col gap-3 sm:gap-4 border-t border-foreground/10 pt-6 sm:pt-8 text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-muted-foreground md:flex-row md:items-center md:justify-between">
+          <p>© {currentYear} Jack. All rights reserved.</p>
+          <nav className="flex flex-wrap gap-x-4 gap-y-1.5 sm:gap-x-6 sm:gap-y-2">
+            <Link
+              href="/terms"
+              className="transition-colors hover:text-foreground"
+            >
+              Terms
+            </Link>
+            <Link
+              href="/privacy"
+              className="transition-colors hover:text-foreground"
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/cookies"
+              className="transition-colors hover:text-foreground"
+            >
+              Cookies Policy
+            </Link>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  );
+};
+

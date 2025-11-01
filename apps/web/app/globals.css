@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 2%;
+  --foreground: 0 0% 98%;
+  --muted: 0 0% 8%;
+  --muted-foreground: 0 0% 65%;
+  --accent: 0 0% 92%;
+  --accent-foreground: 0 0% 8%;
+  --ring: 0 0% 65%;
+}
+
+* {
+  /* Prevent layout shifts during scroll */
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  /* Prevent flicker by ensuring background is painted immediately */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Optimize rendering performance */
+  will-change: auto;
+}
+
+/* Ensure content is above the background */
+main {
+  position: relative;
+  z-index: 1;
+}
+
