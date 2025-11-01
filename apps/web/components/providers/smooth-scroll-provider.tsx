@@ -27,7 +27,8 @@ export const SmoothScrollProvider = ({ children }: { readonly children: React.Re
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      smoothTouch: false,
+      // smoothTouch removed - no longer supported in Lenis v1.3.13+
+      // Touch smoothing is handled by default in newer versions
       touchMultiplier: 2,
       infinite: false,
       autoRaf: true,
