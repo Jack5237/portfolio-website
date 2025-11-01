@@ -41,23 +41,69 @@ logger.info("Loaded root layout module", { component: "RootLayout" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Monochrome Portfolio",
-    template: "%s · Monochrome Portfolio",
+    default: "Jack - Full Stack Developer",
+    template: "%s · Jack",
   },
   description:
-    "A monochrome digital portfolio experience inspired by Oluwaseyi's seyi.dev, modernized with Next.js, Tailwind CSS, and shadcn/ui.",
-  metadataBase: new URL("http://localhost:3000"),
+    "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends. Passionate about clean code, performance, and full-stack engineering.",
+  keywords: [
+    "Jack",
+    "Full Stack Developer",
+    "Software Engineer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Web Developer",
+    "Scotland",
+    "Portfolio",
+    "Developer Portfolio",
+  ],
+  authors: [{ name: "Jack", url: "https://github.com/Jack5237" }],
+  creator: "Jack",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-website-sepia-one-40.vercel.app"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Monochrome Portfolio",
+    title: "Jack - Full Stack Developer",
     description:
-      "A bold black and white playground for creative technologists, crafted with the Next.js app router.",
+      "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends.",
+    url: "/",
+    siteName: "Jack",
+    locale: "en_GB",
     type: "website",
+    images: [
+      {
+        url: "/avatarImg.png",
+        width: 512,
+        height: 512,
+        alt: "Jack - Full Stack Developer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Monochrome Portfolio",
+    title: "Jack - Full Stack Developer",
     description:
-      "A bold black and white playground for creative technologists, crafted with the Next.js app router.",
+      "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends.",
+    creator: "@Jack1168556",
+    images: ["/avatarImg.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/avatarImg.png",
+    apple: "/avatarImg.png",
   },
 };
 
