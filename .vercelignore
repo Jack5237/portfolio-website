@@ -1,10 +1,9 @@
 node_modules
 .turbo
 **/.turbo
-.next
-dist
-build
 .pnpm-store
 *.log
 .DS_Store
+packages
+!packages/logger
 

@@ -3,28 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { getWebLogger } from "@/lib/logger";
+import type { MasonryItem } from "@/lib/content";
 
 const logger = getWebLogger();
 logger.info("Initialized masonry background module", { component: "MasonryBackground" });
-
-interface MasonryItem {
-  /**
-   * Unique identifier for the masonry item.
-   */
-  readonly id: string;
-  /**
-   * Image URL or path for the masonry item.
-   */
-  readonly img: string;
-  /**
-   * Optional URL to link to when item is clicked.
-   */
-  readonly url?: string;
-  /**
-   * Height of the masonry item in pixels.
-   */
-  readonly height: number;
-}
 
 interface MasonryBackgroundProps {
   /**

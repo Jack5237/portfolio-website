@@ -14,7 +14,7 @@ const nextConfig = {
     typedRoutes: true
   },
   transpilePackages: ["@monochrome-portfolio/logger"],
-  webpack: (config, { isServer, webpack }) => {
+  webpack: (config, { isServer }) => {
     // Align the "@" alias with the app directory root so Next.js can resolve path shortcuts emitted from TypeScript.
     config.resolve.alias = {
       ...config.resolve.alias,

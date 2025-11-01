@@ -7,17 +7,23 @@
       "cache": true
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "lint": {
-      "outputs": []
+      "outputs": [],
+      "cache": true
     },
     "format": {
-      "outputs": []
+      "outputs": [],
+      "cache": true
     },
     "clean": {
       "cache": false
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
     }
   }
 }
-
