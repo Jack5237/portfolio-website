@@ -59,14 +59,14 @@ interface MasonryBackgroundProps {
  */
 export const MasonryBackground = ({
   items,
-  ease = "power3.out",
-  duration = 0.6,
+  ease: _ease = "power3.out",
+  duration: _duration = 0.6,
   stagger = 0.05,
   animateFrom = "bottom",
   scaleOnHover = true,
-  hoverScale = 0.95,
+  hoverScale: _hoverScale = 0.95,
   blurToFocus = true,
-  colorShiftOnHover = false,
+  colorShiftOnHover: _colorShiftOnHover = false,
   className,
 }: MasonryBackgroundProps) => {
   const [isVisible, setIsVisible] = useState(false);
