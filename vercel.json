@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "turbo run build --filter=@monochrome-portfolio/web",
   "installCommand": "pnpm install",
+  "buildCommand": "turbo run build --filter=@monochrome-portfolio/web",
   "framework": "nextjs"
 }
