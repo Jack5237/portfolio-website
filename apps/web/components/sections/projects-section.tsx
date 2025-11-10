@@ -22,7 +22,10 @@ interface ProjectsSectionProps {
  * @returns The projects section markup.
  */
 export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
-  logger.debug("Rendering projects section", { section: "Projects", total: projects.length });
+  logger.debug("Rendering projects section", {
+    section: "Projects",
+    total: projects.length,
+  });
 
   return (
     <section className="space-y-6 sm:space-y-8 py-12 sm:py-16 md:py-20">
@@ -40,8 +43,10 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
           const isLeftAligned = index % 2 === 0;
           // Alternate slide direction: left-aligned slides from left, right-aligned slides from right
           const slideDirection = isLeftAligned ? "left" : "right";
-          const projectKey = `${project.href ?? "project"}-${project.title}-${index}`;
-          
+          const projectKey = `${project.href ?? "project"}-${
+            project.title
+          }-${index}`;
+
           return (
             <ScrollSlide
               key={projectKey}
@@ -56,34 +61,38 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                   index === projects.length - 1 ? "border-b pb-0" : ""
                 )}
               >
-              <div className={cn(
-                "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground",
-                isLeftAligned ? "md:flex-row md:items-center md:justify-between" : "md:flex-row-reverse md:items-center md:justify-between"
-              )}>
-                <span>{project.category}</span>
-                <span>{project.discipline}</span>
-              </div>
-              <a
-                href={project.href}
-                target="_blank"
-                rel="noreferrer"
-                className={cn(
-                  "mt-4 sm:mt-5 md:mt-6 block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
-                  // Mobile: always left-aligned, Desktop: alternate between left and right
-                  isLeftAligned ? "text-left" : "text-left md:text-right"
-                )}
-              >
-                <DecryptedText
-                  text={project.title}
-                  animateOn="hover"
-                  revealDirection="center"
-                  speed={50}
-                  maxIterations={20}
-                  parentClassName="block"
-                  encryptedClassName="opacity-70"
-                />
-              </a>
-            </article>
+                <div
+                  className={cn(
+                    "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground",
+                    isLeftAligned
+                      ? "md:flex-row md:items-center md:justify-between"
+                      : "md:flex-row-reverse md:items-center md:justify-between"
+                  )}
+                >
+                  <span>{project.category}</span>
+                  <span>{project.discipline}</span>
+                </div>
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={cn(
+                    "mt-4 sm:mt-5 md:mt-6 block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
+                    // Mobile: always left-aligned, Desktop: alternate between left and right
+                    isLeftAligned ? "text-left" : "text-left md:text-right"
+                  )}
+                >
+                  <DecryptedText
+                    text={project.title}
+                    animateOn="hover"
+                    revealDirection="center"
+                    speed={50}
+                    maxIterations={20}
+                    parentClassName="block"
+                    encryptedClassName="opacity-70"
+                  />
+                </a>
+              </article>
             </ScrollSlide>
           );
         })}
@@ -91,4 +100,3 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
     </section>
   );
 };
-
