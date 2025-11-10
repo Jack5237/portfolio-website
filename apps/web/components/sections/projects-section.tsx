@@ -40,10 +40,11 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
           const isLeftAligned = index % 2 === 0;
           // Alternate slide direction: left-aligned slides from left, right-aligned slides from right
           const slideDirection = isLeftAligned ? "left" : "right";
+          const projectKey = `${project.href ?? "project"}-${project.title}-${index}`;
           
           return (
             <ScrollSlide
-              key={project.href}
+              key={projectKey}
               direction={slideDirection}
               distance={40}
               delay={index * 100}
