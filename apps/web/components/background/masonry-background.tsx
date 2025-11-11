@@ -149,15 +149,7 @@ export const MasonryBackground = ({
               loading="lazy"
               decoding="async"
             />
-            {item.url && (
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noreferrer"
-                className="pointer-events-auto absolute inset-0 z-10"
-                aria-label={`View ${item.id}`}
-              />
-            )}
+            {/* Background imagery is decorative only; disable interactions to prevent accidental clicks */}
           </div>
         ))}
       </div>
