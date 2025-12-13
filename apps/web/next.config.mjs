@@ -36,10 +36,19 @@ const nextConfig = {
         path: false,
         stream: false,
         util: false,
+        // Polyfill setImmediate for browser compatibility
+        setImmediate: false,
       };
 
       // Stub out Winston in client bundle by aliasing the logger package to client-safe version
       config.resolve.alias["@monochrome-portfolio/logger"] = path.resolve(__dirname, "lib/logger-client-export.ts");
+
+      // Provide setImmediate polyfill for browser compatibility
+      config.plugins.push(
+        new config.webpack.ProvidePlugin({
+          setImmediate: [path.resolve(__dirname, "lib/setImmediate-polyfill.js"), "default"],
+        })
+      );
     }
 
     return config;

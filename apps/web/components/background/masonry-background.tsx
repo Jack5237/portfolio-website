@@ -6,7 +6,9 @@ import { getWebLogger } from "@/lib/logger";
 import type { MasonryItem } from "@/lib/content";
 
 const logger = getWebLogger();
-logger.info("Initialized masonry background module", { component: "MasonryBackground" });
+logger.info("Initialized masonry background module", {
+  component: "MasonryBackground",
+});
 
 interface MasonryBackgroundProps {
   /**
@@ -75,9 +77,9 @@ export const MasonryBackground = ({
   const _unusedProps = { ease, duration, hoverScale, colorShiftOnHover };
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  logger.debug("Rendering masonry background", { 
-    component: "MasonryBackground", 
-    itemCount: items.length 
+  logger.debug("Rendering masonry background", {
+    component: "MasonryBackground",
+    itemCount: items.length,
   });
 
   /**
@@ -87,7 +89,9 @@ export const MasonryBackground = ({
     // Simple fade-in animation using CSS transitions
     const timer = setTimeout(() => {
       setIsVisible(true);
-      logger.debug("Masonry background animation triggered", { component: "MasonryBackground" });
+      logger.debug("Masonry background animation triggered", {
+        component: "MasonryBackground",
+      });
     }, 100);
 
     return () => clearTimeout(timer);
@@ -114,10 +118,7 @@ export const MasonryBackground = ({
   return (
     <div
       ref={containerRef}
-      className={cn(
-        "absolute inset-0 z-0 overflow-hidden",
-        className
-      )}
+      className={cn("absolute inset-0 z-0 overflow-hidden", className)}
       aria-hidden="true"
     >
       <div className="pointer-events-none grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4 p-4 sm:p-6 md:p-8">
@@ -129,14 +130,15 @@ export const MasonryBackground = ({
               // Fade-in animation with stagger
               isVisible ? "opacity-[0.03]" : "opacity-0",
               scaleOnHover && "hover:scale-[0.98]",
-              blurToFocus && "blur-sm hover:blur-0",
+              blurToFocus && "blur-sm hover:blur-0"
               // Stagger delay calculation
             )}
             style={{
               height: `${item.height}px`,
               transitionDelay: `${index * (stagger * 1000)}ms`,
               transform: isVisible ? "translateY(0)" : getInitialTransform(),
-              transition: "opacity 0.7s ease, transform 0.7s ease, filter 0.3s ease",
+              transition:
+                "opacity 0.7s ease, transform 0.7s ease, filter 0.3s ease",
             }}
           >
             <img
@@ -144,7 +146,7 @@ export const MasonryBackground = ({
               alt=""
               className={cn(
                 "h-full w-full object-cover grayscale transition-all duration-300",
-                scaleOnHover && "hover:scale-[0.98]",
+                scaleOnHover && "hover:scale-[0.98]"
               )}
               loading="lazy"
               decoding="async"
@@ -156,4 +158,3 @@ export const MasonryBackground = ({
     </div>
   );
 };
-

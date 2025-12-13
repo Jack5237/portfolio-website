@@ -61,7 +61,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Jack", url: "https://github.com/Jack5237" }],
   creator: "Jack",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-website-sepia-one-40.vercel.app"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://portfolio-website-sepia-one-40.vercel.app"
+  ),
   alternates: {
     canonical: "/",
   },
