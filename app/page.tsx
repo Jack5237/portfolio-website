@@ -2,9 +2,9 @@ import { Footer } from "@/components/sections/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { TechnologiesSection } from "@/components/sections/technologies-section";
-import { CompaniesSection } from "@/components/sections/companies-section";
+import { ReferralsSection } from "@/components/sections/referrals-section";
 import {
-  COMPANIES_WORKED_WITH,
+  REFERRAL_LINKS,
   FEATURED_PROJECTS,
   TECHNOLOGIES_LEARNED,
 } from "@/lib/content";
@@ -26,7 +26,7 @@ const HomePage = () => {
         <HeroSection />
         <ProjectsSection projects={FEATURED_PROJECTS} />
         <TechnologiesSection technologies={TECHNOLOGIES_LEARNED} />
-        <CompaniesSection companies={COMPANIES_WORKED_WITH} />
+        <ReferralsSection links={REFERRAL_LINKS} />
       </main>
       <Footer
         email="developerjack0101@gmail.com"
@@ -42,4 +42,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

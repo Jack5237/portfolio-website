@@ -132,7 +132,6 @@ export const TECHNOLOGIES_LEARNED: Technology[] = [
   { name: "React", category: "Frameworks" },
   { name: "Express.js", category: "Frameworks" },
   { name: "Django", category: "Frameworks" },
-  { name: "Flask", category: "Frameworks" },
   { name: "Vue.js", category: "Frameworks" },
   { name: "Angular", category: "Frameworks" },
   { name: "Svelte", category: "Frameworks" },
@@ -162,31 +161,26 @@ export const TECHNOLOGIES_LEARNED: Technology[] = [
   { name: "Message Queues", category: "Architecture" },
 ];
 
-export const COMPANIES_WORKED_WITH: Company[] = [
+export const REFERRAL_LINKS: Company[] = [
   {
-    name: "Z3d AI Model Maker",
-    description: "Easily turn 2d images into 3d models with AI",
-    href: "https://z3d.ai",
+    name: "V0",
+    description: "Generative User Interface System",
+    href: "https://v0.app/ref/E2QFM5",
   },
   {
-    name: "Rust Central",
-    description: "Game-Server Management for Your RCE Server",
-    href: "https://rust-central.xyz",
+    name: "Convex",
+    description: "The Backend Application Platform",
+    href: "https://convex.dev/referral/JACK264170",
   },
   {
-    name: "Word Imposter Online",
-    description: "Fun online word duduction game",
-    href: "https://onlinewordimposter.com",
+    name: "WisprFlow",
+    description: "Voice-to-Text Transcription",
+    href: "https://wisprflow.ai/r?JACK742",
   },
   {
-    name: "Coming Soon...",
-    description: "Coming Soon...",
-    href: "#",
-  },
-  {
-    name: "Coming Soon...",
-    description: "Coming Soon...",
-    href: "#",
+    name: "Warp",
+    description: "The terminal for the 21st century",
+    href: "https://app.warp.dev/referral/3WQGY4",
   },
 ];
 

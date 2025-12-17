@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { getClientLogger } from "@/lib/client-logger";
+import { getLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 
-const logger = getClientLogger();
-logger.info("Initialized back to home navigation module", { component: "BackToHome" });
+const logger = getLogger();
+logger.info("Initialized back to home navigation module", {
+  component: "BackToHome",
+});
 
 interface BackToHomeProps {
   /**
@@ -34,10 +36,7 @@ export const BackToHome = ({ className }: BackToHomeProps) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // Check for Ctrl+Backspace (Windows/Linux) or Cmd+Backspace (Mac)
-      if (
-        (event.ctrlKey || event.metaKey) &&
-        event.key === "Backspace"
-      ) {
+      if ((event.ctrlKey || event.metaKey) && event.key === "Backspace") {
         // Prevent default browser behavior
         event.preventDefault();
         logger.debug("Back to home keyboard shortcut triggered", {
@@ -88,4 +87,3 @@ export const BackToHome = ({ className }: BackToHomeProps) => {
     </div>
   );
 };
-
