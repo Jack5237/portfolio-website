@@ -1,67 +1,62 @@
 # Portfolio Website v2
 
-This contains the source code for my personal portfolio website. It is designed to be minimal, fast, and accessible, showcasing my projects/experience and providing a way for people to connect with me.
+A minimal, fast, and accessible personal portfolio website to showcase my projects, experience, and ways to connect.
 
-## 🚀 Tech Stack
+🌐 **Live Site:** [https://www.jacksdevfolio.com](https://www.jacksdevfolio.com)
 
-- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Runtime / Package Manager:** [Bun](https://bun.sh/)
-- **Deployment:** [Vercel](https://vercel.com/)
-- **Linting & Formatting:** ESLint, Prettier
-- **Git Hooks:** Husky
+---
 
-## ✨ Features
+## Tech Stack
 
-- **Responsive Design:** Works seamlessly on desktop, tablet, and mobile.
-- **Dark Mode Support:** (If applicable, or remove this line)
-- **Performance Optimized:** Uses Next.js best practices for standard images and fonts.
-- **Accessible:** Semantic HTML and ARIA attributes where necessary.
+- **Framework:** Next.js 14 (App Router)
+- **Styling:** Tailwind CSS
+- **Runtime / Package Manager:** Bun
+- **Deployment:** Vercel
+- **Code Quality:** ESLint, Prettier, Husky
 
-## 🛠️ Getting Started
+---
+
+## Features
+
+- Fully responsive (desktop, tablet, mobile)
+- Performance-focused with modern Next.js practices
+- Accessible, semantic HTML
+- Clean, minimal UI
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) installed on your local machine.
+- Bun installed
 
-### Installation
+### Setup
 
-1. **Clone the repository:**
+```bash
+git clone https://github.com/Jack5237/portfolio-website.git
+cd portfolio-website
+bun install
+bun run dev
+```
 
-   ```bash
-   git clone https://github.com/Jack5237/portfolio-website.git
-   cd portfolio-website
-   ```
+Visit **[http://localhost:3000](http://localhost:3000)** to view the site locally.
 
-2. **Install dependencies:**
+---
 
-   ```bash
-   bun install
-   ```
+## Contributing
 
-3. **Run the development server:**
+Contributions are welcome.
 
-   ```bash
-   bun run dev
-   ```
+1. Fork the repo
+2. Create a feature branch
+3. Commit your changes
+4. Push and open a Pull Request
 
-   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-## 🤝 Contributing
+## License
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+MIT License
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgements
-
-- Inspiration from various design portfolios.
-- The open source community for the amazing tools used in this project.
+---
