@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Space_Grotesk, Inter } from "next/font/google";
+import {
+  Space_Grotesk,
+  Inter,
+  Outfit,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 
 import "@fontsource-variable/inter";
 import "./globals.css";
@@ -9,15 +14,32 @@ import { Analytics } from "@vercel/analytics/next";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
-import { DotGridBackground } from "@/components/background/dot-grid-background";
+import { TopBanner } from "@/components/navigation/top-banner";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 
 import "lenis/dist/lenis.css";
 
 /**
- * Google Font: Space Grotesk - Used for bold headings and display text.
- * This font provides a modern, geometric sans-serif that works well for large text.
+ * Google Font: Outfit - Used for display headings and small-caps elements.
+ */
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+/**
+ * Google Font: Plus Jakarta Sans - Used for cleaner body text.
+ */
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+});
+
+/**
+ * Google Font: Space Grotesk - Kept as fallback for geometric feel.
  */
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -26,10 +48,6 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-/**
- * Google Font: Inter - Used for body text and smaller elements.
- * This provides clean readability for paragraphs and UI text.
- */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -63,7 +81,7 @@ export const metadata: Metadata = {
   creator: "Jack",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://portfolio-website-sepia-one-40.vercel.app"
+      "https://portfolio-website-sepia-one-40.vercel.app",
   ),
   alternates: {
     canonical: "/",
@@ -132,21 +150,23 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       className={cn(
         "bg-background text-foreground",
         spaceGrotesk.variable,
-        inter.variable
+        inter.variable,
+        outfit.variable,
+        plusJakarta.variable,
       )}
     >
       <body
         className={cn(
-          "min-h-screen bg-[#050505] font-sans text-foreground antialiased",
-          inter.variable
+          "min-h-screen bg-[#050505] font-body text-foreground antialiased",
+          inter.variable,
         )}
       >
-        <DotGridBackground />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
         >
+          <TopBanner />
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </ThemeProvider>
         <Analytics />

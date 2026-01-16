@@ -32,6 +32,10 @@ export interface Technology {
    * Optional category grouping (e.g., "Languages", "Frameworks", "Tools").
    */
   readonly category?: string;
+  /**
+   * Optional referral or external link.
+   */
+  readonly href?: string;
 }
 
 /**
@@ -53,6 +57,12 @@ export interface Company {
 }
 
 export const FEATURED_PROJECTS: Project[] = [
+  {
+    title: "Portfolio Website",
+    category: "Personal Portfolio",
+    discipline: "Full Stack Development",
+    href: "https://github.com/Jack5237/portfolio-website",
+  },
   {
     title: "Z3D.AI ",
     category: "AI Model Maker",
@@ -76,12 +86,6 @@ export const FEATURED_PROJECTS: Project[] = [
     category: "Word Imposter Game",
     discipline: "Full Stack Development",
     href: "https://wordimposter.online",
-  },
-  {
-    title: "Coming Soon...",
-    category: "Project",
-    discipline: "Development",
-    href: "#",
   },
   {
     title: "Coming Soon...",
@@ -153,34 +157,72 @@ export const TECHNOLOGIES_LEARNED: Technology[] = [
   { name: "Render", category: "Cloud" },
   { name: "Fly.io", category: "Cloud" },
   { name: "Azure", category: "Cloud" },
-  { name: "Git", category: "Tools" },
   { name: "REST APIs", category: "Architecture" },
   { name: "GraphQL", category: "Architecture" },
   { name: "Microservices", category: "Architecture" },
   { name: "WebSockets", category: "Protocols" },
   { name: "Message Queues", category: "Architecture" },
-];
-
-export const REFERRAL_LINKS: Company[] = [
+  // Referral Links moved here
   {
     name: "V0",
-    description: "Generative User Interface System",
+    category: "Tools",
     href: "https://v0.app/ref/E2QFM5",
   },
   {
     name: "Convex",
-    description: "The Backend Application Platform",
+    category: "Tools",
     href: "https://convex.dev/referral/JACK264170",
   },
   {
     name: "WisprFlow",
-    description: "Voice-to-Text Transcription",
+    category: "Tools",
     href: "https://wisprflow.ai/r?JACK742",
   },
   {
     name: "Warp",
-    description: "The terminal for the 21st century",
+    category: "Tools",
     href: "https://app.warp.dev/referral/3WQGY4",
+  },
+];
+
+/**
+ * Represents a blog post entry.
+ */
+export interface BlogPost {
+  readonly id: string;
+  readonly title: string;
+  readonly date: string;
+  readonly category: string;
+  readonly tags: string[];
+  readonly excerpt: string;
+  readonly content: string;
+  readonly slug: string;
+}
+
+export const BLOG_POSTS: BlogPost[] = [
+  {
+    id: "1",
+    title: "The Tools I Use in 2026",
+    date: "January 16, 2026",
+    category: "Full-stack",
+    tags: ["Full-stack", "Backend", "Frontend"],
+    excerpt:
+      "A comprehensive deep dive into the modern stack, AI-integrated workflows, and hardware that defines high-performance engineering in 2026.",
+    content:
+      "Engineering in 2026 is no longer about just writing code; it's about orchestration. The tools we use have evolved from simple text editors to integrated reasoning environments.\n\n### 1. The Core Stack\nMy daily driver remains centered around the **Rust ecosystem** for performance-critical services, paired with **Next.js 16** for seamless full-stack orchestration.\n\n### 2. AI & Reasoning\nWe've moved past simple autocompletion. Tools like **Cursor** and integrated agentic frameworks allow for high-level architectural planning that translates directly into robust implementations.\n\n### 3. Hardware Essentials\nPerformance isn't just software. A split ergonomic setup and high-refresh minimalist displays are key to maintaining long-term flow states.\n\nStay tuned as I dive deeper into each of these categories in upcoming posts.",
+    slug: "developer-toolset-2026",
+  },
+  {
+    id: "2",
+    title: "Spatial UI & Reactive Systems",
+    date: "January 10, 2026",
+    category: "Expermints",
+    tags: ["Expermints", "Frontend"],
+    excerpt:
+      "Exploring spatial interfaces and reactive design systems that adapt to user intent in real-time.",
+    content:
+      "Spatial computing is redefining the boundary of the 'window'. Our interfaces are becoming fluid, aware of depth and lighting, and most importantly, aware of the user's focus.\n\nIn this expermint, I've been exploring how we can use GLSL shaders and physics-based interactions to create menus that feel 'physical'.",
+    slug: "experimental-ui",
   },
 ];
 
@@ -208,7 +250,7 @@ export interface MasonryItem {
 
 /**
  * Collection of website screenshots for the hero section masonry background.
- * Replace these placeholder images with actual screenshots of websites you've built.
+ * Optimized with high-quality placeholder images.
  */
 export const MASONRY_ITEMS: MasonryItem[] = [
   {

@@ -126,11 +126,11 @@ export const MasonryBackground = ({
           <div
             key={item.id}
             className={cn(
-              "relative overflow-hidden rounded-sm opacity-[0.03] transition-all duration-700",
+              "relative overflow-hidden rounded-sm transition-all duration-700",
               // Fade-in animation with stagger
               isVisible ? "opacity-[0.03]" : "opacity-0",
               scaleOnHover && "hover:scale-[0.98]",
-              blurToFocus && "blur-sm hover:blur-0"
+              blurToFocus && "blur-sm hover:blur-0",
               // Stagger delay calculation
             )}
             style={{
@@ -146,7 +146,7 @@ export const MasonryBackground = ({
               alt=""
               className={cn(
                 "h-full w-full object-cover grayscale transition-all duration-300",
-                scaleOnHover && "hover:scale-[0.98]"
+                scaleOnHover && "hover:scale-[0.98]",
               )}
               loading="lazy"
               decoding="async"

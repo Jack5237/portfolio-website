@@ -5,11 +5,16 @@ import type { Config } from "tailwindcss";
  */
 const config: Config = {
   darkMode: ["class"],
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}", "../../packages/**/*.{ts,tsx}"],
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}",
+    "../../packages/**/*.{ts,tsx}",
+  ],
   theme: {
     container: {
       center: true,
-      padding: "2rem"
+      padding: "2rem",
     },
     extend: {
       colors: {
@@ -17,25 +22,30 @@ const config: Config = {
         foreground: "hsl(0 0% 98%)",
         muted: {
           DEFAULT: "hsl(0 0% 12%)",
-          foreground: "hsl(0 0% 65%)"
+          foreground: "hsl(0 0% 65%)",
         },
         accent: {
           DEFAULT: "hsl(0 0% 92%)",
-          foreground: "hsl(0 0% 8%)"
+          foreground: "hsl(0 0% 8%)",
         },
-        ring: "hsl(0 0% 65%)"
+        ring: "hsl(0 0% 65%)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "'Inter Variable'", "Inter", "sans-serif"],
-        display: ["var(--font-space-grotesk)", "Space Grotesk", "sans-serif"]
+        display: [
+          "var(--font-outfit)",
+          "var(--font-space-grotesk)",
+          "sans-serif",
+        ],
+        body: ["var(--font-plus-jakarta)", "var(--font-inter)", "sans-serif"],
+        outfit: ["var(--font-outfit)", "sans-serif"],
       },
       letterSpacing: {
-        mega: "0.6rem"
-      }
-    }
+        mega: "0.6rem",
+      },
+    },
   },
-  plugins: []
+  plugins: [require("@tailwindcss/typography")],
 };
 
 export default config;
-

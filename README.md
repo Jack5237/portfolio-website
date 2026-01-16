@@ -1,37 +1,42 @@
 # Portfolio Website v2
 
-A minimal, fast, and accessible personal portfolio website to showcase my projects, experience, and ways to connect.
+A **minimal, fast, and accessible** personal portfolio website to showcase projects, experience, and contact info.
 
 🌐 **Live Site:** [https://www.jacksdevfolio.com](https://www.jacksdevfolio.com)
 
 ---
 
-## Tech Stack
+## Tech Used
 
-- **Framework:** Next.js 14 (App Router)
-- **Styling:** Tailwind CSS
-- **Runtime / Package Manager:** Bun
-- **Deployment:** Vercel
-- **Code Quality:** ESLint, Prettier, Husky
+- **Next.js 14** – framework (App Router)
+- **Tailwind CSS** – styling
+- **Bun** – runtime & package manager
+- **Vercel** – deployment & hosting
 
 ---
 
 ## Features
 
 - Fully responsive (desktop, tablet, mobile)
-- Performance-focused with modern Next.js practices
-- Accessible, semantic HTML
+- Fast and performance-focused
 - Clean, minimal UI
+- Accessible and semantic HTML
 
 ---
 
-## Getting Started
+## Edit Your Content
 
-### Prerequisites
+All site content is stored in one file:
 
-- Bun installed
+```
+lib/content.ts
+```
 
-### Setup
+You can easily update your projects, experience, links, and text by editing the **JSON-style data** in this file — no component changes needed.
+
+---
+
+## Run Locally
 
 ```bash
 git clone https://github.com/Jack5237/portfolio-website.git
@@ -40,23 +45,17 @@ bun install
 bun run dev
 ```
 
-Visit **[http://localhost:3000](http://localhost:3000)** to view the site locally.
+Open [http://localhost:3000](http://localhost:3000) to view it locally.
 
 ---
 
-## Contributing
+## Contact
 
-Contributions are welcome.
-
-1. Fork the repo
-2. Create a feature branch
-3. Commit your changes
-4. Push and open a Pull Request
+- 📧 **Email:** [contact.jack.dev@gmail.com](mailto:contact.jack.dev@gmail.com)
+- 💬 **Discord:** `ttv_jack_`
 
 ---
 
 ## License
 
-MIT License
-
----
+MIT

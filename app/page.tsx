@@ -1,14 +1,15 @@
+import Link from "next/link";
+
 import { Footer } from "@/components/sections/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { TechnologiesSection } from "@/components/sections/technologies-section";
-import { ReferralsSection } from "@/components/sections/referrals-section";
 import {
-  REFERRAL_LINKS,
   FEATURED_PROJECTS,
   TECHNOLOGIES_LEARNED,
 } from "@/lib/content";
 import { getWebLogger } from "@/lib/logger";
+import { cn } from "@/lib/utils";
 
 const logger = getWebLogger();
 logger.info("Loaded home page module", { page: "Home" });
@@ -18,15 +19,28 @@ logger.info("Loaded home page module", { page: "Home" });
  * @returns The completed home route JSX.
  */
 const HomePage = () => {
-  logger.debug("Rendering home page", { page: "Home", sections: 5 });
+  logger.debug("Rendering home page", { page: "Home", sections: 4 });
 
   return (
     <>
       <main className="container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16 pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8">
         <HeroSection />
+        
+        {/* Blog Link Section */}
+        <section className="py-4 sm:py-6">
+          <Link
+            href="/blog"
+            className={cn(
+              "inline-block text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.4rem]",
+              "text-muted-foreground transition-colors hover:text-foreground hover:underline"
+            )}
+          >
+            ← Check out my latest blog posts
+          </Link>
+        </section>
+
         <ProjectsSection projects={FEATURED_PROJECTS} />
         <TechnologiesSection technologies={TECHNOLOGIES_LEARNED} />
-        <ReferralsSection links={REFERRAL_LINKS} />
       </main>
       <Footer
         email="developerjack0101@gmail.com"

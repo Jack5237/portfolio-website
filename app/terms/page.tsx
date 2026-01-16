@@ -18,7 +18,7 @@ const TermsPage = () => {
       <main
         className={cn(
           "container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16",
-          "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8"
+          "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8",
         )}
       >
         <article className="max-w-3xl mx-auto space-y-8 sm:space-y-10 md:space-y-12">
@@ -30,7 +30,7 @@ const TermsPage = () => {
             <h1
               className={cn(
                 "text-[clamp(2rem,5vw,3.5rem)] sm:text-[clamp(2.5rem,6vw,4rem)]",
-                "font-display font-bold uppercase leading-tight tracking-[0.05em] sm:tracking-[0.06em]"
+                "font-display font-bold uppercase leading-tight tracking-[0.05em] sm:tracking-[0.06em]",
               )}
             >
               Terms of Service
@@ -50,7 +50,7 @@ const TermsPage = () => {
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
                 )}
               >
                 1. Acceptance of Terms
@@ -65,7 +65,7 @@ const TermsPage = () => {
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
                 )}
               >
                 2. Use License
@@ -96,7 +96,7 @@ const TermsPage = () => {
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
                 )}
               >
                 3. Disclaimer
@@ -115,7 +115,7 @@ const TermsPage = () => {
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
                 )}
               >
                 4. Limitations
@@ -133,7 +133,7 @@ const TermsPage = () => {
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
                 )}
               >
                 5. Contact Information
@@ -142,10 +142,10 @@ const TermsPage = () => {
                 If you have any questions about these Terms of Service, please
                 contact us at{" "}
                 <a
-                  href="mailto:developerjack0101@gmail.com"
+                  href="mailto:contact.jack.dev@gmail.com"
                   className="text-foreground underline hover:text-accent transition-colors"
                 >
-                  developerjack0101@gmail.com
+                  contact.jack.dev@gmail.com
                 </a>
                 .
               </p>
@@ -154,7 +154,7 @@ const TermsPage = () => {
         </article>
       </main>
       <Footer
-        email="developerjack0101@gmail.com"
+        email="contact.jack.dev@gmail.com"
         socialLinks={{
           twitter: "https://x.com/Jack1168556",
           github: "https://github.com/Jack5237",
