@@ -8,6 +8,7 @@ import { X, Coffee, ArrowLeft } from "lucide-react";
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Dithering } from '@paper-design/shaders-react';
 
 import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
@@ -57,10 +58,6 @@ const BlogPage = () => {
     fetchBlogPosts();
   }, []);
   
-  /**
-   * Buy Me Coffee URL - update with your actual Buy Me Coffee link
-   */
-  const BUY_ME_COFFEE_URL = "https://buymeacoffee.com/jack"; // Update with your actual link
 
   /**
    * Handles keyboard shortcuts:
@@ -261,9 +258,9 @@ const BlogPage = () => {
 
               return (
                 <article className="space-y-6">
-                  {/* Banner Image */}
-                  {post.bannerImage && (
-                    <div className="relative w-full h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+                  {/* Banner */}
+                  <div className="relative w-full h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+                    {post.bannerImage ? (
                       <Image
                         src={post.bannerImage}
                         alt={post.title}
@@ -271,8 +268,19 @@ const BlogPage = () => {
                         className="object-cover grayscale opacity-80 hover:opacity-100 transition-opacity"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <Dithering
+                        width={1280}
+                        height={720}
+                        colorBack="#141414"
+                        colorFront="#ebebeb"
+                        shape="ripple"
+                        type="2x2"
+                        size={3}
+                        speed={1}
+                      />
+                    )}
+                  </div>
 
                   {/* Post Header */}
                   <div className="space-y-4">
@@ -314,7 +322,7 @@ const BlogPage = () => {
                   <div className="flex justify-between items-center pt-4 border-t border-foreground/20">
                     {/* Buy Me Coffee Button - Left Side */}
                     <a
-                      href={BUY_ME_COFFEE_URL}
+                      href="https://buymeacoffee.com/scottish.jack"
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
