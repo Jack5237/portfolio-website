@@ -39,6 +39,8 @@ const config: Config = {
         ],
         body: ["var(--font-plus-jakarta)", "var(--font-inter)", "sans-serif"],
         outfit: ["var(--font-outfit)", "sans-serif"],
+        // Smooth font for lowercase bold text
+        smooth: ["var(--font-plus-jakarta)", "var(--font-inter)", "sans-serif"],
       },
       letterSpacing: {
         mega: "0.6rem",

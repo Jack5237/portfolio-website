@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { getWebLogger } from "@/lib/logger";
 import type { MasonryItem } from "@/lib/content";
@@ -115,14 +116,17 @@ export const MasonryBackground = ({
     }
   };
 
+  // Limit items to prevent multiple visible rows - show only first 8 items for cleaner layout
+  const displayItems = items.slice(0, 8);
+
   return (
     <div
       ref={containerRef}
       className={cn("absolute inset-0 z-0 overflow-hidden", className)}
       aria-hidden="true"
     >
-      <div className="pointer-events-none grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4 p-4 sm:p-6 md:p-8">
-        {items.map((item, index) => (
+      <div className="pointer-events-none grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 p-4 sm:p-6 md:p-8 max-h-full">
+        {displayItems.map((item, index) => (
           <div
             key={item.id}
             className={cn(
@@ -141,15 +145,16 @@ export const MasonryBackground = ({
                 "opacity 0.7s ease, transform 0.7s ease, filter 0.3s ease",
             }}
           >
-            <img
+            <Image
               src={item.img}
               alt=""
+              fill
               className={cn(
-                "h-full w-full object-cover grayscale transition-all duration-300",
+                "object-cover grayscale transition-all duration-300",
                 scaleOnHover && "hover:scale-[0.98]",
               )}
               loading="lazy"
-              decoding="async"
+              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
             />
             {/* Background imagery is decorative only; disable interactions to prevent accidental clicks */}
           </div>

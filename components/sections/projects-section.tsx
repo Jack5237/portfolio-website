@@ -57,7 +57,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
             >
               <article
                 className={cn(
-                  "group border-t border-foreground/20 pt-6 sm:pt-8 md:pt-10 transition-colors",
+                  "group relative border-t border-foreground/20 pt-6 sm:pt-8 md:pt-10 transition-colors",
                   index === projects.length - 1 ? "border-b pb-0" : ""
                 )}
               >
@@ -77,7 +77,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                   target="_blank"
                   rel="noreferrer"
                   className={cn(
-                    "mt-4 sm:mt-5 md:mt-6 block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
+                    "block mt-4 sm:mt-5 md:mt-6 text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
                     // Mobile: always left-aligned, Desktop: alternate between left and right
                     isLeftAligned ? "text-left" : "text-left md:text-right"
                   )}
@@ -92,6 +92,17 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                     encryptedClassName="opacity-70"
                   />
                 </a>
+                {/* Visit Link Label - Bottom left/right based on text alignment */}
+                <span
+                  className={cn(
+                    "absolute text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60",
+                    "opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none",
+                    "bottom-0",
+                    isLeftAligned ? "left-0" : "right-0"
+                  )}
+                >
+                  Visit Link
+                </span>
               </article>
             </ScrollSlide>
           );

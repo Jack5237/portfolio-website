@@ -47,15 +47,15 @@ export const HeroSection = () => {
               <span className="hidden md:inline">Crazy Scotsman</span>
             </div>
 
-            {/* Main title with decrypted effect - using display font */}
-            <div className="space-y-1 sm:space-y-1.5">
+            {/* Main title with decrypted effect - cleaner lowercase styling */}
+            <div className="space-y-0.5 sm:space-y-1">
               <h1
                 className={cn(
-                  "text-[clamp(2rem,6vw,4.5rem)] sm:text-[clamp(2.25rem,7vw,5rem)] font-display font-bold uppercase leading-[0.9] tracking-[0.05em] sm:tracking-[0.06em]"
+                  "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight"
                 )}
               >
                 <DecryptedText
-                  text="Full Stack"
+                  text="full stack"
                   animateOn="view"
                   revealDirection="left"
                   speed={40}
@@ -65,11 +65,11 @@ export const HeroSection = () => {
               </h1>
               <h1
                 className={cn(
-                  "text-[clamp(2rem,6vw,4.5rem)] sm:text-[clamp(2.25rem,7vw,5rem)] font-display font-bold uppercase leading-[0.9] tracking-[0.05em] sm:tracking-[0.06em]"
+                  "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight"
                 )}
               >
                 <DecryptedText
-                  text="Developer"
+                  text="developer"
                   animateOn="view"
                   revealDirection="right"
                   speed={40}

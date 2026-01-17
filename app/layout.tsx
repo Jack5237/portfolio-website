@@ -59,14 +59,14 @@ logger.info("Loaded root layout module", { component: "RootLayout" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Jack - Full Stack Developer",
+    default: "Jack - Full stack developer",
     template: "%s · Jack",
   },
   description:
     "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends. Passionate about clean code, performance, and full-stack engineering.",
   keywords: [
     "Jack",
-    "Full Stack Developer",
+    "Full stack developer",
     "Software Engineer",
     "React",
     "Next.js",
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Jack - Full Stack Developer",
+    title: "Jack - Full stack developer",
     description:
       "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends.",
     url: "/",
@@ -99,13 +99,13 @@ export const metadata: Metadata = {
         url: "/avatarImg.png",
         width: 512,
         height: 512,
-        alt: "Jack - Full Stack Developer",
+        alt: "Jack - Full stack developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jack - Full Stack Developer",
+    title: "Jack - Full stack developer",
     description:
       "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends.",
     creator: "@Jack1168556",
@@ -157,7 +157,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     >
       <body
         className={cn(
-          "min-h-screen bg-[#050505] font-body text-foreground antialiased",
+          "min-h-screen bg-background font-body text-foreground antialiased",
           inter.variable,
         )}
       >

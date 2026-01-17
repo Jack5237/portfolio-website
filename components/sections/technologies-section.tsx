@@ -66,7 +66,10 @@ export const TechnologiesSection = ({
                 "hover:border-foreground"
               )}
             >
-              <h3 className="mb-2 sm:mb-3 text-[10px] sm:text-xs uppercase tracking-[0.35rem] sm:tracking-[0.4rem] text-muted-foreground transition-colors group-hover:text-accent">
+              <h3 className={cn(
+                "mb-2 sm:mb-3 text-[10px] sm:text-xs uppercase tracking-[0.35rem] sm:tracking-[0.4rem] text-muted-foreground transition-colors group-hover:text-accent",
+                isLeftColumn ? "text-right" : "text-left"
+              )}>
                 {category}
               </h3>
               <div className={cn(

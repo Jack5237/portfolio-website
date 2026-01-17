@@ -197,6 +197,10 @@ export interface BlogPost {
   readonly excerpt: string;
   readonly content: string;
   readonly slug: string;
+  /**
+   * Banner image URL for the blog post.
+   */
+  readonly bannerImage: string;
 }
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -211,6 +215,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content:
       "Engineering in 2026 is no longer about just writing code; it's about orchestration. The tools we use have evolved from simple text editors to integrated reasoning environments.\n\n### 1. The Core Stack\nMy daily driver remains centered around the **Rust ecosystem** for performance-critical services, paired with **Next.js 16** for seamless full-stack orchestration.\n\n### 2. AI & Reasoning\nWe've moved past simple autocompletion. Tools like **Cursor** and integrated agentic frameworks allow for high-level architectural planning that translates directly into robust implementations.\n\n### 3. Hardware Essentials\nPerformance isn't just software. A split ergonomic setup and high-refresh minimalist displays are key to maintaining long-term flow states.\n\nStay tuned as I dive deeper into each of these categories in upcoming posts.",
     slug: "developer-toolset-2026",
+    bannerImage: "https://picsum.photos/id/1018/1200/400?grayscale",
   },
   {
     id: "2",
@@ -223,6 +228,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content:
       "Spatial computing is redefining the boundary of the 'window'. Our interfaces are becoming fluid, aware of depth and lighting, and most importantly, aware of the user's focus.\n\nIn this expermint, I've been exploring how we can use GLSL shaders and physics-based interactions to create menus that feel 'physical'.",
     slug: "experimental-ui",
+    bannerImage: "https://picsum.photos/id/1015/1200/400?grayscale",
   },
 ];
 

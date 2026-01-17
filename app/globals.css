@@ -12,6 +12,17 @@
   --ring: 0 0% 65%;
 }
 
+/* Light mode theme variables */
+.light {
+  --background: 0 0% 98%;
+  --foreground: 0 0% 2%;
+  --muted: 0 0% 92%;
+  --muted-foreground: 0 0% 35%;
+  --accent: 0 0% 8%;
+  --accent-foreground: 0 0% 98%;
+  --ring: 0 0% 35%;
+}
+
 * {
   /* Prevent layout shifts during scroll */
   scroll-behavior: smooth;
@@ -33,3 +44,37 @@ main {
   z-index: 1;
 }
 
+/* Blog post expand animation - smoother height-based expansion */
+@keyframes expand {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Smooth height transition for expanded content */
+.blog-expand-container {
+  animation: expand 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth font styling for lowercase bold text */
+.font-smooth-bold {
+  font-family: var(--font-plus-jakarta), var(--font-inter), sans-serif;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.02em;
+}

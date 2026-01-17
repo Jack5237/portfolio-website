@@ -25,19 +25,6 @@ const HomePage = () => {
     <>
       <main className="container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16 pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8">
         <HeroSection />
-        
-        {/* Blog Link Section */}
-        <section className="py-4 sm:py-6">
-          <Link
-            href="/blog"
-            className={cn(
-              "inline-block text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.4rem]",
-              "text-muted-foreground transition-colors hover:text-foreground hover:underline"
-            )}
-          >
-            ← Check out my latest blog posts
-          </Link>
-        </section>
 
         <ProjectsSection projects={FEATURED_PROJECTS} />
         <TechnologiesSection technologies={TECHNOLOGIES_LEARNED} />

@@ -51,6 +51,9 @@ export const ScrollSlide = ({
    * Sets up intersection observer to trigger animation when element enters viewport.
    */
   useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -70,14 +73,10 @@ export const ScrollSlide = ({
       }
     );
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
+    observer.observe(element);
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
-      }
+      observer.unobserve(element);
     };
   }, [delay]);
 
