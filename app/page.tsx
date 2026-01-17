@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { Footer } from "@/components/sections/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
@@ -9,7 +7,6 @@ import {
   TECHNOLOGIES_LEARNED,
 } from "@/lib/content";
 import { getWebLogger } from "@/lib/logger";
-import { cn } from "@/lib/utils";
 
 const logger = getWebLogger();
 logger.info("Loaded home page module", { page: "Home" });

@@ -7,4 +7,5 @@ build
 .pnpm-store
 *.log
 .DS_Store
+tsconfig.tsbuildinfo
 
