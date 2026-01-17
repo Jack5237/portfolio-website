@@ -94,6 +94,19 @@ const BlogPage = () => {
         return;
       }
 
+      // Check for Ctrl+Delete to close expanded post
+      if ((event.ctrlKey || event.metaKey) && event.key === "Delete") {
+        if (expandedPostId) {
+          event.preventDefault();
+          setExpandedPostId(null);
+          logger.debug("Blog page: Expanded post closed via Ctrl+Delete shortcut", {
+            page: "Blog",
+            postId: expandedPostId,
+          });
+        }
+        return;
+      }
+
       // Check for 'B' key (case insensitive) to navigate home
       if (event.key.toLowerCase() === "b" && !event.ctrlKey && !event.metaKey) {
         event.preventDefault();
@@ -341,17 +354,33 @@ const BlogPage = () => {
                     </a>
 
                     {/* Close Button - Right Side */}
-                    <button
-                      onClick={() => setExpandedPostId(null)}
-                      className={cn(
-                        "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
-                        "border border-foreground/20 hover:border-foreground/40 transition-colors",
-                        "text-muted-foreground hover:text-foreground"
-                      )}
-                    >
-                      <X className="h-4 w-4" />
-                      close
-                    </button>
+                    <div className="flex flex-col items-end gap-3">
+                      <button
+                        onClick={() => setExpandedPostId(null)}
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
+                          "border border-foreground/20 hover:border-foreground/40 transition-colors",
+                          "text-muted-foreground hover:text-foreground"
+                        )}
+                      >
+                        <X className="h-4 w-4" />
+                        close
+                      </button>
+                      <div className="flex items-center gap-1.5 text-[9px] font-body uppercase tracking-[0.2rem] opacity-30 hidden sm:flex">
+                        <span className="border border-foreground/20 px-1 rounded-sm">
+                          Ctrl
+                        </span>
+                        <span>+</span>
+                        <span className="border border-foreground/20 px-1 rounded-sm text-[11px]">
+                          ⌫
+                        </span>
+                        <span>or</span>
+                        <span className="border border-foreground/20 px-1 rounded-sm text-[11px]">
+                          Del
+                        </span>
+                        <span className="ml-1">to close</span>
+                      </div>
+                    </div>
                   </div>
                 </article>
               );
