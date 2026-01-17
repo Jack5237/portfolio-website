@@ -23,7 +23,7 @@ const BlogPage = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPosts, setFilteredPosts] = useState(BLOG_POSTS);
-  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(BLOG_POSTS[0]?.id || null);
   
   /**
    * Buy Me Coffee URL - update with your actual Buy Me Coffee link
