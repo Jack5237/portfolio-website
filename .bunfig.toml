@@ -1,0 +1,13 @@
+[install]
+# Use Bun's lockfile format
+saveTextLockfile = true
+
+# Use exact versions for dependencies
+exact = false
+
+# Enable automatic Node.js compatibility
+auto-install-peers = true
+
+[run]
+# Use Bun as the default runtime
+bun = true

@@ -2,13 +2,19 @@
   "name": "portfolio",
   "private": true,
   "version": "0.1.0",
-  "packageManager": "bun@1.1.0",
+  "packageManager": "bun@1.3.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf .next out",
+    "bun:install": "bun install",
+    "bun:dev": "bun run dev",
+    "bun:build": "bun run build",
+    "bun:lint": "bun run lint"
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.70",
@@ -41,6 +47,7 @@
     "typescript": "^5.6.3"
   },
   "engines": {
+    "bun": ">=1.0.0",
     "node": ">=18.18.0"
   }
 }

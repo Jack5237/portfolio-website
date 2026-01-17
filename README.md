@@ -10,8 +10,26 @@ A **minimal, fast, and accessible** personal portfolio website to showcase proje
 
 - **Next.js 14** – framework (App Router)
 - **Tailwind CSS** – styling
-- **Bun** – runtime & package manager
+- **Bun** – runtime & package manager (recommended)
 - **Vercel** – deployment & hosting
+
+## 🚀 Getting Started
+
+### Prerequisites
+- **Bun** (recommended): [Install Bun](https://bun.sh/docs/installation)
+- Node.js 18+ (fallback)
+
+### Installation
+
+```bash
+# Using Bun (recommended)
+bun install
+bun run dev
+
+# Or using npm/yarn
+npm install
+npm run dev
+```
 
 ---
 
