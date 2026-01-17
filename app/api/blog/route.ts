@@ -1,8 +1,24 @@
-const fs = require('fs');
-const path = require('path');
-const matter = require('gray-matter');
+import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
-function readMarkdownFile(filePath) {
+export interface BlogPost {
+  id: string;
+  title: string;
+  date: string;
+  category: string;
+  tags: string[];
+  excerpt: string;
+  content: string;
+  slug: string;
+  bannerImage: string;
+}
+
+/**
+ * Read markdown file and extract frontmatter and content
+ */
+function readMarkdownFile(filePath: string): Omit<BlogPost, 'id'> | null {
   try {
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
@@ -23,7 +39,10 @@ function readMarkdownFile(filePath) {
   }
 }
 
-function updateBlogPosts() {
+/**
+ * Get all blog posts from markdown files
+ */
+function getAllBlogPosts(): BlogPost[] {
   const blogDirectory = path.join(process.cwd(), 'content', 'blog');
 
   try {
@@ -43,25 +62,22 @@ function updateBlogPosts() {
         }
         return null;
       })
-      .filter(post => post !== null)
+      .filter((post): post is BlogPost => post !== null)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-    // Read the current blog.ts file
-    const blogTsPath = path.join(process.cwd(), 'lib', 'blog.ts');
-    let blogTsContent = fs.readFileSync(blogTsPath, 'utf8');
-
-    // Replace the BLOG_POSTS array with the new data
-    const postsString = JSON.stringify(posts, null, 2);
-    const newContent = blogTsContent.replace(
-      /export const BLOG_POSTS: BlogPost\[\] = \[[\s\S]*?\];/,
-      `export const BLOG_POSTS: BlogPost[] = ${postsString};`
-    );
-
-    fs.writeFileSync(blogTsPath, newContent);
-    console.log(`Updated ${posts.length} blog posts from markdown files`);
+    return posts;
   } catch (error) {
-    console.error('Error updating blog posts:', error);
+    console.error('Error reading blog posts:', error);
+    return [];
   }
 }
 
-updateBlogPosts();
+export async function GET() {
+  try {
+    const posts = getAllBlogPosts();
+    return NextResponse.json(posts);
+  } catch (error) {
+    console.error('Error in blog API:', error);
+    return NextResponse.json({ error: 'Failed to load blog posts' }, { status: 500 });
+  }
+}

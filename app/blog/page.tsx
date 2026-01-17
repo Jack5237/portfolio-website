@@ -13,7 +13,7 @@ import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
-import { getAllBlogPosts } from "@/lib/blog";
+import type { BlogPost } from "@/lib/types";
 
 const logger = getWebLogger();
 logger.info("Loaded blog page module", { page: "Blog" });
@@ -24,14 +24,37 @@ logger.info("Loaded blog page module", { page: "Blog" });
  */
 const BlogPage = () => {
   const router = useRouter();
-  const BLOG_POSTS = getAllBlogPosts();
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState(BLOG_POSTS);
-  const [expandedPostId, setExpandedPostId] = useState<string | null>(BLOG_POSTS.length > 0 ? BLOG_POSTS[0].id : null);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
 
-  // Update filtered posts when BLOG_POSTS changes
+  /**
+   * Fetch blog posts from API
+   */
   useEffect(() => {
-    setFilteredPosts(BLOG_POSTS);
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await fetch('/api/blog');
+        if (response.ok) {
+          const posts: BlogPost[] = await response.json();
+          setBlogPosts(posts);
+          setFilteredPosts(posts);
+          if (posts.length > 0) {
+            setExpandedPostId(posts[0].id);
+          }
+        } else {
+          console.error('Failed to fetch blog posts');
+        }
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
   }, []);
   
   /**
@@ -91,23 +114,23 @@ const BlogPage = () => {
         page: "Blog",
       });
     };
-  }, [router, expandedPostId, BLOG_POSTS]);
+  }, [router, expandedPostId, blogPosts]);
 
   /**
    * Filters blog posts based on search query and tag selection.
    */
   useEffect(() => {
     if (!searchQuery.trim()) {
-      setFilteredPosts(BLOG_POSTS);
+      setFilteredPosts(blogPosts);
       return;
     }
 
     const query = searchQuery.toLowerCase();
     // Check if search query matches a tag exactly
-    const allTags = Array.from(new Set(BLOG_POSTS.flatMap(post => post.tags)));
+    const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
     const isTagFilter = allTags.some(tag => tag.toLowerCase() === query);
-    
-    const filtered = BLOG_POSTS.filter((post) => {
+
+    const filtered = blogPosts.filter((post) => {
       if (isTagFilter) {
         // If searching by tag, filter by tag match
         return post.tags.some((tag) => tag.toLowerCase() === query);
@@ -127,13 +150,34 @@ const BlogPage = () => {
       query: searchQuery,
       results: filtered.length,
     });
-  }, [searchQuery]);
+  }, [searchQuery, blogPosts]);
 
   logger.debug("Rendering blog page", {
     page: "Blog",
-    postCount: BLOG_POSTS.length,
+    postCount: blogPosts.length,
     filteredCount: filteredPosts.length,
   });
+
+  if (loading) {
+    return (
+      <>
+        <main className={cn("container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16", "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8")}>
+          <div className="flex items-center justify-center min-h-[200px]">
+            <div className="text-muted-foreground">Loading blog posts...</div>
+          </div>
+        </main>
+        <Footer
+          email="contact.jack.dev@gmail.com"
+          socialLinks={{
+            twitter: "https://x.com/Jack1168556",
+            github: "https://github.com/Jack5237",
+            linkedin: "https://www.linkedin.com/in/jack-m-a732b4397",
+            discord: "https://discord.com/users/ttv_jack_",
+          }}
+        />
+      </>
+    );
+  }
 
   return (
     <>
@@ -191,7 +235,7 @@ const BlogPage = () => {
             >
               all
             </button>
-            {Array.from(new Set(BLOG_POSTS.flatMap(post => post.tags))).map((tag) => (
+            {Array.from(new Set(blogPosts.flatMap(post => post.tags))).map((tag) => (
               <button
                 key={tag}
                 onClick={() => setSearchQuery(tag)}
@@ -212,7 +256,7 @@ const BlogPage = () => {
         {expandedPostId && (
           <div className="blog-expand-container border-t border-foreground/20 pt-8 sm:pt-10 space-y-6 overflow-hidden">
             {(() => {
-              const post = BLOG_POSTS.find((p) => p.id === expandedPostId);
+              const post = blogPosts.find((p) => p.id === expandedPostId);
               if (!post) return null;
 
               return (
