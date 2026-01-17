@@ -39,17 +39,22 @@ const BlogPage = () => {
       try {
         const response = await fetch('/api/blog');
         if (response.ok) {
-          const posts: BlogPost[] = await response.json();
+          const data = await response.json();
+          const posts: BlogPost[] = data.posts || data; // Handle both direct array and wrapped response
           setBlogPosts(posts);
           setFilteredPosts(posts);
           if (posts.length > 0) {
             setExpandedPostId(posts[0].id);
           }
         } else {
-          console.error('Failed to fetch blog posts');
+          console.error('Failed to fetch blog posts:', response.status);
+          setBlogPosts([]);
+          setFilteredPosts([]);
         }
       } catch (error) {
         console.error('Error fetching blog posts:', error);
+        setBlogPosts([]);
+        setFilteredPosts([]);
       } finally {
         setLoading(false);
       }

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure base styles are always loaded */
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  font-family: inherit;
+}
+
 /* Dark mode theme variables (always active) */
 :root {
   --background: 0 0% 2%;
