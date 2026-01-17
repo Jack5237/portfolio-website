@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { BlogPost } from "@/lib/content";
+import { BlogPost } from "@/lib/blog";
 import { Search, X, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DecryptedText } from "@/components/ui/decrypted-text";

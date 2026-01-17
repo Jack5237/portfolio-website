@@ -6,11 +6,14 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { X, Coffee, ArrowLeft } from "lucide-react";
 
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
 import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
-import { BLOG_POSTS } from "@/lib/content";
+import { getAllBlogPosts } from "@/lib/blog";
 
 const logger = getWebLogger();
 logger.info("Loaded blog page module", { page: "Blog" });
@@ -21,6 +24,7 @@ logger.info("Loaded blog page module", { page: "Blog" });
  */
 const BlogPage = () => {
   const router = useRouter();
+  const BLOG_POSTS = getAllBlogPosts();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPosts, setFilteredPosts] = useState(BLOG_POSTS);
   const [expandedPostId, setExpandedPostId] = useState<string | null>(BLOG_POSTS[0]?.id || null);
@@ -82,7 +86,7 @@ const BlogPage = () => {
         page: "Blog",
       });
     };
-  }, [router, expandedPostId]);
+  }, [router, expandedPostId, BLOG_POSTS]);
 
   /**
    * Filters blog posts based on search query and tag selection.
@@ -250,8 +254,10 @@ const BlogPage = () => {
 
                   {/* Post Content - Left Aligned */}
                   <div className="prose prose-invert max-w-none">
-                    <div className="whitespace-pre-wrap text-sm sm:text-base leading-relaxed text-foreground text-left">
-                      {post.content}
+                    <div className="text-sm sm:text-base leading-relaxed text-foreground text-left">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {post.content}
+                      </ReactMarkdown>
                     </div>
                   </div>
 
