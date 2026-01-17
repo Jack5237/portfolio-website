@@ -17,7 +17,7 @@ A **minimal, fast, and accessible** personal portfolio website to showcase proje
 
 ## Blog System
 
-The blog uses Markdown files stored in `content/blog/` with frontmatter metadata.
+The blog uses Markdown files stored in `content/blog/` with frontmatter metadata. Blog posts are automatically loaded from markdown files via the `/api/blog` endpoint.
 
 ### Adding Blog Posts
 
@@ -37,14 +37,16 @@ bannerImage: "https://example.com/image.jpg"
 Your markdown content here...
 ```
 
-3. Run `bun run update-blog` to update the static blog data
+3. The blog will automatically detect and display new posts (no build step needed)
 4. Commit and deploy
 
 ### Blog Features
 
-- **Markdown rendering** with GitHub Flavored Markdown support
+- **Dynamic markdown loading** from `content/blog/` directory
 - **Auto-expansion** of the first post on page load
+- **Real-time updates** when markdown files are edited
 - **Search & filtering** by tags
+- **GitHub Flavored Markdown** support
 - **Responsive design** with masonry background
 
 ---
