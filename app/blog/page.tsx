@@ -27,7 +27,12 @@ const BlogPage = () => {
   const BLOG_POSTS = getAllBlogPosts();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPosts, setFilteredPosts] = useState(BLOG_POSTS);
-  const [expandedPostId, setExpandedPostId] = useState<string | null>(BLOG_POSTS[0]?.id || null);
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(BLOG_POSTS.length > 0 ? BLOG_POSTS[0].id : null);
+
+  // Update filtered posts when BLOG_POSTS changes
+  useEffect(() => {
+    setFilteredPosts(BLOG_POSTS);
+  }, []);
   
   /**
    * Buy Me Coffee URL - update with your actual Buy Me Coffee link

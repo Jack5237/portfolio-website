@@ -114,32 +114,51 @@ export const FEATURED_PROJECTS: Project[] = [
 ];
 
 export const TECHNOLOGIES_LEARNED: Technology[] = [
-  // Core Languages
+  // Core Languages - Top section with more items
   { name: "TypeScript", category: "Languages" },
   { name: "JavaScript", category: "Languages" },
   { name: "Rust", category: "Languages" },
   { name: "Python", category: "Languages" },
   { name: "Go", category: "Languages" },
+  { name: "SQL", category: "Languages" },
+  { name: "HTML", category: "Languages" },
+  { name: "CSS", category: "Languages" },
 
-  // Frameworks & Runtime
+  // Frameworks - Middle section with 3 items
   { name: "Next.js", category: "Frameworks" },
   { name: "React", category: "Frameworks" },
-  { name: "Node.js", category: "Runtime" },
+  { name: "Vue.js", category: "Frameworks" },
 
-  // Databases
+  // Runtime - Middle section with 3 items
+  { name: "Node.js", category: "Runtime" },
+  { name: "Bun", category: "Runtime" },
+  { name: "Deno", category: "Runtime" },
+
+  // Databases - Middle section with 3 items
   { name: "Convex", category: "Databases", href: "https://www.convex.dev/?ref=jack" },
   { name: "Supabase", category: "Databases" },
   { name: "PostgreSQL", category: "Databases" },
-  { name: "v0", category: "Databases", href: "https://v0.dev/?ref=jack" },
 
-  // DevOps & Cloud
+  // DevOps - Bottom section with more items
   { name: "Docker", category: "DevOps" },
+  { name: "Kubernetes", category: "DevOps" },
   { name: "Git", category: "DevOps" },
-  { name: "Vercel", category: "Cloud" },
+  { name: "AWS", category: "DevOps" },
+  { name: "GCP", category: "DevOps" },
 
-  // Architecture
+  // Cloud - Bottom section with more items
+  { name: "Vercel", category: "Cloud", href: "https://vercel.com/?ref=jack" },
+  { name: "Render", category: "Cloud" },
+  { name: "Fly.io", category: "Cloud" },
+  { name: "Azure", category: "Cloud" },
+  { name: "Railway", category: "Cloud" },
+
+  // Architecture - Bottom section with more items
   { name: "REST APIs", category: "Architecture" },
   { name: "GraphQL", category: "Architecture" },
+  { name: "WebSockets", category: "Architecture" },
+  { name: "Microservices", category: "Architecture" },
+  { name: "Message Queues", category: "Architecture" },
 ];
 
 
