@@ -15,6 +15,40 @@ A **minimal, fast, and accessible** personal portfolio website to showcase proje
 
 ---
 
+## Blog System
+
+The blog uses Markdown files stored in `content/blog/` with frontmatter metadata.
+
+### Adding Blog Posts
+
+1. Create a new `.md` file in `content/blog/`
+2. Add frontmatter at the top:
+
+```yaml
+---
+title: "Your Blog Title"
+date: "2026-01-17"
+category: "Web Development"
+tags: ["React", "Next.js"]
+excerpt: "Brief description..."
+bannerImage: "https://example.com/image.jpg"
+---
+
+Your markdown content here...
+```
+
+3. Run `bun run update-blog` to update the static blog data
+4. Commit and deploy
+
+### Blog Features
+
+- **Markdown rendering** with GitHub Flavored Markdown support
+- **Auto-expansion** of the first post on page load
+- **Search & filtering** by tags
+- **Responsive design** with masonry background
+
+---
+
 ## Features
 
 - Fully responsive (desktop, tablet, mobile)
