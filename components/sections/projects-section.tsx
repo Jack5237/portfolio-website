@@ -57,13 +57,14 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
             >
               <article
                 className={cn(
-                  "group relative border-t border-foreground/20 pt-6 sm:pt-8 md:pt-10 transition-colors",
+                  "group relative border-t border-foreground/15 pt-6 sm:pt-8 md:pt-10 transition-colors",
+                  "hover:border-foreground",
                   index === projects.length - 1 ? "border-b pb-0" : ""
                 )}
               >
                 <div
                   className={cn(
-                    "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground",
+                    "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground transition-colors group-hover:text-accent",
                     isLeftAligned
                       ? "md:flex-row md:items-center md:justify-between"
                       : "md:flex-row-reverse md:items-center md:justify-between"
@@ -92,17 +93,6 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                     encryptedClassName="opacity-70"
                   />
                 </a>
-                {/* Visit Link Label - Bottom left/right based on text alignment */}
-                <span
-                  className={cn(
-                    "absolute text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60",
-                    "opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none",
-                    "bottom-0",
-                    isLeftAligned ? "left-0" : "right-0"
-                  )}
-                >
-                  Visit Link
-                </span>
               </article>
             </ScrollSlide>
           );

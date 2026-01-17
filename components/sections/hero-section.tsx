@@ -21,14 +21,10 @@ export const HeroSection = () => {
       {/* Faded Masonry Background */}
       <MasonryBackground
         items={MASONRY_ITEMS}
-        ease="power3.out"
-        duration={0.6}
         stagger={0.05}
         animateFrom="bottom"
         scaleOnHover={true}
-        hoverScale={0.95}
         blurToFocus={true}
-        colorShiftOnHover={false}
       />
 
       {/* Hero Content */}
@@ -47,7 +43,7 @@ export const HeroSection = () => {
               <span className="hidden md:inline">Crazy Scotsman</span>
             </div>
 
-            {/* Main title with decrypted effect - cleaner lowercase styling */}
+            {/* Main title with decrypted effect - modern Geist font for lowercase "full stack developer" */}
             <div className="space-y-0.5 sm:space-y-1">
               <h1
                 className={cn(

@@ -17,14 +17,6 @@ interface MasonryBackgroundProps {
    */
   readonly items: readonly MasonryItem[];
   /**
-   * Animation easing function (GSAP-style).
-   */
-  readonly ease?: string;
-  /**
-   * Animation duration in seconds.
-   */
-  readonly duration?: number;
-  /**
    * Stagger delay between items in seconds.
    */
   readonly stagger?: number;
@@ -37,17 +29,9 @@ interface MasonryBackgroundProps {
    */
   readonly scaleOnHover?: boolean;
   /**
-   * Scale factor on hover (0-1).
-   */
-  readonly hoverScale?: number;
-  /**
    * Whether to blur items when not focused.
    */
   readonly blurToFocus?: boolean;
-  /**
-   * Whether to apply color shift on hover (disabled for monochrome aesthetic).
-   */
-  readonly colorShiftOnHover?: boolean;
   /**
    * Additional CSS classes.
    */
@@ -62,20 +46,12 @@ interface MasonryBackgroundProps {
  */
 export const MasonryBackground = ({
   items,
-  // Props for future animation enhancements (currently unused but kept for API compatibility)
-  ease = "power3.out",
-  duration = 0.6,
   stagger = 0.05,
   animateFrom = "bottom",
   scaleOnHover = true,
-  hoverScale = 0.95,
   blurToFocus = true,
-  colorShiftOnHover = false,
   className,
 }: MasonryBackgroundProps) => {
-  // Suppress ESLint warnings for props that are part of the API but not yet implemented
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _unusedProps = { ease, duration, hoverScale, colorShiftOnHover };
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   logger.debug("Rendering masonry background", {
@@ -116,8 +92,8 @@ export const MasonryBackground = ({
     }
   };
 
-  // Limit items to prevent multiple visible rows - show only first 8 items for cleaner layout
-  const displayItems = items.slice(0, 8);
+  // Limit items to prevent multiple visible rows - show only first 4 items for cleaner layout
+  const displayItems = items.slice(0, 4);
 
   return (
     <div

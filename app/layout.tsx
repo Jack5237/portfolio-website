@@ -7,7 +7,6 @@ import {
   Plus_Jakarta_Sans,
 } from "next/font/google";
 
-import "@fontsource-variable/inter";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
@@ -21,37 +20,43 @@ import { cn } from "@/lib/utils";
 import "lenis/dist/lenis.css";
 
 /**
- * Google Font: Outfit - Used for display headings and small-caps elements.
+ * Optimized Google Fonts with Next.js 14+ automatic optimization:
+ * - Self-hosting for performance
+ * - Zero layout shift
+ * - Automatic subsetting
+ * - Preloading optimization
  */
+
+// Display headings and small-caps elements
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
-/**
- * Google Font: Plus Jakarta Sans - Used for cleaner body text.
- */
+// Main body text - clean and readable
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-plus-jakarta",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
-/**
- * Google Font: Space Grotesk - Kept as fallback for geometric feel.
- */
+// Fallback for geometric elements
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
-  weight: ["400", "500", "600", "700"],
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
+// Primary sans-serif font
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const logger = getWebLogger();
@@ -161,11 +166,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           inter.variable,
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-        >
+        <ThemeProvider>
           <TopBanner />
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </ThemeProvider>

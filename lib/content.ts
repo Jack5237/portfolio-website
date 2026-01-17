@@ -58,7 +58,7 @@ export interface Company {
 
 export const FEATURED_PROJECTS: Project[] = [
   {
-    title: "Portfolio Website",
+    title: "portfolio website",
     category: "Personal Portfolio",
     discipline: "Full Stack Development",
     href: "https://github.com/Jack5237/portfolio-website",

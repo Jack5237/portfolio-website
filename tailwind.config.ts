@@ -4,12 +4,10 @@ import type { Config } from "tailwindcss";
  * @description Tailwind configuration tuned for a monochrome aesthetic inspired by seyi.dev.
  */
 const config: Config = {
-  darkMode: ["class"],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./lib/**/*.{ts,tsx}",
-    "../../packages/**/*.{ts,tsx}",
   ],
   theme: {
     container: {
@@ -18,28 +16,27 @@ const config: Config = {
     },
     extend: {
       colors: {
-        background: "hsl(0 0% 3%)",
-        foreground: "hsl(0 0% 98%)",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         muted: {
-          DEFAULT: "hsl(0 0% 12%)",
-          foreground: "hsl(0 0% 65%)",
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(0 0% 92%)",
-          foreground: "hsl(0 0% 8%)",
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-        ring: "hsl(0 0% 65%)",
+        ring: "hsl(var(--ring))",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "'Inter Variable'", "Inter", "sans-serif"],
-        display: [
-          "var(--font-outfit)",
-          "var(--font-space-grotesk)",
-          "sans-serif",
-        ],
+        // Primary sans-serif font
+        sans: ["var(--font-inter)", "sans-serif"],
+        // Display headings and small-caps
+        display: ["var(--font-outfit)", "var(--font-space-grotesk)", "sans-serif"],
+        // Body text - clean and readable
         body: ["var(--font-plus-jakarta)", "var(--font-inter)", "sans-serif"],
+        // Additional font utilities
         outfit: ["var(--font-outfit)", "sans-serif"],
-        // Smooth font for lowercase bold text
         smooth: ["var(--font-plus-jakarta)", "var(--font-inter)", "sans-serif"],
       },
       letterSpacing: {

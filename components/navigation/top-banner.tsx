@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
-import { X, Sun, Moon } from "lucide-react";
+import { X } from "lucide-react";
 
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
@@ -20,8 +19,6 @@ logger.info("Initialized top banner module", { component: "TopBanner" });
 export const TopBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   
   // Only show back link on blog page, not on home page
@@ -44,12 +41,6 @@ export const TopBanner = () => {
     }
   }, []);
 
-  /**
-   * Prevents hydration mismatch by only showing theme toggle after mount.
-   */
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   /**
    * Handles keyboard shortcut to navigate home.
@@ -99,14 +90,6 @@ export const TopBanner = () => {
     logger.debug("Top banner dismissed by user", { component: "TopBanner" });
   };
 
-  /**
-   * Toggles between light and dark theme.
-   */
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    logger.debug("Theme toggled", { component: "TopBanner", theme: newTheme });
-  };
 
   // Don't render if dismissed or not visible
   if (!isVisible || isDismissed) {
@@ -146,26 +129,8 @@ export const TopBanner = () => {
           </Link>
         </p>
 
-        {/* Right Side - Theme Toggle and Dismiss Button */}
+        {/* Right Side - Dismiss Button */}
         <div className="flex items-center gap-2">
-          {/* Theme Toggle Button */}
-          {mounted && (
-            <button
-              onClick={toggleTheme}
-              className={cn(
-                "flex-shrink-0 rounded-full p-1 transition-colors",
-                "hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-foreground/20",
-              )}
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {theme === "dark" ? (
-                <Sun className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-foreground" />
-              ) : (
-                <Moon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-foreground" />
-              )}
-            </button>
-          )}
-
           {/* Dismiss Button */}
           <button
             onClick={handleDismiss}
