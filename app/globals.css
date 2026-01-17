@@ -9,6 +9,9 @@ html {
 
 body {
   font-family: inherit;
+  /* Ensure background and text colors are always set */
+  background-color: hsl(0 0% 2%);
+  color: hsl(0 0% 98%);
 }
 
 /* Dark mode theme variables (always active) */
