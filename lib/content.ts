@@ -123,11 +123,18 @@ export const TECHNOLOGIES_LEARNED: Technology[] = [
   { name: "SQL", category: "Languages" },
   { name: "HTML", category: "Languages" },
   { name: "CSS", category: "Languages" },
+  { name: "Swift", category: "Languages" },
+  { name: "Kotlin", category: "Languages" },
 
   // Frameworks - Middle section with 3 items
   { name: "Next.js", category: "Frameworks" },
   { name: "React", category: "Frameworks" },
   { name: "Vue.js", category: "Frameworks" },
+  { name: "Angular", category: "Frameworks" },
+  { name: "Svelte", category: "Frameworks" },
+  { name: "Expo", category: "Frameworks" },
+  { name: "Django", category: "Frameworks" },
+  { name: "React Native", category: "Frameworks" },
 
   // Runtime - Middle section with 3 items
   { name: "Node.js", category: "Runtime" },
@@ -152,12 +159,12 @@ export const TECHNOLOGIES_LEARNED: Technology[] = [
   { name: "Fly.io", category: "Cloud" },
   { name: "Azure", category: "Cloud" },
   { name: "Railway", category: "Cloud" },
+  { name: "AWS", category: "Cloud" },
 
   // Architecture - Bottom section with more items
   { name: "REST APIs", category: "Architecture" },
   { name: "GraphQL", category: "Architecture" },
   { name: "WebSockets", category: "Architecture" },
-  { name: "Microservices", category: "Architecture" },
   { name: "Message Queues", category: "Architecture" },
 ];
 

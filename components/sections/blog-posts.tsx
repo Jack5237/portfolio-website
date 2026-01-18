@@ -213,7 +213,7 @@ export const BlogPosts = ({ posts }: BlogPostsProps) => {
                       ))}
                     </div>
                     <div className="flex items-center gap-2 text-[9px] font-outfit uppercase tracking-[0.2rem] text-foreground/40 group-hover:text-foreground/80 transition-colors">
-                      READ POST <ChevronRight size={10} />
+                      Read Post <ChevronRight size={10} />
                     </div>
                   </div>
                 )}
