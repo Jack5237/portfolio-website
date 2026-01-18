@@ -14,7 +14,7 @@ body {
   color: hsl(0 0% 98%);
 }
 
-/* Dark mode theme variables (always active) */
+/* Dark mode theme variables (default) */
 :root {
   --background: 0 0% 2%;
   --foreground: 0 0% 98%;
@@ -23,6 +23,17 @@ body {
   --accent: 0 0% 92%;
   --accent-foreground: 0 0% 8%;
   --ring: 0 0% 65%;
+}
+
+/* Light mode theme variables */
+.light {
+  --background: 0 0% 98%;
+  --foreground: 0 0% 2%;
+  --muted: 0 0% 92%;
+  --muted-foreground: 0 0% 35%;
+  --accent: 0 0% 8%;
+  --accent-foreground: 0 0% 98%;
+  --ring: 0 0% 35%;
 }
 
 * {

@@ -4,6 +4,7 @@ import type { Config } from "tailwindcss";
  * @description Tailwind configuration tuned for a monochrome aesthetic inspired by seyi.dev.
  */
 const config: Config = {
+  darkMode: ["class"],
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",

@@ -166,7 +166,11 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           inter.variable,
         )}
       >
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+        >
           <TopBanner />
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </ThemeProvider>
