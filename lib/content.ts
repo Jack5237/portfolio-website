@@ -88,10 +88,10 @@ export const FEATURED_PROJECTS: Project[] = [
     href: "https://wordimposter.online",
   },
   {
-    title: "Coming Soon...",
-    category: "Project",
-    discipline: "Development",
-    href: "#",
+    title: "Zero Creativity",
+    category: "Design Portfolio",
+    discipline: "Frontend Development",
+    href: "https://zerocreativity.systems/",
   },
   {
     title: "Coming Soon...",
@@ -142,7 +142,11 @@ export const TECHNOLOGIES_LEARNED: Technology[] = [
   { name: "Deno", category: "Runtime" },
 
   // Databases - Middle section with 3 items
-  { name: "Convex", category: "Databases", href: "https://www.convex.dev/?ref=jack" },
+  {
+    name: "Convex",
+    category: "Databases",
+    href: "https://www.convex.dev/?ref=jack",
+  },
   { name: "Supabase", category: "Databases" },
   { name: "PostgreSQL", category: "Databases" },
 
@@ -167,7 +171,6 @@ export const TECHNOLOGIES_LEARNED: Technology[] = [
   { name: "WebSockets", category: "Architecture" },
   { name: "Message Queues", category: "Architecture" },
 ];
-
 
 /**
  * Represents an item in the masonry background gallery.

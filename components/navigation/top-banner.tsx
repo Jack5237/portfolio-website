@@ -23,25 +23,16 @@ export const TopBanner = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  
+
   // Only show back link on blog page, not on home page
   const isBlogPage = pathname === "/blog";
 
   /**
-   * Checks localStorage on mount to see if banner was previously dismissed.
-   * Sets banner visibility if not dismissed.
+   * Sets banner visibility on mount.
    */
   useEffect(() => {
-    const dismissed = localStorage.getItem("topBannerDismissed");
-    if (!dismissed) {
-      setIsVisible(true);
-      logger.debug("Top banner shown", { component: "TopBanner" });
-    } else {
-      setIsDismissed(true);
-      logger.debug("Top banner was previously dismissed", {
-        component: "TopBanner",
-      });
-    }
+    setIsVisible(true);
+    logger.debug("Top banner shown on mount", { component: "TopBanner" });
   }, []);
 
   /**
@@ -90,13 +81,14 @@ export const TopBanner = () => {
   }, []);
 
   /**
-   * Handles banner dismissal by hiding it and storing state in localStorage.
+   * Handles banner dismissal by hiding it for the current session.
    */
   const handleDismiss = () => {
     setIsVisible(false);
     setIsDismissed(true);
-    localStorage.setItem("topBannerDismissed", "true");
-    logger.debug("Top banner dismissed by user", { component: "TopBanner" });
+    logger.debug("Top banner dismissed by user for current session", {
+      component: "TopBanner",
+    });
   };
 
   /**
@@ -107,7 +99,6 @@ export const TopBanner = () => {
     setTheme(newTheme);
     logger.debug("Theme toggled", { component: "TopBanner", theme: newTheme });
   };
-
 
   // Don't render if dismissed or not visible
   if (!isVisible || isDismissed) {
@@ -157,7 +148,11 @@ export const TopBanner = () => {
                 "flex-shrink-0 rounded-full p-1 transition-colors",
                 "hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-foreground/20",
               )}
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={
+                theme === "dark"
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
             >
               {theme === "dark" ? (
                 <Sun className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-foreground" />

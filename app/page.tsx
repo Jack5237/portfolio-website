@@ -2,10 +2,7 @@ import { Footer } from "@/components/sections/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { TechnologiesSection } from "@/components/sections/technologies-section";
-import {
-  FEATURED_PROJECTS,
-  TECHNOLOGIES_LEARNED,
-} from "@/lib/content";
+import { FEATURED_PROJECTS, TECHNOLOGIES_LEARNED } from "@/lib/content";
 import { getWebLogger } from "@/lib/logger";
 
 const logger = getWebLogger();
@@ -27,7 +24,7 @@ const HomePage = () => {
         <TechnologiesSection technologies={TECHNOLOGIES_LEARNED} />
       </main>
       <Footer
-        email="developerjack0101@gmail.com"
+        email="contact.jack.dev@gmail.com"
         socialLinks={{
           twitter: "https://x.com/Jack1168556",
           github: "https://github.com/Jack5237",
