@@ -86,7 +86,7 @@ export default function ContactPage() {
               <div className="flex flex-col gap-4 sm:gap-5">
                 {/* Subtitle */}
                 <div className="flex flex-wrap items-baseline gap-2 sm:gap-3 text-[10px] sm:text-xs uppercase tracking-[0.3rem] sm:tracking-[0.4rem] text-muted-foreground md:text-sm md:tracking-[0.5rem]">
-                  <span className="font-medium text-foreground">Let's connect</span>
+                  <span className="font-medium text-foreground">Let&apos;s connect</span>
                   <span>—</span>
                   <span>Get in touch</span>
                 </div>
@@ -126,7 +126,7 @@ export default function ContactPage() {
                 {/* Description */}
                 <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground md:text-base max-w-md">
                   Have a project in mind, want to collaborate, or just want to
-                  say hello? Fill out the form and I'll get back to you.
+                  say hello? Fill out the form and I&apos;ll get back to you.
                 </p>
 
                 {/* Email Alternative */}
