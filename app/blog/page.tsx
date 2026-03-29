@@ -6,9 +6,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { X, Coffee, ArrowLeft } from "lucide-react";
 
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { Dithering } from '@paper-design/shaders-react';
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Dithering } from "@paper-design/shaders-react";
 
 import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
@@ -37,7 +37,7 @@ const BlogPage = () => {
   useEffect(() => {
     const fetchBlogPosts = async () => {
       try {
-        const response = await fetch('/api/blog');
+        const response = await fetch("/api/blog");
         if (response.ok) {
           const data = await response.json();
           const posts: BlogPost[] = data.posts || data; // Handle both direct array and wrapped response
@@ -47,12 +47,12 @@ const BlogPage = () => {
             setExpandedPostId(posts[0].id);
           }
         } else {
-          console.error('Failed to fetch blog posts:', response.status);
+          console.error("Failed to fetch blog posts:", response.status);
           setBlogPosts([]);
           setFilteredPosts([]);
         }
       } catch (error) {
-        console.error('Error fetching blog posts:', error);
+        console.error("Error fetching blog posts:", error);
         setBlogPosts([]);
         setFilteredPosts([]);
       } finally {
@@ -62,7 +62,6 @@ const BlogPage = () => {
 
     fetchBlogPosts();
   }, []);
-  
 
   /**
    * Handles keyboard shortcuts:
@@ -86,10 +85,13 @@ const BlogPage = () => {
         if (expandedPostId) {
           event.preventDefault();
           setExpandedPostId(null);
-          logger.debug("Blog page: Expanded post closed via keyboard shortcut", {
-            page: "Blog",
-            postId: expandedPostId,
-          });
+          logger.debug(
+            "Blog page: Expanded post closed via keyboard shortcut",
+            {
+              page: "Blog",
+              postId: expandedPostId,
+            },
+          );
         }
         return;
       }
@@ -99,10 +101,13 @@ const BlogPage = () => {
         if (expandedPostId) {
           event.preventDefault();
           setExpandedPostId(null);
-          logger.debug("Blog page: Expanded post closed via Ctrl+Delete shortcut", {
-            page: "Blog",
-            postId: expandedPostId,
-          });
+          logger.debug(
+            "Blog page: Expanded post closed via Ctrl+Delete shortcut",
+            {
+              page: "Blog",
+              postId: expandedPostId,
+            },
+          );
         }
         return;
       }
@@ -142,8 +147,8 @@ const BlogPage = () => {
 
     const query = searchQuery.toLowerCase();
     // Check if search query matches a tag exactly
-    const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
-    const isTagFilter = allTags.some(tag => tag.toLowerCase() === query);
+    const allTags = Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
+    const isTagFilter = allTags.some((tag) => tag.toLowerCase() === query);
 
     const filtered = blogPosts.filter((post) => {
       if (isTagFilter) {
@@ -176,7 +181,12 @@ const BlogPage = () => {
   if (loading) {
     return (
       <>
-        <main className={cn("container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16", "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8")}>
+        <main
+          className={cn(
+            "container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16",
+            "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8",
+          )}
+        >
           <div className="flex items-center justify-center min-h-[200px]">
             <div className="text-muted-foreground">Loading blog posts...</div>
           </div>
@@ -227,12 +237,14 @@ const BlogPage = () => {
               type="text"
               placeholder="search posts..."
               value={searchQuery}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchQuery(e.target.value)
+              }
               className={cn(
                 "w-full px-4 py-3 bg-transparent border-b border-foreground/20",
                 "text-sm sm:text-base text-foreground placeholder:text-muted-foreground/50",
                 "focus:outline-none focus:border-foreground transition-colors",
-                "tracking-wide"
+                "tracking-wide",
               )}
             />
           </div>
@@ -245,25 +257,27 @@ const BlogPage = () => {
                 "text-sm sm:text-base transition-colors",
                 !searchQuery
                   ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               all
             </button>
-            {Array.from(new Set(blogPosts.flatMap(post => post.tags))).map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setSearchQuery(tag)}
-                className={cn(
-                  "text-sm sm:text-base transition-colors",
-                  searchQuery === tag
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {tag}
-              </button>
-            ))}
+            {Array.from(new Set(blogPosts.flatMap((post) => post.tags))).map(
+              (tag) => (
+                <button
+                  key={tag}
+                  onClick={() => setSearchQuery(tag)}
+                  className={cn(
+                    "text-sm sm:text-base transition-colors",
+                    searchQuery === tag
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {tag}
+                </button>
+              ),
+            )}
           </div>
         </div>
 
@@ -328,8 +342,8 @@ const BlogPage = () => {
                   </div>
 
                   {/* Post Content - Left Aligned */}
-                  <div className="prose prose-invert max-w-none">
-                    <div className="text-sm sm:text-base leading-relaxed text-foreground text-left">
+                  <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
+                    <div className="text-sm sm:text-base leading-relaxed text-foreground text-left whitespace-pre-wrap">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>
                         {post.content}
                       </ReactMarkdown>
@@ -346,7 +360,7 @@ const BlogPage = () => {
                       className={cn(
                         "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
                         "border border-foreground/20 hover:border-foreground/40 transition-colors",
-                        "text-muted-foreground hover:text-foreground"
+                        "text-muted-foreground hover:text-foreground",
                       )}
                     >
                       <Coffee className="h-4 w-4" />
@@ -360,7 +374,7 @@ const BlogPage = () => {
                         className={cn(
                           "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
                           "border border-foreground/20 hover:border-foreground/40 transition-colors",
-                          "text-muted-foreground hover:text-foreground"
+                          "text-muted-foreground hover:text-foreground",
                         )}
                       >
                         <X className="h-4 w-4" />
@@ -403,7 +417,7 @@ const BlogPage = () => {
                 className={cn(
                   "group border-t border-foreground/20 pt-6 sm:pt-8 transition-colors cursor-pointer",
                   "hover:border-foreground/40",
-                  expandedPostId === post.id && "opacity-50"
+                  expandedPostId === post.id && "opacity-50",
                 )}
                 onClick={() => {
                   if (expandedPostId === post.id) {
@@ -429,7 +443,7 @@ const BlogPage = () => {
                   <h2
                     className={cn(
                       "text-xl sm:text-2xl font-display font-bold uppercase tracking-wide",
-                      "transition-colors group-hover:text-muted-foreground"
+                      "transition-colors group-hover:text-muted-foreground",
                     )}
                   >
                     {post.title}

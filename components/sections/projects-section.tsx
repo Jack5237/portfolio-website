@@ -94,26 +94,45 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                   <span>{project.category}</span>
                   <span>{project.discipline}</span>
                 </div>
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noreferrer"
+                <div
                   className={cn(
-                    "block mt-4 sm:mt-5 md:mt-6 text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
-                    // Mobile: always left-aligned, Desktop: alternate between left and right
-                    isLeftAligned ? "text-left" : "text-left md:text-right",
+                    "flex flex-col gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-5 md:mt-6",
+                    "md:items-start md:justify-between",
+                    isLeftAligned ? "md:flex-row" : "md:flex-row-reverse",
                   )}
                 >
-                  <DecryptedText
-                    text={project.title}
-                    animateOn="hover"
-                    revealDirection="center"
-                    speed={50}
-                    maxIterations={20}
-                    parentClassName="block"
-                    encryptedClassName="opacity-70"
-                  />
-                </a>
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={cn(
+                      "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent flex-1",
+                      // Mobile: always left-aligned, Desktop: alternate between left and right
+                      isLeftAligned ? "text-left" : "text-left md:text-right",
+                    )}
+                  >
+                    <DecryptedText
+                      text={project.title}
+                      animateOn="hover"
+                      revealDirection="center"
+                      speed={50}
+                      maxIterations={20}
+                      parentClassName="block"
+                      encryptedClassName="opacity-70"
+                    />
+                  </a>
+                  {project.description && (
+                    <p
+                      className={cn(
+                        "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs",
+                        "text-left",
+                        isLeftAligned ? "md:text-right" : "md:text-left",
+                      )}
+                    >
+                      {project.description}
+                    </p>
+                  )}
+                </div>
               </article>
             </ScrollSlide>
           );

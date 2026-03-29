@@ -12,7 +12,7 @@ A **minimal, fast, and accessible** personal portfolio website to showcase proje
 - **Tailwind CSS** – styling
 - **Bun** – runtime & package manager (recommended)
 - **Vercel** – deployment & hosting
-
+ 
 ## 🚀 Getting Started
 
 ### Prerequisites

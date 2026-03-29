@@ -155,8 +155,8 @@ export const BlogPosts = ({ posts }: BlogPostsProps) => {
                 {/* Expanded Content */}
                 {isExpanded && (
                   <div className="animate-in fade-in slide-in-from-top-4 duration-1000 fill-mode-both">
-                    <div className="prose prose-invert prose-white max-w-3xl pt-8 mx-auto prose-p:text-muted-foreground/80 prose-p:leading-relaxed prose-headings:font-display prose-headings:font-medium prose-strong:text-foreground">
-                      <div className="whitespace-pre-wrap text-[17px] sm:text-[19px] leading-[1.8] font-light font-body tracking-tight text-center">
+                    <div className="prose dark:prose-invert prose-neutral max-w-3xl pt-8 mx-auto prose-p:text-foreground/80 prose-p:leading-relaxed prose-headings:font-display prose-headings:font-medium prose-strong:text-foreground prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
+                      <div className="whitespace-pre-wrap text-[17px] sm:text-[19px] leading-[1.8] font-light font-body tracking-tight text-left">
                         {post.content}
                       </div>
                     </div>

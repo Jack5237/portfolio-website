@@ -84,10 +84,7 @@ export const HeroSection = () => {
 
             {/* Contact Button */}
             <div className="pt-2 sm:pt-3">
-              <a
-                href="mailto:contact.jack.dev@gmail.com?subject=Let's%20collaborate"
-                className="inline-block"
-              >
+              <a href="/contact" className="inline-block">
                 <Button
                   variant="outline"
                   size="default"

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { X, Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,6 @@ logger.info("Initialized top banner module", { component: "TopBanner" });
  */
 export const TopBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -80,16 +79,7 @@ export const TopBanner = () => {
     };
   }, []);
 
-  /**
-   * Handles banner dismissal by hiding it for the current session.
-   */
-  const handleDismiss = () => {
-    setIsVisible(false);
-    setIsDismissed(true);
-    logger.debug("Top banner dismissed by user for current session", {
-      component: "TopBanner",
-    });
-  };
+
 
   /**
    * Toggles between light and dark theme.
@@ -100,8 +90,8 @@ export const TopBanner = () => {
     logger.debug("Theme toggled", { component: "TopBanner", theme: newTheme });
   };
 
-  // Don't render if dismissed or not visible
-  if (!isVisible || isDismissed) {
+  // Don't render if not visible
+  if (!isVisible) {
     return null;
   }
 
@@ -162,17 +152,7 @@ export const TopBanner = () => {
             </button>
           )}
 
-          {/* Dismiss Button */}
-          <button
-            onClick={handleDismiss}
-            className={cn(
-              "flex-shrink-0 rounded-full p-1 transition-colors",
-              "hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-foreground/20",
-            )}
-            aria-label="Dismiss banner"
-          >
-            <X className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-foreground" />
-          </button>
+
         </div>
       </div>
     </div>

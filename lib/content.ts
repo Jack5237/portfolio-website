@@ -18,6 +18,10 @@ export interface Project {
    * External link visitors can follow to learn more.
    */
   readonly href: string;
+  /**
+   * Optional description displayed on hover.
+   */
+  readonly description?: string;
 }
 
 /**
@@ -62,54 +66,42 @@ export const FEATURED_PROJECTS: Project[] = [
     category: "Personal Portfolio",
     discipline: "Full Stack Development",
     href: "https://github.com/Jack5237/portfolio-website",
+    description: "A modern portfolio showcasing projects and skills with smooth animations and dark mode support.",
   },
   {
     title: "Z3D.AI ",
     category: "AI Model Maker",
     discipline: "Full Stack Development",
     href: "https://z3d.ai",
+    description: "AI-powered platform for creating and managing 3D models with intuitive tools and real-time collaboration.",
   },
   {
     title: "Rust-central",
     category: "Game-Server Management",
     discipline: "Full Stack Development",
     href: "https://rust-central.xyz",
+    description: "Centralized management platform for Rust game servers with analytics, monitoring, and player management.",
   },
   {
     title: "byte.com - Course Maker",
     category: "Educational Platform",
     discipline: "Full Stack Development",
     href: "https://byte-com-course-website.onrender.com",
+    description: "Platform enabling educators to create, manage, and share online courses with interactive content delivery.",
   },
   {
     title: "Imposter Online",
     category: "Word Imposter Game",
     discipline: "Full Stack Development",
     href: "https://wordimposter.online",
+    description: "Multiplayer word guessing game with real-time gameplay, chat features, and competitive rankings.",
   },
   {
     title: "Zero Creativity",
     category: "Design Portfolio",
     discipline: "Frontend Development",
     href: "https://zerocreativity.systems/",
-  },
-  {
-    title: "Coming Soon...",
-    category: "Project",
-    discipline: "Development",
-    href: "#",
-  },
-  {
-    title: "Coming Soon...",
-    category: "Project",
-    discipline: "Development",
-    href: "#",
-  },
-  {
-    title: "Coming Soon...",
-    category: "Project",
-    discipline: "Development",
-    href: "#",
+    description: "Creative design portfolio showcasing brand identity, web design, and visual communication projects.",
   },
 ];
 
