@@ -68,9 +68,9 @@ export default function ContactPage() {
 
   return (
     <>
-      <main className="container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16 pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8">
+      <main className="container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16 pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8 items-center justify-center">
         {/* Contact Section - Single responsive layout */}
-        <section className="relative flex min-h-[60vh] sm:min-h-[65vh] md:min-h-[70vh] flex-col md:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-16 justify-between items-start overflow-hidden">
+        <section className="relative flex min-h-[60vh] sm:min-h-[65vh] md:min-h-[70vh] flex-col md:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-16 justify-center items-center overflow-hidden">
           {/* Faded Masonry Background */}
           <MasonryBackground
             items={MASONRY_ITEMS}

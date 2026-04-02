@@ -90,13 +90,14 @@ export const TopBanner = () => {
     logger.debug("Theme toggled", { component: "TopBanner", theme: newTheme });
   };
 
-  // Don't render if not visible
-  if (!isVisible) {
+  // Don't render if not mounted (prevents hydration mismatch)
+  if (!mounted) {
     return null;
   }
 
   return (
     <div
+      suppressHydrationWarning
       className={cn(
         "relative z-50 w-full border-b border-foreground/20 bg-muted/50 py-2 sm:py-2.5",
         "transition-all duration-300 ease-in-out",

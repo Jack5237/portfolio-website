@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Script from "next/script";
 import {
   Space_Grotesk,
   Inter,
@@ -81,9 +82,12 @@ export const metadata: Metadata = {
     "Scotland",
     "Portfolio",
     "Developer Portfolio",
+    "Programming",
+    "Software Development",
   ],
   authors: [{ name: "Jack", url: "https://github.com/Jack5237" }],
   creator: "Jack",
+  publisher: "Jack",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ||
       "https://portfolio-website-sepia-one-40.vercel.app",
@@ -94,17 +98,19 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jack - Full stack developer",
     description:
-      "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends.",
+      "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends. Passionate about clean code, performance, and full-stack engineering.",
     url: "/",
     siteName: "Jack",
     locale: "en_GB",
     type: "website",
+    emails: ["contact.jack.dev@gmail.com"],
     images: [
       {
         url: "/avatarImg.png",
         width: 512,
         height: 512,
         alt: "Jack - Full stack developer",
+        type: "image/png",
       },
     ],
   },
@@ -131,6 +137,9 @@ export const metadata: Metadata = {
     icon: "/avatarImg.png",
     apple: "/avatarImg.png",
   },
+  verification: {
+    google: "add-your-google-verification-code", // Add your actual Google verification code
+  },
 };
 
 interface RootLayoutProps {
@@ -148,6 +157,24 @@ interface RootLayoutProps {
 const RootLayout = ({ children }: RootLayoutProps) => {
   logger.debug("Rendering root layout", { component: "RootLayout" });
 
+  // JSON-LD Schema for person/professional profile
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Jack",
+    url: "https://portfolio-website-sepia-one-40.vercel.app",
+    image: "https://portfolio-website-sepia-one-40.vercel.app/avatarImg.png",
+    jobTitle: "Full Stack Developer",
+    sameAs: [
+      "https://github.com/Jack5237",
+      "https://www.linkedin.com/in/jack-m-a732b4397",
+      "https://x.com/Jack1168556",
+    ],
+    email: "contact.jack.dev@gmail.com",
+    description:
+      "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends.",
+  };
+
   return (
     <html
       lang="en"
@@ -160,6 +187,16 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         plusJakarta.variable,
       )}
     >
+      <head>
+        <Script
+          id="json-ld-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-body text-foreground antialiased",

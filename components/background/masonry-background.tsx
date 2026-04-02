@@ -105,6 +105,7 @@ export const MasonryBackground = ({
         {displayItems.map((item, index) => (
           <div
             key={item.id}
+            suppressHydrationWarning
             className={cn(
               "relative overflow-hidden rounded-sm transition-all duration-700",
               // Fade-in animation with stagger

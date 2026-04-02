@@ -101,6 +101,7 @@ export const ScrollSlide = ({
   return (
     <div
       ref={elementRef}
+      suppressHydrationWarning
       className={cn("transition-all ease-out", className)}
       style={{
         transform: isVisible ? "translateX(0) translateY(0)" : getInitialTransform(),
