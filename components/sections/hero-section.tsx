@@ -1,3 +1,5 @@
+"use client";
+
 import { DecryptedText } from "@/components/ui/decrypted-text";
 import { MasonryBackground } from "@/components/background/masonry-background";
 import { Button } from "@/components/ui/button";
@@ -82,8 +84,19 @@ export const HeroSection = () => {
               full-stack engineering.
             </p>
 
-            {/* Contact Button */}
-            <div className="pt-2 sm:pt-3">
+            {/* Action Buttons */}
+            <div className="pt-2 sm:pt-3 flex flex-wrap gap-3 sm:gap-4">
+              <button
+                onClick={() => {
+                  const element = document.querySelector("#work");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+                className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-muted-foreground hover:text-background h-12 px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]"
+              >
+                See Projects
+              </button>
               <a href="/contact" className="inline-block">
                 <Button
                   variant="outline"

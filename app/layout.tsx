@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 import {
   Space_Grotesk,
   Inter,
@@ -14,9 +15,11 @@ import { Analytics } from "@vercel/analytics/next";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
-import { TopBanner } from "@/components/navigation/top-banner";
+import { MainNavbar } from "@/components/navigation/main-navbar";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
+
+const TopBanner = dynamic(() => import("@/components/navigation/top-banner").then(mod => ({ default: mod.TopBanner })), { ssr: false });
 
 import "lenis/dist/lenis.css";
 
@@ -188,6 +191,10 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       )}
     >
       <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-website-sepia-one-40.vercel.app"} />
+        <meta name="theme-color" content="#000000" />
         <Script
           id="json-ld-schema"
           type="application/ld+json"
@@ -195,6 +202,28 @@ const RootLayout = ({ children }: RootLayoutProps) => {
             __html: JSON.stringify(jsonLd),
           }}
           strategy="afterInteractive"
+        />
+        <Script
+          id="performance-monitoring"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('PerformanceObserver' in window) {
+                try {
+                  const observer = new PerformanceObserver((list) => {
+                    for (const entry of list.getEntries()) {
+                      if (entry.duration > 3000) {
+                        console.warn('Long task detected:', entry.name, entry.duration);
+                      }
+                    }
+                  });
+                  observer.observe({ entryTypes: ['longtask'] });
+                } catch (e) {
+                  // PerformanceObserver not supported
+                }
+              }
+            `,
+          }}
         />
       </head>
       <body
@@ -209,6 +238,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           enableSystem={true}
         >
           <TopBanner />
+          <MainNavbar />
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </ThemeProvider>
         <Analytics />

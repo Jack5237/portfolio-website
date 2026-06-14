@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { X, Coffee, ArrowLeft } from "lucide-react";
+import { X, Coffee } from "lucide-react";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -43,9 +42,7 @@ const BlogPage = () => {
           const posts: BlogPost[] = data.posts || data; // Handle both direct array and wrapped response
           setBlogPosts(posts);
           setFilteredPosts(posts);
-          if (posts.length > 0) {
-            setExpandedPostId(posts[0].id);
-          }
+          setExpandedPostId(null);
         } else {
           console.error("Failed to fetch blog posts:", response.status);
           setBlogPosts([]);
@@ -214,17 +211,6 @@ const BlogPage = () => {
       >
         {/* Hero Section */}
         <BlogHeroSection />
-
-        {/* Back Button - Only on Blog Page */}
-        <div className="flex items-center">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-[10px] sm:text-xs text-muted-foreground/70 hover:text-foreground transition-colors font-smooth-bold"
-          >
-            <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" />
-            <span>back</span>
-          </Link>
-        </div>
 
         {/* Search and Tags Layout - Inline */}
         <div

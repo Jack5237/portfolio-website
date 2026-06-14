@@ -48,11 +48,20 @@ const nextConfig = {
     optimizePackageImports: ["lucide-react"],
   },
 
-  // Headers for better caching and performance
+  // Headers for better caching, performance, and security
   async headers() {
     return [
       {
         source: "/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
         headers: [
           {
             key: "Cache-Control",
@@ -88,6 +97,18 @@ const nextConfig = {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://assets.calendly.com https://*.vercel.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://vercel.com https://api.vercel.com; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';",
+          },
         ],
       },
     ];
@@ -96,7 +117,21 @@ const nextConfig = {
   // Redirects for SEO
   async redirects() {
     return [
-      // Add required redirects here
+      {
+        source: "/portfolio",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/projects",
+        destination: "/#work",
+        permanent: true,
+      },
+      {
+        source: "/about",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 

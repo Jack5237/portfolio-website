@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import Lenis from "lenis";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { getLogger } from "@/lib/logger";
@@ -19,47 +18,79 @@ export const SmoothScrollProvider = ({
   readonly children: React.ReactNode;
 }) => {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    logger.info("Initializing Lenis smooth scroll", {
-      component: "SmoothScrollProvider",
-    });
+    setMounted(true);
+  }, []);
 
-    // Initialize Lenis with recommended settings for monochrome portfolio
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      // smoothTouch removed - no longer supported in Lenis v1.3.13+
-      // Touch smoothing is handled by default in newer versions
-      touchMultiplier: 2,
-      infinite: false,
-      autoRaf: true,
-    });
+  useEffect(() => {
+    if (!mounted) return;
 
-    // Handle scroll events for debugging (optional)
-    lenis.on("scroll", ({ scroll, direction, progress }) => {
-      // Log scroll progress at key intervals for monitoring
-      if (progress % 0.25 < 0.01) {
-        logger.debug("Lenis scroll progress", {
-          progress: Math.round(progress * 100),
-          scroll,
-          direction,
+    try {
+      // Dynamically import Lenis only on client
+      const initLenis = async () => {
+        const { default: Lenis } = await import("lenis");
+
+        logger.info("Initializing Lenis smooth scroll", {
+          component: "SmoothScrollProvider",
         });
-      }
-    });
 
-    // Cleanup on unmount or pathname change
-    return () => {
-      logger.debug("Destroying Lenis instance", {
-        component: "SmoothScrollProvider",
+        // Initialize Lenis with recommended settings for monochrome portfolio
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+          orientation: "vertical",
+          gestureOrientation: "vertical",
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          touchMultiplier: 2,
+          infinite: false,
+          autoRaf: true,
+        });
+
+        // Handle scroll events for debugging (optional)
+        lenis.on("scroll", ({ scroll, direction, progress }) => {
+          // Log scroll progress at key intervals for monitoring
+          if (progress % 0.25 < 0.01) {
+            logger.debug("Lenis scroll progress", {
+              progress: Math.round(progress * 100),
+              scroll,
+              direction,
+            });
+          }
+        });
+
+        // Cleanup function
+        return () => {
+          logger.debug("Destroying Lenis instance", {
+            component: "SmoothScrollProvider",
+          });
+          lenis.destroy();
+        };
+      };
+
+      let cleanup: (() => void) | undefined;
+
+      initLenis()
+        .then((cleanupFn) => {
+          cleanup = cleanupFn;
+        })
+        .catch((error) => {
+          logger.error("Failed to initialize Lenis", {
+            error: error instanceof Error ? error.message : String(error),
+          });
+        });
+
+      return () => {
+        cleanup?.();
+      };
+    } catch (error) {
+      logger.error("Error in SmoothScrollProvider", {
+        error: error instanceof Error ? error.message : String(error),
       });
-      lenis.destroy();
-    };
-  }, [pathname]);
+    }
+  }, [pathname, mounted]);
 
   return <>{children}</>;
 };
