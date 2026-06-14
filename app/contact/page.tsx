@@ -75,7 +75,7 @@ export default function ContactPage() {
         socialLinks={{
           twitter: "https://x.com/Jack1168556",
           github: "https://github.com/Jack5237",
-          linkedin: "https://www.linkedin.com/in/jack-m-a732b4397",
+          linkedin: "https://www.linkedin.com/in/jack-dev-a732b4397",
         }}
       />
     </>

@@ -170,7 +170,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     jobTitle: "Full Stack Developer",
     sameAs: [
       "https://github.com/Jack5237",
-      "https://www.linkedin.com/in/jack-m-a732b4397",
+      "https://www.linkedin.com/in/jack-dev-a732b4397",
       "https://x.com/Jack1168556",
     ],
     email: "contact.jack.dev@gmail.com",
