@@ -388,8 +388,8 @@ const BlogPage = () => {
           </div>
         )}
 
-        {/* Blog Posts - Card Layout with Image Preview */}
-        <div className="w-full space-y-6 sm:space-y-8">
+        {/* Blog Posts - Card Layout matching Projects Section */}
+        <div className="grid gap-8 sm:gap-10 md:gap-12">
           {filteredPosts.length === 0 ? (
             <div className="text-left py-12 sm:py-16">
               <p className="text-sm sm:text-base text-muted-foreground">
@@ -397,84 +397,110 @@ const BlogPage = () => {
               </p>
             </div>
           ) : (
-            filteredPosts.map((post) => (
-              <article
-                key={post.id}
-                className={cn(
-                  "group border border-foreground/10 hover:border-foreground/20 rounded-lg overflow-hidden",
-                  "transition-all duration-300 cursor-pointer",
-                  "hover:shadow-lg hover:shadow-foreground/5",
-                  expandedPostId === post.id && "opacity-50 pointer-events-none",
-                )}
-                onClick={() => {
-                  if (expandedPostId === post.id) {
-                    setExpandedPostId(null);
-                  } else {
-                    setExpandedPostId(post.id);
-                    logger.debug("Blog post expanded", {
-                      page: "Blog",
-                      postId: post.id,
-                    });
-                  }
-                }}
-              >
-                <div className="flex flex-col md:flex-row">
-                  {/* Content - Left Side */}
-                  <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between">
-                    {/* Post Metadata */}
-                    <div className="space-y-3 sm:space-y-4">
-                      <div className="flex items-center gap-3 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60">
-                        <span>{post.category}</span>
-                        <span>•</span>
-                        <time dateTime={post.date}>{post.date}</time>
-                      </div>
+            filteredPosts.map((post, index) => {
+              const isLeftAligned = index % 2 === 0;
+              return (
+                <article
+                  key={post.id}
+                  className={cn(
+                    "group relative border-t border-foreground/15 pt-6 sm:pt-8 md:pt-10 transition-colors cursor-pointer",
+                    "hover:border-foreground",
+                    index === filteredPosts.length - 1 && "border-b pb-8",
+                  )}
+                  onClick={() => {
+                    if (expandedPostId === post.id) {
+                      setExpandedPostId(null);
+                    } else {
+                      setExpandedPostId(post.id);
+                      logger.debug("Blog post expanded", {
+                        page: "Blog",
+                        postId: post.id,
+                      });
+                    }
+                  }}
+                >
+                  {/* Post Metadata */}
+                  <div
+                    className={cn(
+                      "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground transition-colors group-hover:text-accent",
+                      isLeftAligned
+                        ? "md:flex-row md:items-center md:justify-between"
+                        : "md:flex-row-reverse md:items-center md:justify-between",
+                    )}
+                  >
+                    <span>{post.category}</span>
+                    <time dateTime={post.date}>{post.date}</time>
+                  </div>
 
+                  {/* Content with Image */}
+                  <div
+                    className={cn(
+                      "flex flex-col gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-5 md:mt-6",
+                      "md:items-start md:justify-between",
+                      isLeftAligned ? "md:flex-row" : "md:flex-row-reverse",
+                    )}
+                  >
+                    {/* Text Content */}
+                    <div className="flex-1 flex flex-col gap-3">
                       {/* Post Title */}
                       <h2
                         className={cn(
-                          "text-lg sm:text-xl md:text-2xl font-display font-bold uppercase tracking-wide",
-                          "transition-colors group-hover:text-muted-foreground",
+                          "text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
+                          isLeftAligned ? "text-left" : "text-left md:text-right",
                         )}
                       >
                         {post.title}
                       </h2>
 
                       {/* Post Excerpt */}
-                      <p className="text-sm sm:text-base text-muted-foreground/80 leading-relaxed">
-                        {post.excerpt}
-                      </p>
+                      {post.excerpt && (
+                        <p
+                          className={cn(
+                            "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs",
+                            "text-left",
+                            isLeftAligned ? "md:text-right" : "md:text-left",
+                          )}
+                        >
+                          {post.excerpt}
+                        </p>
+                      )}
+
+                      {/* Tags */}
+                      {post.tags && post.tags.length > 0 && (
+                        <div
+                          className={cn(
+                            "flex flex-wrap gap-2 pt-2",
+                            isLeftAligned ? "justify-start md:justify-end" : "justify-start",
+                          )}
+                        >
+                          {post.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-xs text-muted-foreground/60"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Tags */}
-                    {post.tags && post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 pt-4">
-                        {post.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs text-muted-foreground/60 px-2 py-1 border border-foreground/10 rounded-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                    {/* Image - Right Side */}
+                    {post.bannerImage && (
+                      <div className="relative w-full md:w-48 lg:w-56 h-32 md:h-48 overflow-hidden rounded-sm bg-muted/30 flex-shrink-0">
+                        <Image
+                          src={post.bannerImage}
+                          alt={post.title}
+                          fill
+                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
+                          sizes="(max-width: 768px) 100vw, 224px"
+                        />
                       </div>
                     )}
                   </div>
-
-                  {/* Image - Right Side */}
-                  {post.bannerImage && (
-                    <div className="relative w-full md:w-48 lg:w-56 h-32 md:h-auto overflow-hidden bg-muted/30">
-                      <Image
-                        src={post.bannerImage}
-                        alt={post.title}
-                        fill
-                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
-                        sizes="(max-width: 768px) 100vw, 224px"
-                      />
-                    </div>
-                  )}
-                </div>
-              </article>
-            ))
+                </article>
+              );
+            })
           )}
         </div>
       </main>

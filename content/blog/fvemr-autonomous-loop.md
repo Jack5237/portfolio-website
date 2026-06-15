@@ -7,8 +7,6 @@ excerpt: "A simple 5-step workflow for autonomous AI systems: Find, Execute, Ver
 bannerImage: "https://picsum.photos/id/1084/1200/400?grayscale"
 ---
 
-# F.E.V.M.R. — The Autonomous Loop
-
 A simple 5-step workflow for autonomous AI systems:
 
 * **Find** — Identify the next task.
