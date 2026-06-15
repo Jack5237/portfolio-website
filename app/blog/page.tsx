@@ -394,7 +394,7 @@ const BlogPage = () => {
                   </div>
 
                   {/* Copyright, Share and Close */}
-                  <div className="flex items-center justify-between pt-6 sm:pt-8 border-t border-foreground/10 mt-6 sm:mt-8">
+                  <div className="flex items-center justify-between pt-8 sm:pt-10 border-t border-foreground/10 mt-8 sm:mt-10 gap-4">
                     <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/40">
                       © 2026 by Jack
                     </p>
@@ -414,32 +414,32 @@ const BlogPage = () => {
                           share
                         </button>
                         {shareOpen === `expanded-${post.id}` && (
-                          <div className="absolute bottom-full mb-2 right-0 bg-background border border-foreground/20 rounded-sm p-2 flex gap-1 z-10">
+                          <div className="absolute top-full mt-3 right-0 bg-background border border-foreground/20 rounded-sm p-3 flex gap-2 z-50 shadow-lg shadow-foreground/10">
                             <button
                               onClick={() => {
                                 const text = `Check out "${post.title}" on Jack's blog`;
                                 window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
                               }}
-                              className="p-1.5 hover:bg-foreground/10 rounded transition-colors"
+                              className="p-2 hover:bg-foreground/10 rounded transition-colors"
                               title="Share on Twitter"
                             >
-                              <Twitter className="h-3 w-3 sm:h-4 sm:w-4" />
+                              <Twitter className="h-4 w-4" />
                             </button>
                             <button
                               onClick={() => {
                                 window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
                               }}
-                              className="p-1.5 hover:bg-foreground/10 rounded transition-colors"
+                              className="p-2 hover:bg-foreground/10 rounded transition-colors"
                               title="Share on LinkedIn"
                             >
-                              <Linkedin className="h-3 w-3 sm:h-4 sm:w-4" />
+                              <Linkedin className="h-4 w-4" />
                             </button>
                             <button
                               onClick={() => {
                                 navigator.clipboard.writeText(window.location.href);
                                 alert("Link copied!");
                               }}
-                              className="p-1.5 hover:bg-foreground/10 rounded transition-colors text-[9px]"
+                              className="p-2 hover:bg-foreground/10 rounded transition-colors text-xs"
                               title="Copy link"
                             >
                               Copy
