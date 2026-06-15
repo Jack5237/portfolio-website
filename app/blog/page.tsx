@@ -39,7 +39,7 @@ const BlogPage = () => {
         const response = await fetch("/api/blog");
         if (response.ok) {
           const data = await response.json();
-          const posts: BlogPost[] = data.posts || data; // Handle both direct array and wrapped response
+          const posts: BlogPost[] = Array.isArray(data) ? data : data.posts || []; // Handle both direct array and wrapped response
           setBlogPosts(posts);
           setFilteredPosts(posts);
           setExpandedPostId(null);
