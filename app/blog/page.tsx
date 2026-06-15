@@ -388,8 +388,8 @@ const BlogPage = () => {
           </div>
         )}
 
-        {/* Blog Posts - Left Aligned Layout */}
-        <div className="w-full space-y-8 sm:space-y-10 md:space-y-12">
+        {/* Blog Posts - Card Layout with Image Preview */}
+        <div className="w-full space-y-6 sm:space-y-8">
           {filteredPosts.length === 0 ? (
             <div className="text-left py-12 sm:py-16">
               <p className="text-sm sm:text-base text-muted-foreground">
@@ -401,9 +401,10 @@ const BlogPage = () => {
               <article
                 key={post.id}
                 className={cn(
-                  "group border-t border-foreground/20 pt-6 sm:pt-8 transition-colors cursor-pointer",
-                  "hover:border-foreground/40",
-                  expandedPostId === post.id && "opacity-50",
+                  "group border border-foreground/10 hover:border-foreground/20 rounded-lg overflow-hidden",
+                  "transition-all duration-300 cursor-pointer",
+                  "hover:shadow-lg hover:shadow-foreground/5",
+                  expandedPostId === post.id && "opacity-50 pointer-events-none",
                 )}
                 onClick={() => {
                   if (expandedPostId === post.id) {
@@ -417,40 +418,58 @@ const BlogPage = () => {
                   }
                 }}
               >
-                <div className="space-y-3 sm:space-y-4">
-                  {/* Post Metadata */}
-                  <div className="flex items-center gap-3 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60">
-                    <span>{post.category}</span>
-                    <span>•</span>
-                    <time dateTime={post.date}>{post.date}</time>
+                <div className="flex flex-col md:flex-row">
+                  {/* Content - Left Side */}
+                  <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between">
+                    {/* Post Metadata */}
+                    <div className="space-y-3 sm:space-y-4">
+                      <div className="flex items-center gap-3 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60">
+                        <span>{post.category}</span>
+                        <span>•</span>
+                        <time dateTime={post.date}>{post.date}</time>
+                      </div>
+
+                      {/* Post Title */}
+                      <h2
+                        className={cn(
+                          "text-lg sm:text-xl md:text-2xl font-display font-bold uppercase tracking-wide",
+                          "transition-colors group-hover:text-muted-foreground",
+                        )}
+                      >
+                        {post.title}
+                      </h2>
+
+                      {/* Post Excerpt */}
+                      <p className="text-sm sm:text-base text-muted-foreground/80 leading-relaxed">
+                        {post.excerpt}
+                      </p>
+                    </div>
+
+                    {/* Tags */}
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 pt-4">
+                        {post.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs text-muted-foreground/60 px-2 py-1 border border-foreground/10 rounded-sm"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Post Title */}
-                  <h2
-                    className={cn(
-                      "text-xl sm:text-2xl font-display font-bold uppercase tracking-wide",
-                      "transition-colors group-hover:text-muted-foreground",
-                    )}
-                  >
-                    {post.title}
-                  </h2>
-
-                  {/* Post Excerpt */}
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Tags */}
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {post.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-sm text-muted-foreground/80"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                  {/* Image - Right Side */}
+                  {post.bannerImage && (
+                    <div className="relative w-full md:w-48 lg:w-56 h-32 md:h-auto overflow-hidden bg-muted/30">
+                      <Image
+                        src={post.bannerImage}
+                        alt={post.title}
+                        fill
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
+                        sizes="(max-width: 768px) 100vw, 224px"
+                      />
                     </div>
                   )}
                 </div>
