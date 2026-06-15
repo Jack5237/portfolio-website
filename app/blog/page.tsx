@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { X, Coffee, Share2, Linkedin, Twitter } from "lucide-react";
+import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight } from "lucide-react";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -312,103 +312,94 @@ const BlogPage = () => {
                     </div>
                   </div>
 
-                  {/* Footer with Buy Me Coffee, Share and Close Button */}
-                  <div className="flex justify-between items-center pt-4 border-t border-foreground/20 flex-wrap gap-4">
-                    {/* Left Side - Coffee Button */}
+                  {/* Footer Toolbar */}
+                  <div className="flex items-center justify-between pt-8 sm:pt-10 mt-8 sm:mt-10 border-t border-foreground/10">
+                    {/* Left - Previous Post Button */}
+                    {(() => {
+                      const currentIndex = blogPosts.findIndex(p => p.id === post.id);
+                      const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
+                      return prevPost ? (
+                        <button
+                          onClick={() => {
+                            setExpandedPostId(prevPost.id);
+                            window.history.replaceState({}, "", `/blog?post=${prevPost.slug}`);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                          className={cn(
+                            "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                            "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                            "text-muted-foreground hover:text-foreground",
+                          )}
+                        >
+                          <ArrowLeft className="h-4 w-4" />
+                          previous
+                        </button>
+                      ) : (
+                        <div />
+                      );
+                    })()}
+
+                    {/* Center - Coffee Button */}
                     <a
                       href="https://buymeacoffee.com/scottish.jack"
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
-                        "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
-                        "border border-foreground/20 hover:border-foreground/40 transition-colors",
+                        "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                        "border border-foreground/10 hover:border-foreground/30 transition-colors",
                         "text-muted-foreground hover:text-foreground",
                       )}
                     >
                       <Coffee className="h-4 w-4" />
-                      buy me a coffee
+                      buy me coffee
                     </a>
 
-                    {/* Middle - Share Button */}
-                    <div className="relative">
-                      <button
-                        onClick={() => setShareOpen(shareOpen === post.id ? null : post.id)}
-                        className={cn(
-                          "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
-                          "border border-foreground/20 hover:border-foreground/40 transition-colors",
-                          "text-muted-foreground hover:text-foreground",
-                        )}
-                      >
-                        <Share2 className="h-4 w-4" />
-                        share
-                      </button>
-                      {shareOpen === post.id && (
-                        <div className="absolute bottom-full mb-2 left-0 bg-background border border-foreground/20 rounded-sm p-3 flex gap-2 z-10">
-                          <button
-                            onClick={() => {
-                              const text = `Check out "${post.title}" on Jack's blog`;
-                              window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
-                            }}
-                            className="p-2 hover:bg-foreground/10 rounded transition-colors"
-                            title="Share on Twitter"
-                          >
-                            <Twitter className="h-4 w-4" />
-                          </button>
-                          <button
-                            onClick={() => {
-                              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
-                            }}
-                            className="p-2 hover:bg-foreground/10 rounded transition-colors"
-                            title="Share on LinkedIn"
-                          >
-                            <Linkedin className="h-4 w-4" />
-                          </button>
-                          <button
-                            onClick={() => {
-                              navigator.clipboard.writeText(window.location.href);
-                              alert("Link copied!");
-                            }}
-                            className="p-2 hover:bg-foreground/10 rounded transition-colors text-xs"
-                            title="Copy link"
-                          >
-                            Copy
-                          </button>
-                        </div>
-                      )}
-                    </div>
+                    {/* Right - Next Post Button */}
+                    {(() => {
+                      const currentIndex = blogPosts.findIndex(p => p.id === post.id);
+                      const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
+                      return nextPost ? (
+                        <button
+                          onClick={() => {
+                            setExpandedPostId(nextPost.id);
+                            window.history.replaceState({}, "", `/blog?post=${nextPost.slug}`);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                          className={cn(
+                            "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                            "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                            "text-muted-foreground hover:text-foreground",
+                          )}
+                        >
+                          next
+                          <ArrowRight className="h-4 w-4" />
+                        </button>
+                      ) : (
+                        <div />
+                      );
+                    })()}
+                  </div>
 
-                    {/* Right Side - Close Button */}
-                    <div className="flex flex-col items-end gap-3">
-                      <button
-                        onClick={() => {
-                          setExpandedPostId(null);
-                          window.history.replaceState({}, "", "/blog");
-                          setShareOpen(null);
-                        }}
-                        className={cn(
-                          "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
-                          "border border-foreground/20 hover:border-foreground/40 transition-colors",
-                          "text-muted-foreground hover:text-foreground",
-                        )}
-                      >
-                        <X className="h-4 w-4" />
-                        close
-                      </button>
-                      <div className="flex items-center gap-1.5 text-[9px] font-body uppercase tracking-[0.2rem] opacity-30 hidden sm:flex">
-                        <span className="border border-foreground/20 px-1 rounded-sm">
-                          Ctrl
-                        </span>
-                        <span>+</span>
-                        <span className="border border-foreground/20 px-1 rounded-sm text-[11px]">
-                          ⌫
-                        </span>
-                        <span>or</span>
-                        <span className="border border-foreground/20 px-1 rounded-sm text-[11px]">
-                          Del
-                        </span>
-                        <span className="ml-1">to close</span>
-                      </div>
-                    </div>
+                  {/* Copyright and Close */}
+                  <div className="flex items-center justify-between pt-6 sm:pt-8 border-t border-foreground/10 mt-6 sm:mt-8">
+                    <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/40">
+                      © 2026 by Jack
+                    </p>
+                    <button
+                      onClick={() => {
+                        setExpandedPostId(null);
+                        window.history.replaceState({}, "", "/blog");
+                        setShareOpen(null);
+                      }}
+                      className={cn(
+                        "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                        "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                        "text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      <X className="h-4 w-4" />
+                      close
+                    </button>
                   </div>
                 </article>
               );
