@@ -402,11 +402,11 @@ const BlogPage = () => {
                     )}
                   >
                     {/* Text Content */}
-                    <div className="flex-1 flex flex-col gap-3">
+                    <div className="flex-1">
                       {/* Post Title */}
                       <h2
                         className={cn(
-                          "text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
+                          "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
                           isLeftAligned ? "text-left" : "text-left md:text-right",
                         )}
                       >
@@ -417,7 +417,7 @@ const BlogPage = () => {
                       {post.excerpt && (
                         <p
                           className={cn(
-                            "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs",
+                            "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs mt-2 sm:mt-3",
                             "text-left",
                             isLeftAligned ? "md:text-right" : "md:text-left",
                           )}
@@ -425,30 +425,11 @@ const BlogPage = () => {
                           {post.excerpt}
                         </p>
                       )}
-
-                      {/* Tags */}
-                      {post.tags && post.tags.length > 0 && (
-                        <div
-                          className={cn(
-                            "flex flex-wrap gap-2 pt-2",
-                            isLeftAligned ? "justify-start md:justify-end" : "justify-start",
-                          )}
-                        >
-                          {post.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs text-muted-foreground/60"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                     </div>
 
-                    {/* Image - Right Side */}
+                    {/* Image - Right/Left Side */}
                     {post.bannerImage && (
-                      <div className="relative w-full md:w-48 lg:w-56 h-32 md:h-48 overflow-hidden rounded-sm bg-muted/30 flex-shrink-0">
+                      <div className="relative w-full md:w-48 lg:w-56 h-32 md:h-auto md:flex-shrink-0 overflow-hidden bg-muted/30">
                         <Image
                           src={post.bannerImage}
                           alt={post.title}
