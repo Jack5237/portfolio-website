@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { X, Coffee } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { X, Coffee, Share2, Linkedin, Twitter } from "lucide-react";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -23,11 +23,13 @@ const logger = getWebLogger();
  */
 const BlogPage = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
+  const [shareOpen, setShareOpen] = useState(false);
 
   /**
    * Fetch blog posts from API
@@ -57,7 +59,16 @@ const BlogPage = () => {
     };
 
     fetchBlogPosts();
-  }, []);
+
+    // Handle URL slug parameter
+    const slug = searchParams.get("post");
+    if (slug && blogPosts.length > 0) {
+      const post = blogPosts.find(p => p.slug === slug);
+      if (post) {
+        setExpandedPostId(post.id);
+      }
+    }
+  }, [searchParams]);
 
   /**
    * Handles keyboard shortcuts:
@@ -94,11 +105,10 @@ const BlogPage = () => {
         return;
       }
 
-      // Check for 'B' key (case insensitive) to navigate home
-      if (event.key.toLowerCase() === "b" && !event.ctrlKey && !event.metaKey) {
+      // Check for 'W' key to navigate to work section
+      if (event.key.toLowerCase() === "w" && !event.ctrlKey && !event.metaKey) {
         event.preventDefault();
-        // Use window.location for safer navigation
-        window.location.href = "/";
+        window.location.href = "/#projects";
       }
     };
 
@@ -302,9 +312,9 @@ const BlogPage = () => {
                     </div>
                   </div>
 
-                  {/* Footer with Buy Me Coffee and Close Button */}
-                  <div className="flex justify-between items-center pt-4 border-t border-foreground/20">
-                    {/* Buy Me Coffee Button - Left Side */}
+                  {/* Footer with Buy Me Coffee, Share and Close Button */}
+                  <div className="flex justify-between items-center pt-4 border-t border-foreground/20 flex-wrap gap-4">
+                    {/* Left Side - Coffee Button */}
                     <a
                       href="https://buymeacoffee.com/scottish.jack"
                       target="_blank"
@@ -319,10 +329,62 @@ const BlogPage = () => {
                       buy me a coffee
                     </a>
 
-                    {/* Close Button - Right Side */}
+                    {/* Middle - Share Button */}
+                    <div className="relative">
+                      <button
+                        onClick={() => setShareOpen(!shareOpen)}
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
+                          "border border-foreground/20 hover:border-foreground/40 transition-colors",
+                          "text-muted-foreground hover:text-foreground",
+                        )}
+                      >
+                        <Share2 className="h-4 w-4" />
+                        share
+                      </button>
+                      {shareOpen && (
+                        <div className="absolute bottom-full mb-2 left-0 bg-background border border-foreground/20 rounded-sm p-3 flex gap-2 z-10">
+                          <button
+                            onClick={() => {
+                              const text = `Check out "${post.title}" on Jack's blog`;
+                              window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
+                            }}
+                            className="p-2 hover:bg-foreground/10 rounded transition-colors"
+                            title="Share on Twitter"
+                          >
+                            <Twitter className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
+                            }}
+                            className="p-2 hover:bg-foreground/10 rounded transition-colors"
+                            title="Share on LinkedIn"
+                          >
+                            <Linkedin className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              navigator.clipboard.writeText(window.location.href);
+                              alert("Link copied!");
+                            }}
+                            className="p-2 hover:bg-foreground/10 rounded transition-colors text-xs"
+                            title="Copy link"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right Side - Close Button */}
                     <div className="flex flex-col items-end gap-3">
                       <button
-                        onClick={() => setExpandedPostId(null)}
+                        onClick={() => {
+                          setExpandedPostId(null);
+                          window.history.replaceState({}, "", "/blog");
+                          setShareOpen(false);
+                        }}
                         className={cn(
                           "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
                           "border border-foreground/20 hover:border-foreground/40 transition-colors",
@@ -376,8 +438,11 @@ const BlogPage = () => {
                   onClick={() => {
                     if (expandedPostId === post.id) {
                       setExpandedPostId(null);
+                      window.history.replaceState({}, "", "/blog");
                     } else {
                       setExpandedPostId(post.id);
+                      window.history.replaceState({}, "", `/blog?post=${post.slug}`);
+                      setShareOpen(false);
                     }
                   }}
                 >

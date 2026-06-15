@@ -4,7 +4,7 @@ date: "2026-06-15"
 category: "Systems"
 tags: ["AI", "Automation", "Systems Design"]
 excerpt: "A simple 5-step workflow for autonomous AI systems: Find, Execute, Verify, Memorize, Repeat."
-bannerImage: "https://picsum.photos/id/1084/1200/400?grayscale"
+bannerImage: "https://images.unsplash.com/photo-1677442d019cecf8ea5203db026cce5629f93d47?w=1200&h=400&fit=crop&q=80"
 ---
 
 A simple 5-step workflow for autonomous AI systems:
