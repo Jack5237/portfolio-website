@@ -16,7 +16,6 @@ import { cn } from "@/lib/utils";
 import type { BlogPost } from "@/lib/types";
 
 const logger = getWebLogger();
-logger.info("Loaded blog page module", { page: "Blog" });
 
 /**
  * Minimal blog listing page with hero section, search functionality, and streamlined layout.
@@ -82,13 +81,6 @@ const BlogPage = () => {
         if (expandedPostId) {
           event.preventDefault();
           setExpandedPostId(null);
-          logger.debug(
-            "Blog page: Expanded post closed via keyboard shortcut",
-            {
-              page: "Blog",
-              postId: expandedPostId,
-            },
-          );
         }
         return;
       }
@@ -98,13 +90,6 @@ const BlogPage = () => {
         if (expandedPostId) {
           event.preventDefault();
           setExpandedPostId(null);
-          logger.debug(
-            "Blog page: Expanded post closed via Ctrl+Delete shortcut",
-            {
-              page: "Blog",
-              postId: expandedPostId,
-            },
-          );
         }
         return;
       }
@@ -112,24 +97,14 @@ const BlogPage = () => {
       // Check for 'B' key (case insensitive) to navigate home
       if (event.key.toLowerCase() === "b" && !event.ctrlKey && !event.metaKey) {
         event.preventDefault();
-        logger.debug("Blog page keyboard shortcut triggered", {
-          page: "Blog",
-          key: event.key,
-        });
         router.push("/");
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    logger.debug("Blog page keyboard shortcut listener attached", {
-      page: "Blog",
-    });
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      logger.debug("Blog page keyboard shortcut listener removed", {
-        page: "Blog",
-      });
     };
   }, [router, expandedPostId, blogPosts]);
 
@@ -162,18 +137,8 @@ const BlogPage = () => {
       }
     });
     setFilteredPosts(filtered);
-    logger.debug("Blog posts filtered", {
-      page: "Blog",
-      query: searchQuery,
-      results: filtered.length,
-    });
   }, [searchQuery, blogPosts]);
 
-  logger.debug("Rendering blog page", {
-    page: "Blog",
-    postCount: blogPosts.length,
-    filteredCount: filteredPosts.length,
-  });
 
   if (loading) {
     return (
@@ -412,10 +377,6 @@ const BlogPage = () => {
                       setExpandedPostId(null);
                     } else {
                       setExpandedPostId(post.id);
-                      logger.debug("Blog post expanded", {
-                        page: "Blog",
-                        postId: post.id,
-                      });
                     }
                   }}
                 >
