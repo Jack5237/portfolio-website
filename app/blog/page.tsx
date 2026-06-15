@@ -506,30 +506,13 @@ const BlogPage = () => {
                     )}
                   </div>
 
-                  {/* Bottom Action Bar */}
-                  <div className="flex items-center justify-between pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-foreground/10 gap-2 flex-wrap">
-                    {/* Left - Coffee Button */}
-                    <a
-                      href="https://buymeacoffee.com/scottish.jack"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className={cn(
-                        "flex items-center gap-2 px-3 sm:px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
-                        "border border-foreground/10 hover:border-foreground/30 transition-colors",
-                        "text-muted-foreground hover:text-foreground",
-                      )}
-                    >
-                      <Coffee className="h-3 w-3 sm:h-4 sm:w-4" />
-                      coffee
-                    </a>
-
-                    {/* Middle - Share Button */}
+                  {/* Bottom Action Bar - Share Button Only */}
+                  <div className="flex items-center justify-end pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-foreground/10">
                     <div className="relative">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setShareOpen(shareOpen && expandedPostId === post.id ? false : post.id);
+                          setShareOpen(shareOpen === post.id ? null : post.id);
                         }}
                         className={cn(
                           "flex items-center gap-2 px-3 sm:px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
@@ -541,7 +524,7 @@ const BlogPage = () => {
                         share
                       </button>
                       {shareOpen === post.id && (
-                        <div className="absolute bottom-full mb-2 left-0 bg-background border border-foreground/20 rounded-sm p-2 flex gap-1 z-10">
+                        <div className="absolute bottom-full mb-2 right-0 bg-background border border-foreground/20 rounded-sm p-2 flex gap-1 z-10">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -577,31 +560,6 @@ const BlogPage = () => {
                         </div>
                       )}
                     </div>
-
-                    {/* Right - View/Close Button */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (expandedPostId === post.id) {
-                          setExpandedPostId(null);
-                          window.history.replaceState({}, "", "/blog");
-                        }
-                      }}
-                      className={cn(
-                        "flex items-center gap-2 px-3 sm:px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
-                        "border border-foreground/10 hover:border-foreground/30 transition-colors",
-                        "text-muted-foreground hover:text-foreground ml-auto",
-                      )}
-                    >
-                      {expandedPostId === post.id ? (
-                        <>
-                          <X className="h-3 w-3 sm:h-4 sm:w-4" />
-                          close
-                        </>
-                      ) : (
-                        "Read more"
-                      )}
-                    </button>
                   </div>
                 </article>
               );
