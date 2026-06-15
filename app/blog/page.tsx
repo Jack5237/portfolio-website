@@ -97,7 +97,8 @@ const BlogPage = () => {
       // Check for 'B' key (case insensitive) to navigate home
       if (event.key.toLowerCase() === "b" && !event.ctrlKey && !event.metaKey) {
         event.preventDefault();
-        router.push("/");
+        // Use window.location for safer navigation
+        window.location.href = "/";
       }
     };
 
@@ -442,7 +443,7 @@ const BlogPage = () => {
                   </div>
                 </article>
               );
-            })
+            })()}
           )}
         </div>
       </main>
