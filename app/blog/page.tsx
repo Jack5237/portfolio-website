@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight } from "lucide-react";
@@ -27,48 +27,66 @@ const BlogPage = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
   const [shareOpen, setShareOpen] = useState<string | null>(null);
 
   /**
-   * Fetch blog posts from API
+   * Fetch blog posts from API (runs once on mount)
    */
   useEffect(() => {
+    let isMounted = true;
+
     const fetchBlogPosts = async () => {
       try {
-        const response = await fetch("/api/blog");
+        const response = await fetch("/api/blog", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
         if (response.ok) {
           const data = await response.json();
-          const posts: BlogPost[] = Array.isArray(data) ? data : data.posts || []; // Handle both direct array and wrapped response
-          setBlogPosts(posts);
-          setFilteredPosts(posts);
-          setExpandedPostId(null);
+          const posts: BlogPost[] = Array.isArray(data) ? data : data.posts || [];
+          if (isMounted) {
+            setBlogPosts(posts);
+          }
         } else {
           console.error("Failed to fetch blog posts:", response.status);
-          setBlogPosts([]);
-          setFilteredPosts([]);
+          if (isMounted) {
+            setBlogPosts([]);
+          }
         }
       } catch (error) {
         console.error("Error fetching blog posts:", error);
-        setBlogPosts([]);
-        setFilteredPosts([]);
+        if (isMounted) {
+          setBlogPosts([]);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchBlogPosts();
 
-    // Handle URL slug parameter
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  /**
+   * Handle URL slug parameter when posts load
+   */
+  useEffect(() => {
+    if (blogPosts.length === 0) return;
+
     const slug = searchParams.get("post");
-    if (slug && blogPosts.length > 0) {
+    if (slug) {
       const post = blogPosts.find(p => p.slug === slug);
       if (post) {
         setExpandedPostId(post.id);
       }
     }
-  }, [searchParams]);
+  }, [searchParams, blogPosts]);
 
   /**
    * Handles keyboard shortcuts:
@@ -117,28 +135,24 @@ const BlogPage = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [router, expandedPostId, blogPosts]);
+  }, [expandedPostId]);
 
   /**
-   * Filters blog posts based on search query and tag selection.
+   * Memoized filtering of blog posts
    */
-  useEffect(() => {
+  const filteredPosts = useMemo(() => {
     if (!searchQuery.trim()) {
-      setFilteredPosts(blogPosts);
-      return;
+      return blogPosts;
     }
 
     const query = searchQuery.toLowerCase();
-    // Check if search query matches a tag exactly
     const allTags = Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
     const isTagFilter = allTags.some((tag) => tag.toLowerCase() === query);
 
-    const filtered = blogPosts.filter((post) => {
+    return blogPosts.filter((post) => {
       if (isTagFilter) {
-        // If searching by tag, filter by tag match
         return post.tags.some((tag) => tag.toLowerCase() === query);
       } else {
-        // Otherwise, filter by general search
         return (
           post.title.toLowerCase().includes(query) ||
           post.excerpt.toLowerCase().includes(query) ||
@@ -147,7 +161,6 @@ const BlogPage = () => {
         );
       }
     });
-    setFilteredPosts(filtered);
   }, [searchQuery, blogPosts]);
 
 
