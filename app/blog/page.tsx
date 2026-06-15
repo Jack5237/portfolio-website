@@ -443,7 +443,7 @@ const BlogPage = () => {
                   </div>
                 </article>
               );
-            })()}
+            })
           )}
         </div>
       </main>
