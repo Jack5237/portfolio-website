@@ -28,6 +28,21 @@ export const BLOG_POSTS: BlogPost[] = [
     "id": "1"
   },
   {
+    "title": "F.E.V.M.R. — The Autonomous Loop",
+    "date": "2026-06-15",
+    "category": "Systems",
+    "tags": [
+      "AI",
+      "Automation",
+      "Systems Design"
+    ],
+    "excerpt": "A simple 5-step workflow for building reliable autonomous AI systems. Learn how Find, Execute, Verify, Memorize, and Repeat create a foundation for consistent, self-improving automation.",
+    "content": "A simple 5-step workflow for autonomous AI systems:\n\n* **Find** — Identify the next task.\n* **Execute** — Perform the task.\n* **Verify** — Independently validate the result.\n* **Memorize** — Store context, decisions, and outcomes.\n* **Repeat** — Continue until the objective is complete.\n\n## Why This Matters\n\nReliable AI agents are not built on better prompts alone — they're built on reliable loops. The F.E.V.M.R. framework provides structure to autonomous systems, ensuring they:\n\n* **Don't drift** — Verification catches errors before they compound.\n* **Learn from experience** — Memory systems enable continuous improvement.\n* **Stay on track** — Clear task identification prevents scope creep.\n* **Build confidence** — Each iteration validates the previous one.\n\n## The Loop in Practice\n\n### Find\nIdentify the next task from your queue, goal, or current state. This could be a user request, a detected issue, or the next step in a plan.\n\n### Execute\nPerform the task with the best available approach. Use your tools, knowledge, and experience to get it done.\n\n### Verify\nIndependently validate the result. Don't assume success — run tests, check outputs, and confirm the task meets requirements.\n\n### Memorize\nStore what you learned. Document decisions, context, outcomes, and non-obvious patterns. This is your system's growing knowledge base.\n\n### Repeat\nCycle back to Find. Each iteration builds on the last, creating compounding improvement.\n\n## Key Insights\n\n**Verification is not optional.** It's the checkpoint that prevents bad states from cascading. Autonomous systems without verification create debt, not value.\n\n**Memory scales learning.** Without storing patterns and decisions, you repeat the same mistakes. Good memory systems let teams (or agents) learn from collective experience.\n\n**Find beats Execute.** The quality of task identification often matters more than execution speed. A misidentified task, however well executed, wastes cycles.\n\n**The loop is fractal.** You can apply F.E.V.M.R. at multiple scales — for individual tasks, feature releases, or organization-wide initiatives.\n\n## Building Autonomous Systems\n\nIf you're building AI agents, automation workflows, or self-improving systems, F.E.V.M.R. is a foundation. It's not fancy — it's just discipline applied repeatedly.\n\nReliable automation isn't about smarter algorithms or bigger models. It's about building systems that:\n- Know what they're supposed to do (Find)\n- Do it well (Execute)\n- Know when they failed (Verify)\n- Learn from failure (Memorize)\n- Keep going (Repeat)\n\nStart there.",
+    "slug": "fvemr-autonomous-loop",
+    "bannerImage": "https://picsum.photos/id/1084/1200/400?grayscale",
+    "id": "0"
+  },
+  {
     "title": "Spatial UI & Reactive Systems",
     "date": "2026-01-10",
     "category": "Experiments",
