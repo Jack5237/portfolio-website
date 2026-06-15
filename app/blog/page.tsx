@@ -467,31 +467,29 @@ const BlogPage = () => {
                       isLeftAligned ? "md:flex-row" : "md:flex-row-reverse",
                     )}
                   >
-                    {/* Text Content */}
-                    <div className="flex-1">
-                      {/* Post Title */}
-                      <h2
+                    {/* Post Title */}
+                    <a
+                      onClick={() => undefined}
+                      className={cn(
+                        "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent flex-1",
+                        isLeftAligned ? "text-left" : "text-left md:text-right",
+                      )}
+                    >
+                      {post.title}
+                    </a>
+
+                    {/* Post Excerpt */}
+                    {post.excerpt && (
+                      <p
                         className={cn(
-                          "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent",
-                          isLeftAligned ? "text-left" : "text-left md:text-right",
+                          "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs",
+                          "text-left",
+                          isLeftAligned ? "md:text-right" : "md:text-left",
                         )}
                       >
-                        {post.title}
-                      </h2>
-
-                      {/* Post Excerpt */}
-                      {post.excerpt && (
-                        <p
-                          className={cn(
-                            "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs mt-2 sm:mt-3",
-                            "text-left",
-                            isLeftAligned ? "md:text-right" : "md:text-left",
-                          )}
-                        >
-                          {post.excerpt}
-                        </p>
-                      )}
-                    </div>
+                        {post.excerpt}
+                      </p>
+                    )}
 
                     {/* Image - Right/Left Side */}
                     {post.bannerImage && (
