@@ -29,7 +29,7 @@ const BlogPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
-  const [shareOpen, setShareOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState<string | null>(null);
 
   /**
    * Fetch blog posts from API
@@ -332,7 +332,7 @@ const BlogPage = () => {
                     {/* Middle - Share Button */}
                     <div className="relative">
                       <button
-                        onClick={() => setShareOpen(!shareOpen)}
+                        onClick={() => setShareOpen(shareOpen === post.id ? null : post.id)}
                         className={cn(
                           "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
                           "border border-foreground/20 hover:border-foreground/40 transition-colors",
@@ -342,7 +342,7 @@ const BlogPage = () => {
                         <Share2 className="h-4 w-4" />
                         share
                       </button>
-                      {shareOpen && (
+                      {shareOpen === post.id && (
                         <div className="absolute bottom-full mb-2 left-0 bg-background border border-foreground/20 rounded-sm p-3 flex gap-2 z-10">
                           <button
                             onClick={() => {
@@ -383,7 +383,7 @@ const BlogPage = () => {
                         onClick={() => {
                           setExpandedPostId(null);
                           window.history.replaceState({}, "", "/blog");
-                          setShareOpen(false);
+                          setShareOpen(null);
                         }}
                         className={cn(
                           "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm tracking-wide font-smooth-bold",
@@ -442,7 +442,7 @@ const BlogPage = () => {
                     } else {
                       setExpandedPostId(post.id);
                       window.history.replaceState({}, "", `/blog?post=${post.slug}`);
-                      setShareOpen(false);
+                      setShareOpen(null);
                     }
                   }}
                 >
@@ -500,9 +500,108 @@ const BlogPage = () => {
                           fill
                           className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
                           sizes="(max-width: 768px) 100vw, 224px"
+                          priority={index < 2}
                         />
                       </div>
                     )}
+                  </div>
+
+                  {/* Bottom Action Bar */}
+                  <div className="flex items-center justify-between pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-foreground/10 gap-2 flex-wrap">
+                    {/* Left - Coffee Button */}
+                    <a
+                      href="https://buymeacoffee.com/scottish.jack"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className={cn(
+                        "flex items-center gap-2 px-3 sm:px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                        "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                        "text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      <Coffee className="h-3 w-3 sm:h-4 sm:w-4" />
+                      coffee
+                    </a>
+
+                    {/* Middle - Share Button */}
+                    <div className="relative">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShareOpen(shareOpen && expandedPostId === post.id ? false : post.id);
+                        }}
+                        className={cn(
+                          "flex items-center gap-2 px-3 sm:px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                          "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                          "text-muted-foreground hover:text-foreground",
+                        )}
+                      >
+                        <Share2 className="h-3 w-3 sm:h-4 sm:w-4" />
+                        share
+                      </button>
+                      {shareOpen === post.id && (
+                        <div className="absolute bottom-full mb-2 left-0 bg-background border border-foreground/20 rounded-sm p-2 flex gap-1 z-10">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const text = `Check out "${post.title}" on Jack's blog`;
+                              window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
+                            }}
+                            className="p-1.5 hover:bg-foreground/10 rounded transition-colors"
+                            title="Share on Twitter"
+                          >
+                            <Twitter className="h-3 w-3 sm:h-4 sm:w-4" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
+                            }}
+                            className="p-1.5 hover:bg-foreground/10 rounded transition-colors"
+                            title="Share on LinkedIn"
+                          >
+                            <Linkedin className="h-3 w-3 sm:h-4 sm:w-4" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigator.clipboard.writeText(window.location.href);
+                              alert("Link copied!");
+                            }}
+                            className="p-1.5 hover:bg-foreground/10 rounded transition-colors text-[9px]"
+                            title="Copy link"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right - View/Close Button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (expandedPostId === post.id) {
+                          setExpandedPostId(null);
+                          window.history.replaceState({}, "", "/blog");
+                        }
+                      }}
+                      className={cn(
+                        "flex items-center gap-2 px-3 sm:px-4 py-2 text-[10px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                        "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                        "text-muted-foreground hover:text-foreground ml-auto",
+                      )}
+                    >
+                      {expandedPostId === post.id ? (
+                        <>
+                          <X className="h-3 w-3 sm:h-4 sm:w-4" />
+                          close
+                        </>
+                      ) : (
+                        "Read more"
+                      )}
+                    </button>
                   </div>
                 </article>
               );

@@ -5,7 +5,7 @@ date: "2026-01-16"
 category: "Frontend"
 tags: ["UI", "Design Systems", "Frontend"]
 excerpt: "A curated list of my favourite UI libraries, component systems, inspiration galleries, and design builders that define modern frontend work in 2026."
-bannerImage: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=1200&h=400&fit=crop&q=80"
+bannerImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=400&fit=crop&q=80"
 -------------------------------------------------------------------------------------------------------------------
 
 Frontend engineering in 2026 is less about reinventing components and more about **composition, taste, and speed**. The modern UI ecosystem is rich, opinionated, and incredibly modular. Below is my personal, battle-tested list of **UI favourites** — the things I reach for again and again.
