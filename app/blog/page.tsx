@@ -380,26 +380,78 @@ const BlogPage = () => {
                     })()}
                   </div>
 
-                  {/* Copyright and Close */}
+                  {/* Copyright, Share and Close */}
                   <div className="flex items-center justify-between pt-6 sm:pt-8 border-t border-foreground/10 mt-6 sm:mt-8">
                     <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/40">
                       © 2026 by Jack
                     </p>
-                    <button
-                      onClick={() => {
-                        setExpandedPostId(null);
-                        window.history.replaceState({}, "", "/blog");
-                        setShareOpen(null);
-                      }}
-                      className={cn(
-                        "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
-                        "border border-foreground/10 hover:border-foreground/30 transition-colors",
-                        "text-muted-foreground hover:text-foreground",
-                      )}
-                    >
-                      <X className="h-4 w-4" />
-                      close
-                    </button>
+
+                    <div className="flex items-center gap-2">
+                      {/* Share Button */}
+                      <div className="relative">
+                        <button
+                          onClick={() => setShareOpen(shareOpen === `expanded-${post.id}` ? null : `expanded-${post.id}`)}
+                          className={cn(
+                            "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                            "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                            "text-muted-foreground hover:text-foreground",
+                          )}
+                        >
+                          <Share2 className="h-4 w-4" />
+                          share
+                        </button>
+                        {shareOpen === `expanded-${post.id}` && (
+                          <div className="absolute bottom-full mb-2 right-0 bg-background border border-foreground/20 rounded-sm p-2 flex gap-1 z-10">
+                            <button
+                              onClick={() => {
+                                const text = `Check out "${post.title}" on Jack's blog`;
+                                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
+                              }}
+                              className="p-1.5 hover:bg-foreground/10 rounded transition-colors"
+                              title="Share on Twitter"
+                            >
+                              <Twitter className="h-3 w-3 sm:h-4 sm:w-4" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
+                              }}
+                              className="p-1.5 hover:bg-foreground/10 rounded transition-colors"
+                              title="Share on LinkedIn"
+                            >
+                              <Linkedin className="h-3 w-3 sm:h-4 sm:w-4" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                navigator.clipboard.writeText(window.location.href);
+                                alert("Link copied!");
+                              }}
+                              className="p-1.5 hover:bg-foreground/10 rounded transition-colors text-[9px]"
+                              title="Copy link"
+                            >
+                              Copy
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Close Button */}
+                      <button
+                        onClick={() => {
+                          setExpandedPostId(null);
+                          window.history.replaceState({}, "", "/blog");
+                          setShareOpen(null);
+                        }}
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]",
+                          "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                          "text-muted-foreground hover:text-foreground",
+                        )}
+                      >
+                        <X className="h-4 w-4" />
+                        close
+                      </button>
+                    </div>
                   </div>
                 </article>
               );
