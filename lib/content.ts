@@ -61,6 +61,7 @@ export interface Company {
 }
 
 export const FEATURED_PROJECTS: Project[] = [
+  // — First 4 (default visible) —
   {
     title: "portfolio website",
     category: "Personal Portfolio",
@@ -76,18 +77,11 @@ export const FEATURED_PROJECTS: Project[] = [
     description: "AI-powered platform for creating and managing 3D models with intuitive tools and real-time collaboration.",
   },
   {
-    title: "Volt-base",
-    category: "Discord Bot Template",
-    discipline: "Backend Development",
-    href: "https://github.com/Jack5237/Volt-base_v2",
-    description: "A Bun-first Discord bot starter template.",
-  },
-  {
-    title: "SQA Sprint",
-    category: "Study Tool",
+    title: "Rust-central",
+    category: "Game-Server Management",
     discipline: "Full Stack Development",
-    href: "https://sqa-spint.vercel.app",
-    description: "Sprint through SQA past papers. Timed practice with real PDFs — set your pace, auto-scroll through questions, then mark your answers.",
+    href: "https://rust-central.xyz",
+    description: "Centralized management platform for Rust game servers with analytics, monitoring, and player management.",
   },
   {
     title: "Rustrician",
@@ -96,12 +90,13 @@ export const FEATURED_PROJECTS: Project[] = [
     href: "https://www.rustrician.io",
     description: "Full stack Rust electrical circuit simulator for planning and testing in-game wiring layouts.",
   },
+  // — Expanded —
   {
-    title: "Rust-central",
-    category: "Game-Server Management",
+    title: "SQA Sprint",
+    category: "Study Tool",
     discipline: "Full Stack Development",
-    href: "https://rust-central.xyz",
-    description: "Centralized management platform for Rust game servers with analytics, monitoring, and player management.",
+    href: "https://sqa-spint.vercel.app",
+    description: "Sprint through SQA past papers. Timed practice with real PDFs — set your pace, auto-scroll through questions, then mark your answers.",
   },
   {
     title: "Imposter Online",
@@ -116,6 +111,20 @@ export const FEATURED_PROJECTS: Project[] = [
     discipline: "Frontend Development",
     href: "https://zerocreativity.systems/",
     description: "Creative design portfolio showcasing brand identity, web design, and visual communication projects.",
+  },
+  {
+    title: "Volt-base",
+    category: "Discord Bot Template",
+    discipline: "Backend Development",
+    href: "https://github.com/Jack5237/Volt-base_v2",
+    description: "A Bun-first Discord bot starter template.",
+  },
+  {
+    title: "byte.com",
+    category: "Educational Platform",
+    discipline: "Full Stack Development",
+    href: "https://byte-com-course-website.onrender.com",
+    description: "Platform enabling educators to create, manage, and share online courses with interactive content delivery.",
   },
 ];
 
