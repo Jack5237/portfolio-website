@@ -93,7 +93,7 @@ export const metadata: Metadata = {
   publisher: "Jack",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://portfolio-website-sepia-one-40.vercel.app",
+      "https://www.jacksdevfolio.com",
   ),
   alternates: {
     canonical: "/",
@@ -140,9 +140,6 @@ export const metadata: Metadata = {
     icon: "/avatarImg.png",
     apple: "/avatarImg.png",
   },
-  verification: {
-    google: "add-your-google-verification-code", // Add your actual Google verification code
-  },
 };
 
 interface RootLayoutProps {
@@ -165,8 +162,8 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Jack",
-    url: "https://portfolio-website-sepia-one-40.vercel.app",
-    image: "https://portfolio-website-sepia-one-40.vercel.app/avatarImg.png",
+    url: "https://www.jacksdevfolio.com",
+    image: "https://www.jacksdevfolio.com/avatarImg.png",
     jobTitle: "Full Stack Developer",
     sameAs: [
       "https://github.com/Jack5237",
@@ -193,7 +190,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-website-sepia-one-40.vercel.app"} />
+        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com"} />
         <meta name="theme-color" content="#000000" />
         <Script
           id="json-ld-schema"

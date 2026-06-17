@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://portfolio-website-sepia-one-40.vercel.app";
+  "https://www.jacksdevfolio.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = BASE_URL;

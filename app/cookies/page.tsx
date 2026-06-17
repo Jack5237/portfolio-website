@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/sections/footer";
 import { BackToHome } from "@/components/navigation/back-to-home";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Cookie Policy",
+  description: "Cookie policy for Jack's portfolio website.",
+  robots: { index: false, follow: false },
+};
 
 const logger = getWebLogger();
 logger.info("Loaded cookies page module", { page: "Cookies" });

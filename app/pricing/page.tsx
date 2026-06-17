@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/sections/footer";
+
+export const metadata: Metadata = {
+  title: "Pricing",
+  description: "Web development pricing plans from Jack. Transparent, fixed-price packages for every stage of your project.",
+  openGraph: {
+    title: "Pricing · Jack",
+    description: "Fixed-price web development packages — from launch sites to full-scale builds.",
+  },
+};
 
 const plans = [
   {

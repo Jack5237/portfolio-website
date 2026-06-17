@@ -21,13 +21,13 @@ const HomePage = () => {
     "@type": "ProfilePage",
     "name": "Jack - Full Stack Developer Portfolio",
     "description": "Portfolio of Jack, a full stack developer from Scotland crafting end-to-end solutions",
-    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-website-sepia-one-40.vercel.app",
+    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com",
     "about": {
       "@type": "Person",
       "name": "Jack",
       "jobTitle": "Full Stack Developer",
-      "url": process.env.NEXT_PUBLIC_SITE_URL || "https://portfolio-website-sepia-one-40.vercel.app",
-      "image": "https://portfolio-website-sepia-one-40.vercel.app/avatarImg.png",
+      "url": process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com",
+      "image": "https://www.jacksdevfolio.com/avatarImg.png",
       "sameAs": [
         "https://github.com/Jack5237",
         "https://www.linkedin.com/in/jack-dev-a732b4397",

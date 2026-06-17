@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/sections/footer";
 import { BackToHome } from "@/components/navigation/back-to-home";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Privacy policy for Jack's portfolio website. Learn how your data is collected, used, and protected.",
+  robots: { index: false, follow: false },
+};
 
 const logger = getWebLogger();
 logger.info("Loaded privacy page module", { page: "Privacy" });
