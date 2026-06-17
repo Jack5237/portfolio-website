@@ -30,4 +30,4 @@ REPEAT
 
 **Key idea:** Reliable AI agents are built on reliable loops, not better prompts.
 
-— Created by Jack 🚀
+— Created by Jack

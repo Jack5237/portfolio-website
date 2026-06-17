@@ -2,18 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-
-export interface BlogPost {
-  id: string;
-  title: string;
-  date: string;
-  category: string;
-  tags: string[];
-  excerpt: string;
-  content: string;
-  slug: string;
-  bannerImage: string;
-}
+import type { BlogPost } from '@/lib/types';
 
 /**
  * Read markdown file and extract frontmatter and content

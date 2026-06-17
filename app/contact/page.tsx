@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Calendar } from "lucide-react";
+import Script from "next/script";
 import { Footer } from "@/components/sections/footer";
 import ContactForm from "@/components/sections/contact-form";
 import { getWebLogger } from "@/lib/logger";
@@ -56,14 +57,13 @@ export default function ContactPage() {
               {/* Calendly inline widget */}
               <div
                 className="calendly-inline-widget w-full"
-                data-url="https://calendly.com/contact-jack-dev"
+                data-url="https://calendly.com/contact-jack-dev/30min"
                 title="Select a Date & Time - Calendly"
                 style={{ minWidth: "320px", height: "700px" }}
               />
-              <script
-                type="text/javascript"
+              <Script
                 src="https://assets.calendly.com/assets/external/widget.js"
-                async
+                strategy="lazyOnload"
               />
             </div>
           </section>

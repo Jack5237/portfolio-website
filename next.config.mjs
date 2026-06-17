@@ -135,14 +135,6 @@ const nextConfig = {
     ];
   },
 
-  // Rewrites for performance
-  async rewrites() {
-    return {
-      beforeFiles: [
-        // Add rewrites here if needed
-      ],
-    };
-  },
 };
 
 export default nextConfig;

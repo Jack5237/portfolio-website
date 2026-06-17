@@ -1,0 +1,7 @@
+[install]
+# Use bun's lockfile format
+lockfile = true
+
+[install.cache]
+# Disable cache in CI
+disable = false

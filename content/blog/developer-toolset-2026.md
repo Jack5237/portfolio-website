@@ -1,6 +1,6 @@
 ---
 
-title: "UI Favourites I Use in 2026 😍"
+title: "UI Favourites I Use in 2026"
 date: "2026-01-16"
 category: "Frontend"
 tags: ["UI", "Design Systems", "Frontend"]
@@ -10,7 +10,7 @@ bannerImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=120
 
 Frontend engineering in 2026 is less about reinventing components and more about **composition, taste, and speed**. The modern UI ecosystem is rich, opinionated, and incredibly modular. Below is my personal, battle-tested list of **UI favourites** — the things I reach for again and again.
 
-## ✨ UI Favourites
+## UI Favourites
 
 These are the sites I keep bookmarked and revisit constantly for inspiration, patterns, and production-ready ideas:
 
@@ -19,7 +19,7 @@ These are the sites I keep bookmarked and revisit constantly for inspiration, pa
 * [https://21st.dev/](https://21st.dev/)
 * [https://shaders.paper.design/](https://shaders.paper.design/)
 
-## 🧩 UI Libraries & Component Systems
+## UI Libraries & Component Systems
 
 The backbone of most modern React and design-system-driven products:
 
@@ -47,7 +47,7 @@ The backbone of most modern React and design-system-driven products:
 * [https://blocks.so/](https://blocks.so/)
 * [https://www.ag-grid.com/](https://www.ag-grid.com/)
 
-## 🎨 Collections & Designers
+## Collections & Designers
 
 Where taste is refined. These are invaluable for layout ideas, interaction patterns, and visual direction:
 
@@ -69,7 +69,7 @@ Where taste is refined. These are invaluable for layout ideas, interaction patte
 * [https://admiretheweb.com/](https://admiretheweb.com/)
 * [https://godly.website/](https://godly.website/)
 
-## 🛠️ Design Builders & AI Tools
+## Design Builders & AI Tools
 
 Tools that accelerate ideation, layout generation, and visual experimentation:
 
