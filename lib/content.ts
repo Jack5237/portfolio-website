@@ -69,11 +69,32 @@ export const FEATURED_PROJECTS: Project[] = [
     description: "A modern portfolio showcasing projects and skills with smooth animations and dark mode support.",
   },
   {
-    title: "Z3D.AI ",
+    title: "Z3D.AI",
     category: "AI Model Maker",
     discipline: "Full Stack Development",
     href: "https://z3d.ai",
     description: "AI-powered platform for creating and managing 3D models with intuitive tools and real-time collaboration.",
+  },
+  {
+    title: "Volt-base",
+    category: "Discord Bot Template",
+    discipline: "Backend Development",
+    href: "https://github.com/Jack5237/Volt-base_v2",
+    description: "A Bun-first Discord bot starter template.",
+  },
+  {
+    title: "SQA Sprint",
+    category: "Study Tool",
+    discipline: "Full Stack Development",
+    href: "https://sqa-spint.vercel.app",
+    description: "Sprint through SQA past papers. Timed practice with real PDFs — set your pace, auto-scroll through questions, then mark your answers.",
+  },
+  {
+    title: "Rustrician",
+    category: "Electrical Simulator",
+    discipline: "Full Stack Development",
+    href: "https://www.rustrician.io",
+    description: "Full stack Rust electrical circuit simulator for planning and testing in-game wiring layouts.",
   },
   {
     title: "Rust-central",
@@ -81,13 +102,6 @@ export const FEATURED_PROJECTS: Project[] = [
     discipline: "Full Stack Development",
     href: "https://rust-central.xyz",
     description: "Centralized management platform for Rust game servers with analytics, monitoring, and player management.",
-  },
-  {
-    title: "byte.com - Course Maker",
-    category: "Educational Platform",
-    discipline: "Full Stack Development",
-    href: "https://byte-com-course-website.onrender.com",
-    description: "Platform enabling educators to create, manage, and share online courses with interactive content delivery.",
   },
   {
     title: "Imposter Online",
