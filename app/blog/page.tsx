@@ -566,7 +566,7 @@ const BlogPage = () => {
                     }
                   }}
                 >
-                  {/* Post Metadata */}
+                  {/* Metadata row — category left/right, date opposite (mirrors work section) */}
                   <div
                     className={cn(
                       "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground transition-colors group-hover:text-accent",
@@ -579,14 +579,7 @@ const BlogPage = () => {
                     <time dateTime={post.date}>{post.date}</time>
                   </div>
 
-                  {/* Excerpt - always visible, right under metadata */}
-                  {post.excerpt && (
-                    <p className="mt-2 text-xs sm:text-sm text-muted-foreground/60 leading-relaxed">
-                      {post.excerpt}
-                    </p>
-                  )}
-
-                  {/* Content with Image */}
+                  {/* Content row — title one side, excerpt opposite (exact work section pattern) */}
                   <div
                     className={cn(
                       "flex flex-col gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-5 md:mt-6",
@@ -594,7 +587,6 @@ const BlogPage = () => {
                       isLeftAligned ? "md:flex-row" : "md:flex-row-reverse",
                     )}
                   >
-                    {/* Post Title */}
                     <span
                       className={cn(
                         "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent flex-1",
@@ -604,18 +596,16 @@ const BlogPage = () => {
                       {post.title}
                     </span>
 
-                    {/* Image - Right/Left Side */}
-                    {post.bannerImage && (
-                      <div className="relative w-full md:w-48 lg:w-56 h-32 md:h-auto md:flex-shrink-0 overflow-hidden bg-muted/30">
-                        <Image
-                          src={post.bannerImage}
-                          alt={post.title}
-                          fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
-                          sizes="(max-width: 768px) 100vw, 224px"
-                          priority={index < 2}
-                        />
-                      </div>
+                    {post.excerpt && (
+                      <p
+                        className={cn(
+                          "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs",
+                          "text-left",
+                          isLeftAligned ? "md:text-right" : "md:text-left",
+                        )}
+                      >
+                        {post.excerpt}
+                      </p>
                     )}
                   </div>
 

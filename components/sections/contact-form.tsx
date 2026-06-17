@@ -10,6 +10,7 @@ interface ContactFormData {
   email: string;
   message: string;
   agreedToTerms: boolean;
+  website: string; // honeypot — never shown, must stay empty
 }
 
 export default function ContactForm() {
@@ -18,6 +19,7 @@ export default function ContactForm() {
     email: "",
     message: "",
     agreedToTerms: false,
+    website: "",
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -65,6 +67,7 @@ export default function ContactForm() {
           email: formData.email,
           message: formData.message,
           agreedToTerms: formData.agreedToTerms,
+          website: formData.website,
         }),
       });
 
@@ -76,7 +79,7 @@ export default function ContactForm() {
       }
 
       setSubmitted(true);
-      setFormData({ name: "", email: "", message: "", agreedToTerms: false });
+      setFormData({ name: "", email: "", message: "", agreedToTerms: false, website: "" });
 
       setTimeout(() => {
         setSubmitted(false);
@@ -231,6 +234,18 @@ export default function ContactForm() {
             </span>
           </label>
         </div>
+
+        {/* Honeypot — hidden from humans, traps bots */}
+        <input
+          type="text"
+          name="website"
+          value={formData.website}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ display: "none" }}
+        />
 
         {/* Submit Button */}
         <div className="pt-2 sm:pt-3">
