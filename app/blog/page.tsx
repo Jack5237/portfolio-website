@@ -328,13 +328,13 @@ const BlogPage = () => {
               return (
                 <article className="space-y-6">
                   {/* Banner */}
-                  <div className="relative w-full h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+                  <div className="relative w-full overflow-hidden rounded-sm aspect-video">
                     {post.bannerImage ? (
                       <Image
                         src={post.bannerImage}
                         alt={post.title}
                         fill
-                        className="object-cover grayscale opacity-80 hover:opacity-100 transition-opacity"
+                        className="object-contain grayscale opacity-80 hover:opacity-100 transition-opacity"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                       />
                     ) : (
