@@ -334,7 +334,7 @@ const BlogPage = () => {
                         src={post.bannerImage}
                         alt={post.title}
                         fill
-                        className="object-cover grayscale opacity-80 hover:opacity-100 transition-opacity"
+                        className="object-contain grayscale opacity-80 hover:opacity-100 transition-opacity"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                       />
                     ) : (
