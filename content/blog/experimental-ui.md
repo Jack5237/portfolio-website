@@ -1,7 +1,7 @@
 ---
 title: "Spatial UI & Reactive Systems"
 date: "2026-01-10"
-category: "Experiments"
+category: "Design"
 tags: ["Experiments", "Frontend"]
 excerpt: "Exploring spatial interfaces and reactive design systems that adapt to user intent in real-time."
 bannerImage: "https://images.unsplash.com/photo-1550745165-9bcb59c25cc7?w=1200&h=400&fit=crop&q=80"

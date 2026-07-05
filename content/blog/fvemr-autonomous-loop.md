@@ -1,7 +1,7 @@
 ---
 title: "F.E.V.M.R. — The Autonomous Loop"
 date: "2026-06-15"
-category: "Systems"
+category: "Development"
 tags: ["AI", "Automation", "Systems Design"]
 excerpt: "A simple 5-step workflow for autonomous AI systems: Find, Execute, Verify, Memorize, Repeat."
 bannerImage: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=400&fit=crop&q=80"

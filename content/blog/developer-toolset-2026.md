@@ -2,7 +2,7 @@
 
 title: "UI Favourites I Use in 2026"
 date: "2026-01-16"
-category: "Frontend"
+category: "Development"
 tags: ["UI", "Design Systems", "Frontend"]
 excerpt: "A curated list of my favourite UI libraries, component systems, inspiration galleries, and design builders that define modern frontend work in 2026."
 bannerImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=400&fit=crop&q=80"

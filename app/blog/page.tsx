@@ -13,6 +13,8 @@ import { BlogHeroSection } from "@/components/sections/blog-hero-section";
 import { cn } from "@/lib/utils";
 import type { BlogPost } from "@/lib/types";
 
+const FEATURED_CATEGORIES = ["AI", "Development", "Tools", "Design", "Writing"];
+
 /**
  * Minimal blog listing page with hero section, search functionality, and streamlined layout.
  * @returns The blog listing page markup.
@@ -153,22 +155,26 @@ const BlogPage = () => {
     }
 
     const query = searchQuery.toLowerCase();
-    const allTags = Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
-    const isTagFilter = allTags.some((tag) => tag.toLowerCase() === query);
 
     return blogPosts.filter((post) => {
-      if (isTagFilter) {
-        return post.tags.some((tag) => tag.toLowerCase() === query);
-      } else {
-        return (
-          post.title.toLowerCase().includes(query) ||
-          post.excerpt.toLowerCase().includes(query) ||
-          post.category.toLowerCase().includes(query) ||
-          post.tags.some((tag) => tag.toLowerCase().includes(query))
-        );
+      if (FEATURED_CATEGORIES.includes(post.category)) {
+        return post.category.toLowerCase() === query;
       }
+
+      return (
+        post.title.toLowerCase().includes(query) ||
+        post.excerpt.toLowerCase().includes(query) ||
+        post.category.toLowerCase().includes(query) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(query))
+      );
     });
   }, [searchQuery, blogPosts]);
+
+  const availableCategories = useMemo(() => {
+    return Array.from(new Set(blogPosts.map((post) => post.category)))
+      .filter((cat) => FEATURED_CATEGORIES.includes(cat))
+      .sort();
+  }, [blogPosts]);
 
 
   if (loading) {
@@ -203,11 +209,11 @@ const BlogPage = () => {
     <>
       {/* Immersive reader overlay */}
       {isImmersive && expandedPost && (
-        <div className="fixed inset-0 z-50 bg-background overflow-y-auto">
-          <div className="max-w-2xl mx-auto px-6 py-12 sm:py-16">
+        <div className="fixed inset-0 z-50 bg-background overflow-y-auto flex items-start justify-center">
+          <div className="w-full max-w-2xl px-4 sm:px-6 py-8 sm:py-12 md:py-16">
             {/* Immersive header */}
-            <div className="flex items-center justify-between mb-10 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between mb-8 sm:mb-10 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <span>{expandedPost.category}</span>
                 <span>•</span>
                 <time dateTime={expandedPost.date}>{expandedPost.date}</time>
@@ -215,39 +221,37 @@ const BlogPage = () => {
               <button
                 onClick={() => setIsImmersive(false)}
                 className={cn(
-                  "flex items-center gap-2 px-3 py-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem]",
-                  "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                  "flex items-center justify-center p-2 transition-colors",
                   "text-muted-foreground/60 hover:text-foreground",
                 )}
+                title="Exit reader"
               >
-                <Minimize2 className="h-3 w-3" />
-                exit
+                <Minimize2 className="h-4 w-4" />
               </button>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold uppercase leading-tight tracking-wide mb-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold uppercase leading-tight tracking-wide mb-6 sm:mb-8">
               {expandedPost.title}
             </h1>
 
             <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
-              <div className="text-base leading-loose text-foreground">
+              <div className="text-sm sm:text-base leading-relaxed sm:leading-loose text-foreground">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {expandedPost.content}
                 </ReactMarkdown>
               </div>
             </div>
 
-            <div className="mt-16 pt-8 border-t border-foreground/10 flex justify-end">
+            <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-foreground/10 flex justify-center">
               <button
                 onClick={() => setIsImmersive(false)}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
-                  "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                  "flex items-center justify-center p-2 transition-colors",
                   "text-muted-foreground hover:text-foreground",
                 )}
+                title="Exit reader"
               >
-                <Minimize2 className="h-4 w-4" />
-                exit reader
+                <Minimize2 className="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -286,8 +290,8 @@ const BlogPage = () => {
             />
           </div>
 
-          {/* Tags - Right Side (Plain Text, Right-Aligned) */}
-          <div className="flex flex-wrap gap-4 items-center md:justify-end">
+          {/* Categories - Right Side (Plain Text, Right-Aligned) */}
+          <div className="flex flex-wrap gap-3 sm:gap-4 items-center md:justify-end">
             <button
               onClick={() => setSearchQuery("")}
               className={cn(
@@ -299,22 +303,20 @@ const BlogPage = () => {
             >
               all
             </button>
-            {Array.from(new Set(blogPosts.flatMap((post) => post.tags))).map(
-              (tag) => (
-                <button
-                  key={tag}
-                  onClick={() => setSearchQuery(tag)}
-                  className={cn(
-                    "text-sm sm:text-base transition-colors",
-                    searchQuery === tag
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {tag}
-                </button>
-              ),
-            )}
+            {availableCategories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSearchQuery(category)}
+                className={cn(
+                  "text-sm sm:text-base transition-colors",
+                  searchQuery === category
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -362,14 +364,12 @@ const BlogPage = () => {
                       <button
                         onClick={() => setIsImmersive(true)}
                         className={cn(
-                          "flex items-center gap-2 px-3 py-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem]",
-                          "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                          "flex items-center justify-center p-2 transition-colors",
                           "text-muted-foreground/60 hover:text-foreground",
                         )}
                         title="Immersive reader"
                       >
-                        <Maximize2 className="h-3 w-3" />
-                        read
+                        <Maximize2 className="h-4 w-4" />
                       </button>
                     </div>
 
@@ -563,6 +563,12 @@ const BlogPage = () => {
                       setExpandedPostId(post.id);
                       setShareOpen(null);
                       setIsImmersive(false);
+                      setTimeout(() => {
+                        const expandContainer = document.querySelector(".blog-expand-container");
+                        if (expandContainer) {
+                          expandContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                      }, 0);
                     }
                   }}
                 >
