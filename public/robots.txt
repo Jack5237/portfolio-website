@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /.vercel/
+Crawl-delay: 1
+
+User-agent: AdsBot-Google
+Allow: /
+
+Sitemap: https://www.jacksdevfolio.com/sitemap.xml

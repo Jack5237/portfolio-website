@@ -192,6 +192,11 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com"} />
         <meta name="theme-color" content="#000000" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <Script
           id="json-ld-schema"
           type="application/ld+json"
