@@ -35,6 +35,11 @@ function getAllBlogPosts(): BlogPost[] {
   const blogDirectory = path.join(process.cwd(), 'content', 'blog');
 
   try {
+    if (!fs.existsSync(blogDirectory)) {
+      console.warn(`Blog directory does not exist at: ${blogDirectory}`);
+      return [];
+    }
+
     const fileNames = fs.readdirSync(blogDirectory);
     const markdownFiles = fileNames.filter(fileName => fileName.endsWith('.md'));
 
@@ -56,7 +61,7 @@ function getAllBlogPosts(): BlogPost[] {
 
     return posts;
   } catch (error) {
-    console.error('Error reading blog posts:', error);
+    console.error('Error reading blog posts from', blogDirectory, ':', error);
     return [];
   }
 }

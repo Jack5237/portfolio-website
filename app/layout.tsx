@@ -228,6 +228,15 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           }}
         />
         <Script
+          id="disable-ads-thin-pages"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.__disableAds = /^\/(privacy|terms|cookies|contact)\/?$/.test(window.location.pathname);
+            `,
+          }}
+        />
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9861926351506362"
           crossOrigin="anonymous"
