@@ -6,6 +6,7 @@ import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2,
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import { Dithering } from "@paper-design/shaders-react";
 
 import { Footer } from "@/components/sections/footer";
@@ -236,7 +237,7 @@ const BlogPage = () => {
 
             <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
               <div className="text-sm sm:text-base leading-relaxed sm:leading-loose text-foreground">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                   {expandedPost.content}
                 </ReactMarkdown>
               </div>
@@ -395,7 +396,7 @@ const BlogPage = () => {
                   {/* Post Content - Left Aligned */}
                   <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
                     <div className="text-sm sm:text-base leading-relaxed text-foreground text-left whitespace-pre-wrap">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                         {post.content}
                       </ReactMarkdown>
                     </div>

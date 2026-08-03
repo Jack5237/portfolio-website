@@ -83,3 +83,48 @@ main {
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0.02em;
 }
+
+/* Blog post accordions */
+.prose details {
+  border: 1px solid hsl(var(--muted-foreground) / 0.2);
+  border-radius: 0.5rem;
+  margin: 1.25rem 0;
+  overflow: hidden;
+}
+
+.prose summary {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  transition: background-color 0.15s ease;
+  list-style: none;
+}
+
+.prose summary:hover {
+  background-color: hsl(var(--muted) / 0.5);
+}
+
+.prose summary::-webkit-details-marker {
+  display: none;
+}
+
+.prose summary::after {
+  content: '+';
+  color: hsl(var(--muted-foreground));
+  font-weight: 400;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.prose details[open] summary::after {
+  content: '−';
+}
+
+.prose details > *:not(summary) {
+  padding: 0 1rem 1rem;
+}

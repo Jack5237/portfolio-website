@@ -81,3 +81,60 @@ Tools that accelerate ideation, layout generation, and visual experimentation:
 ---
 
 This list is constantly evolving as new tools emerge and patterns shift. I’ll be diving deeper into **how I combine these tools in real-world projects**, including system design, animation strategies, and AI-assisted UI workflows, in upcoming posts.
+
+<details>
+<summary>Why These Libraries Over Others</summary>
+
+The frontend ecosystem in 2026 has more options than any developer can evaluate. The list above is curated based on three criteria: production stability, active maintenance, and composability.
+
+**Shadcn/ui sits at the top of every list** because it solved a fundamental problem: ownership. Every other component library gives you pre-built components you style around. Shadcn gives you the source code. You own it. The components live in your repo. You change what you want, delete what you don’t, and never fight library defaults.
+
+**Radix UI underpins most of the modern ecosystem** because it solves accessibility correctly. Keyboard navigation, ARIA attributes, focus management, screen reader support — all handled at the primitive level. Build on Radix and your components are accessible by default, not by afterthought.
+
+**Tailwind UI and Aceternity represent opposite ends of the spectrum.** Tailwind UI is conservative and production-ready — templates you’d be comfortable shipping to enterprise clients. Aceternity is experimental and visually ambitious — effects you’d use to make a portfolio or landing page memorable. Both have a place, rarely in the same project.
+
+The galleries (21st.dev, reactbits.dev, originui.com) are for inspiration and copy-paste components, not dependencies. Use them to move fast on UI that isn’t your core product differentiator.
+</details>
+
+<details>
+<summary>My Go-To Starting Stack</summary>
+
+When starting a new project, these are the specific tools I reach for in order:
+
+**1. Framework: Next.js (App Router)**
+Server components, file-based routing, built-in image optimisation, and Vercel deployment make this the fastest path to a production-ready setup.
+
+**2. Styling: Tailwind CSS + Shadcn/ui**
+Tailwind for utilities, Shadcn for components. Run `npx shadcn@latest init` and you have a design system in 60 seconds.
+
+**3. Animation: Framer Motion**
+For interactions that go beyond CSS — page transitions, gesture-based animations, layout animations. The API is the best in class for React.
+
+**4. Icons: Lucide React**
+Consistent stroke-width, tree-shakeable, TypeScript-typed, and Shadcn-compatible. No others needed.
+
+**5. Inspiration check: 21st.dev and reactbits.dev**
+Before building a custom component, check if a polished version already exists here. Copy, adapt, own it.
+
+For projects that need more visual impact — agencies, portfolios, landing pages — add Aceternity or Magic UI for the specific components that need to stand out. For data-heavy applications, add Tremor for its chart and stat components.
+
+The goal is to make styling decisions fast so engineering time goes toward product logic.
+</details>
+
+<details>
+<summary>Tips for Choosing Between Similar Libraries</summary>
+
+When two libraries look equivalent, these questions break the tie:
+
+**Do you own the code?** Shadcn-style copy-paste libraries mean zero runtime dependency. Traditional npm libraries mean their breaking changes become your breaking changes on every update. Prefer ownership for components that are central to your UI.
+
+**Is it actively maintained?** Check the GitHub commit history and open issue count. A library with 300 open issues and no commits in six months is a liability, regardless of how good it looked at launch.
+
+**Does it work with your existing stack?** Test the component that’s hardest to integrate first, not the easiest demo. A form library that conflicts with your state management will cost you a sprint to swap out.
+
+**What’s the bundle size?** Use bundlephobia.com before adding any UI library. Some "component libraries" import significant runtime overhead. For reference: Shadcn adds zero — it’s just your code. Radix primitives are individually importable. Ant Design’s full build is large and requires tree-shaking configuration to stay manageable.
+
+**Does it match your design language?** A library that requires heavy overriding to match your design is slower than writing the component from scratch. The best library is the one that needs the least customisation for your specific context.
+
+When in doubt, start with less. A handful of well-chosen Shadcn components will outperform a full component library you’re fighting for every feature.
+</details>
