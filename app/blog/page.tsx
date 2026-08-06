@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import Image from "next/image";
-import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2, Minimize2 } from "lucide-react";
+import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2, Minimize2, ArrowUp, Link, Copy, Check } from "lucide-react";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -11,6 +11,7 @@ import { Dithering } from "@paper-design/shaders-react";
 
 import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
+import Dock from "@/components/ui/Dock";
 import { cn } from "@/lib/utils";
 import type { BlogPost } from "@/lib/types";
 
@@ -26,7 +27,20 @@ const BlogPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
   const [shareOpen, setShareOpen] = useState<string | null>(null);
+  const [copiedShare, setCopiedShare] = useState<string | null>(null);
+  const [dockShareOpen, setDockShareOpen] = useState(false);
   const [isImmersive, setIsImmersive] = useState(false);
+  const immersiveScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollImmersiveToTop = useCallback(() => {
+    immersiveScrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  // Lock body scroll when immersive reader is open so wheel events hit the overlay
+  useEffect(() => {
+    document.body.style.overflow = isImmersive ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isImmersive]);
 
   /**
    * Fetch blog posts from API (runs once on mount)
@@ -210,28 +224,13 @@ const BlogPage = () => {
     <>
       {/* Immersive reader overlay */}
       {isImmersive && expandedPost && (
-        <div className="fixed inset-0 z-50 bg-background overflow-y-auto flex items-start justify-center">
-          <div className="w-full max-w-2xl px-4 sm:px-6 py-8 sm:py-12 md:py-16">
-            {/* Immersive header */}
-            <div className="flex items-center justify-between mb-8 sm:mb-10 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <span>{expandedPost.category}</span>
-                <span>•</span>
-                <time dateTime={expandedPost.date}>{expandedPost.date}</time>
-              </div>
-              <button
-                onClick={() => setIsImmersive(false)}
-                className={cn(
-                  "flex items-center justify-center p-2 transition-colors",
-                  "text-muted-foreground/60 hover:text-foreground",
-                )}
-                title="Exit reader"
-              >
-                <Minimize2 className="h-4 w-4" />
-              </button>
-            </div>
-
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold uppercase leading-tight tracking-wide mb-6 sm:mb-8">
+        <div
+          ref={immersiveScrollRef}
+          data-lenis-prevent
+          className="fixed inset-0 z-50 bg-background overflow-y-auto"
+        >
+          <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 py-12 sm:py-16 pb-28">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold uppercase leading-tight tracking-wide mb-8 sm:mb-10">
               {expandedPost.title}
             </h1>
 
@@ -242,18 +241,57 @@ const BlogPage = () => {
                 </ReactMarkdown>
               </div>
             </div>
+          </div>
 
-            <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-foreground/10 flex justify-center">
-              <button
-                onClick={() => setIsImmersive(false)}
-                className={cn(
-                  "flex items-center justify-center p-2 transition-colors",
-                  "text-muted-foreground hover:text-foreground",
-                )}
-                title="Exit reader"
-              >
-                <Minimize2 className="h-5 w-5" />
-              </button>
+          {/* Bottom dock */}
+          <div className="fixed bottom-0 left-0 right-0 pointer-events-none flex justify-center items-end pb-2">
+            <div className="pointer-events-auto relative">
+              {/* Share popover */}
+              {dockShareOpen && expandedPost && (
+                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-background border border-foreground/20 rounded-sm shadow-lg z-50 min-w-[160px]">
+                  <button
+                    onClick={() => { const t = encodeURIComponent(`"${expandedPost.title}" by Jack`); const u = encodeURIComponent(window.location.href); window.open(`https://twitter.com/intent/tweet?text=${t}&url=${u}`, "_blank"); }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  ><Twitter size={13} /> Twitter / X</button>
+                  <button
+                    onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank")}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  ><Linkedin size={13} /> LinkedIn</button>
+                  <button
+                    onClick={() => { const ti = encodeURIComponent(expandedPost.title); const u = encodeURIComponent(window.location.href); window.open(`https://reddit.com/submit?title=${ti}&url=${u}`, "_blank"); }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  ><Share2 size={13} /> Reddit</button>
+                  <div className="border-t border-foreground/10 my-1" />
+                  <button
+                    onClick={() => { navigator.clipboard.writeText(window.location.href); setCopiedShare("dock-link"); setTimeout(() => setCopiedShare(null), 2000); }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  >{copiedShare === "dock-link" ? <Check size={13} className="text-foreground" /> : <Link size={13} />} {copiedShare === "dock-link" ? "Copied!" : "Copy link"}</button>
+                  <button
+                    onClick={() => { navigator.clipboard.writeText(expandedPost.content); setCopiedShare("dock-md"); setTimeout(() => setCopiedShare(null), 2000); }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  >{copiedShare === "dock-md" ? <Check size={13} className="text-foreground" /> : <Copy size={13} />} {copiedShare === "dock-md" ? "Copied!" : "Copy markdown"}</button>
+                </div>
+              )}
+              {/* Desktop: animated dock */}
+              <div className="hidden sm:block">
+                <Dock
+                  panelHeight={52}
+                  baseItemSize={40}
+                  magnification={56}
+                  distance={160}
+                  items={[
+                    { icon: <ArrowUp size={16} />, label: "Top", onClick: scrollImmersiveToTop },
+                    { icon: <Share2 size={16} />, label: "Share", onClick: () => setDockShareOpen(o => !o) },
+                    { icon: <Minimize2 size={16} />, label: "Exit", onClick: () => { setIsImmersive(false); setDockShareOpen(false); } },
+                  ]}
+                />
+              </div>
+              {/* Mobile: simple bar */}
+              <div className="flex sm:hidden items-center gap-1 mb-4 bg-background border border-foreground/20 rounded-full px-3 py-2 shadow-lg">
+                <button onClick={scrollImmersiveToTop} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Top"><ArrowUp size={16} /></button>
+                <button onClick={() => setDockShareOpen(o => !o)} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Share"><Share2 size={16} /></button>
+                <button onClick={() => { setIsImmersive(false); setDockShareOpen(false); }} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Exit"><Minimize2 size={16} /></button>
+              </div>
             </div>
           </div>
         </div>
@@ -408,7 +446,7 @@ const BlogPage = () => {
                     const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
                     const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
                     return (
-                      <div className="flex items-center justify-between pt-8 mt-8 border-t border-foreground/10 gap-4 flex-wrap">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-8 mt-8 border-t border-foreground/10 gap-4">
                         {/* Left - Previous */}
                         {prevPost ? (
                           <button
@@ -429,7 +467,7 @@ const BlogPage = () => {
                         ) : <div />}
 
                         {/* Right - Actions */}
-                        <div className="flex items-center gap-2 flex-wrap">
+                        <div className="flex items-center gap-2 flex-wrap justify-start sm:justify-end">
                           <a
                             href="https://buymeacoffee.com/scottish.jack"
                             target="_blank"
@@ -458,35 +496,64 @@ const BlogPage = () => {
                               share
                             </button>
                             {shareOpen === `expanded-${post.id}` && (
-                              <div className="absolute bottom-full mb-2 right-0 bg-background border border-foreground/20 rounded-sm p-3 flex gap-2 z-50 shadow-lg shadow-foreground/10">
+                              <div className="absolute bottom-full mb-2 right-0 sm:right-0 left-auto max-[400px]:right-auto max-[400px]:left-0 bg-background border border-foreground/20 rounded-sm z-50 shadow-lg shadow-foreground/10 min-w-[160px]">
+                                {/* Twitter */}
                                 <button
                                   onClick={() => {
-                                    const text = `Check out "${post.title}" on Jack's blog`;
+                                    const text = `"${post.title}" by Jack`;
                                     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
                                   }}
-                                  className="p-2 hover:bg-foreground/10 rounded transition-colors"
-                                  title="Share on Twitter"
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  <Twitter className="h-4 w-4" />
+                                  <Twitter className="h-3.5 w-3.5 shrink-0" />
+                                  Twitter / X
                                 </button>
+                                {/* LinkedIn */}
                                 <button
                                   onClick={() => {
                                     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
                                   }}
-                                  className="p-2 hover:bg-foreground/10 rounded transition-colors"
-                                  title="Share on LinkedIn"
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  <Linkedin className="h-4 w-4" />
+                                  <Linkedin className="h-3.5 w-3.5 shrink-0" />
+                                  LinkedIn
                                 </button>
+                                {/* Reddit */}
+                                <button
+                                  onClick={() => {
+                                    const title = encodeURIComponent(post.title);
+                                    const url = encodeURIComponent(window.location.href);
+                                    window.open(`https://reddit.com/submit?title=${title}&url=${url}`, "_blank");
+                                  }}
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                                >
+                                  <Share2 className="h-3.5 w-3.5 shrink-0" />
+                                  Reddit
+                                </button>
+                                <div className="border-t border-foreground/10 my-1" />
+                                {/* Copy link */}
                                 <button
                                   onClick={() => {
                                     navigator.clipboard.writeText(window.location.href);
-                                    alert("Link copied!");
+                                    setCopiedShare(`link-${post.id}`);
+                                    setTimeout(() => setCopiedShare(null), 2000);
                                   }}
-                                  className="p-2 hover:bg-foreground/10 rounded transition-colors text-xs"
-                                  title="Copy link"
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  Copy
+                                  {copiedShare === `link-${post.id}` ? <Check className="h-3.5 w-3.5 shrink-0 text-foreground" /> : <Link className="h-3.5 w-3.5 shrink-0" />}
+                                  {copiedShare === `link-${post.id}` ? "Copied!" : "Copy link"}
+                                </button>
+                                {/* Copy markdown */}
+                                <button
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(post.content);
+                                    setCopiedShare(`md-${post.id}`);
+                                    setTimeout(() => setCopiedShare(null), 2000);
+                                  }}
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                                >
+                                  {copiedShare === `md-${post.id}` ? <Check className="h-3.5 w-3.5 shrink-0 text-foreground" /> : <Copy className="h-3.5 w-3.5 shrink-0" />}
+                                  {copiedShare === `md-${post.id}` ? "Copied!" : "Copy markdown"}
                                 </button>
                               </div>
                             )}

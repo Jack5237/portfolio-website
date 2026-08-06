@@ -84,6 +84,13 @@ export const FEATURED_PROJECTS: Project[] = [
     description: "Centralized management platform for Rust game servers with analytics, monitoring, and player management.",
   },
   {
+    title: "Serva Discord",
+    category: "Discord Server/Bot Builder",
+    discipline: "Full Stack Development",
+    href: "https://www.servadiscord.com/en",
+    description: "Deploy Discord servers & bots, your way.",
+  },
+  {
     title: "Rustrician",
     category: "Electrical Simulator",
     discipline: "Full Stack Development",

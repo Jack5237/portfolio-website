@@ -74,16 +74,23 @@ export const BlogHeroSection = () => {
               Exploring the latest in web development, sharing insights from building scalable applications, and documenting the journey of continuous learning in tech.
             </p>
 
-            {/* Read Blogs Button */}
-            <div className="pt-2 sm:pt-3">
-              <Button
-                variant="outline"
-                size="default"
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-3 pt-2 sm:pt-3">
+              <button
                 onClick={scrollToBlogs}
-                className="text-xs sm:text-sm tracking-wide font-smooth-bold"
+                className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-muted-foreground hover:text-background h-12 px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]"
               >
                 read blogs
-              </Button>
+              </button>
+              <a href="/contact" className="inline-block">
+                <Button
+                  variant="outline"
+                  size="default"
+                  className="text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]"
+                >
+                  Get in Touch
+                </Button>
+              </a>
             </div>
           </div>
         </header>
