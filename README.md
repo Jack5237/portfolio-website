@@ -6,7 +6,7 @@ A **minimal, fast, and accessible** personal portfolio website to showcase proje
 
 ---
 
-## Tech Used
+## Tech Used 
 
 - **Next.js 14** – framework (App Router)
 - **Tailwind CSS** – styling
