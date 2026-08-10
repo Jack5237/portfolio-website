@@ -3,32 +3,32 @@ title: "The Future of User Interfaces"
 date: "2026-06-29"
 category: "Design"
 tags: ["Design", "AI", "Frontend"]
-excerpt: "GUI, Generative UI, and Agentic UI are not competing. The future belongs to products that seamlessly transition between all three."
+excerpt: "Standard User Interfacing, Generative UI, and Agentic UI are not competing. The future belongs to products that seamlessly transition between all three."
 bannerImage: "/blog-future-ui.png"
 ---
 
 User interfaces are no longer evolving in a single direction.
 
-GUI, Generative UI, and Agentic UI each occupy a different place on the complexity spectrum. They are not competing approaches -- they are complementary ones.
+Standard User Interfacing, Generative UI, and Agentic UI each occupy a different place on the complexity spectrum. They are not competing approaches -- they are complementary ones.
 
 ## The Interface Spectrum
 
 ```txt
-Mode             Complexity   User Input      Example
-----             ----------   ----------      -------
-GUI              Low          Discrete        Button click, dropdown
-Generative UI    Moderate     Intent          "Summarise this document"
-Agentic UI       High         Goal            "Refactor and test this feature"
+Mode                        Complexity   User Input      Example
+----                        ----------   ----------      -------
+Standard User Interfacing   Low          Discrete        Button click, dropdown
+Generative UI               Moderate     Intent          "Summarise this document"
+Agentic UI                  High         Goal            "Refactor and test this feature"
 
 ```
 
 ---
 
-## GUI
+## Standard User Interfacing
 
 The foundation of every application. Low complexity, discrete actions.
 
-Buttons, toggles, menus -- the building blocks users have relied on for decades. GUI is what you reach for when users need **precision and control**.
+Buttons, toggles, menus -- the building blocks users have relied on for decades. Standard user interfacing is what you reach for when users need **precision and control**.
 
 **Best for:** frequent, short, repeated tasks. Financial transactions. Destructive operations.
 
@@ -54,10 +54,10 @@ The user states an intent, and the system handles the rest.
 
 ## Why This Matters
 
-The conversation should not be GUI vs Agentic. The future belongs to products that combine all three.
+The conversation should not be Standard User Interfacing vs Agentic. The future belongs to products that combine all three.
 
 ```txt
-Task complexity low?    -- Use GUI
+Task complexity low?    -- Use Standard User Interfacing
 User knows outcome       -- Use Generative UI
 User wants the result    -- Use Agentic UI
 
@@ -68,7 +68,7 @@ The best software will not replace one interface with another -- it will seamles
 <details>
 <summary>Real Product Examples of Each Mode</summary>
 
-**GUI examples:**
+**Standard User Interfacing examples:**
 - Figma toolbar -- every action is discrete and reversible
 - VS Code settings UI -- checkboxes, dropdowns, explicit saves
 - A calendar app -- click a slot, type an event, save it
@@ -83,7 +83,30 @@ The best software will not replace one interface with another -- it will seamles
 - Claude Code -- state an objective, it reads the repo, plans, implements, tests
 - Zapier AI automation -- describe a workflow, it builds and runs the integration
 
-What is striking: the best products combine all three. Figma added Generative UI while keeping the precision GUI. Linear has a traditional issue tracker with Agentic AI for triage.
+What is striking: the best products combine all three. Figma added Generative UI while keeping the precision Standard User Interfacing. Linear has a traditional issue tracker with Agentic AI for triage.
+</details>
+
+<details>
+<summary>Where Can You See These in Action?</summary>
+
+You can experience these interface modes right now in production applications:
+
+**Standard User Interfacing:**
+- [Figma](https://figma.com) -- toolbar design system
+- [VS Code](https://code.visualstudio.com) -- settings and editor
+- [Linear](https://linear.app) -- issue board and navigation
+
+**Generative UI:**
+- [Notion AI](https://notion.so) -- AI-powered document editing
+- [GitHub Copilot](https://github.com/features/copilot) -- code suggestions
+- [Claude](https://claude.ai) -- conversational interface
+
+**Agentic UI:**
+- [Devin](https://devin.ai) -- autonomous coding agent
+- [Claude Code](https://claude.ai/code) -- AI-driven development
+- [Zapier AI](https://zapier.com) -- workflow automation
+
+For deeper context on how AI adapts to user needs across interfaces, see Google's research on [Adaptive AI User Interfaces (A2UI)](https://research.google/blog/ai-user-interface/).
 </details>
 
 <details>
