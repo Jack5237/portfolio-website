@@ -79,6 +79,32 @@ const nextConfig = {
         ],
       },
       {
+        source: "/openapi.json",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/json",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, s-maxage=86400",
+          },
+        ],
+      },
+      {
+        source: "/api/:path*",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/json",
+          },
+          {
+            key: "Vary",
+            value: "Accept, Accept-Encoding",
+          },
+        ],
+      },
+      {
         source: "/:path*",
         headers: [
           {
@@ -106,8 +132,11 @@ const nextConfig = {
             value: "max-age=63072000; includeSubDomains; preload",
           },
           {
+            key: "Vary",
+            value: "Accept, Accept-Encoding",
+          },
+          {
             key: "Content-Security-Policy",
-            // Next.js dev bundles rely on eval for source maps; prod stays strict
             value: `default-src 'self'; script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://pagead2.googlesyndication.com https://assets.calendly.com https://*.vercel.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://vercel.com https://api.vercel.com https://pagead2.googlesyndication.com https://www.gstatic.com; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';`,
           },
         ],

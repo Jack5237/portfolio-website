@@ -2,6 +2,29 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "bun install",
   "buildCommand": "bun run build",
-
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://www.jacksdevfolio.com"
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding, User-Agent"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/openapi.json",
+      "destination": "/openapi.json"
+    },
+    {
+      "source": "/agents.txt",
+      "destination": "/agents.txt"
+    }
+  ]
 }
