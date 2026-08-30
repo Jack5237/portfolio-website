@@ -133,7 +133,7 @@ const nextConfig = {
           },
           {
             key: "Vary",
-            value: "Accept, Accept-Encoding",
+            value: "Accept, Accept-Encoding, User-Agent",
           },
           {
             key: "Content-Security-Policy",

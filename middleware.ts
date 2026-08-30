@@ -12,6 +12,9 @@ const AI_AGENTS = [
   'CCBot',
   'anthropic-ai',
   'ora-ai',
+  'OraBot',
+  'Googlebot',
+  'Bingbot',
 ];
 
 export function middleware(request: NextRequest) {
@@ -24,10 +27,17 @@ export function middleware(request: NextRequest) {
   // Add Vary header for content negotiation
   response.headers.set('Vary', 'Accept, Accept-Encoding, User-Agent');
 
-  // Ensure agent requests are not cached with wrong variant
+  // Signal to downstream services (like Vercel WAF) to allow agent access
   if (isAiAgent) {
-    response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600, must-revalidate');
+    // Headers to bypass Vercel bot protection
     response.headers.set('X-Agent-Access', 'allowed');
+    response.headers.set('X-Purpose', 'agent-access');
+
+    // Cache headers optimized for agents
+    response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600, must-revalidate');
+
+    // Content negotiation
+    response.headers.set('Accept-Ranges', 'bytes');
   }
 
   // Support markdown content negotiation
