@@ -46,12 +46,12 @@ export const HeroSection = () => {
             </div>
 
             {/* Main title with decrypted effect - modern Geist font for lowercase "full stack developer" */}
-            <div className="space-y-0.5 sm:space-y-1">
-              <h1
-                className={cn(
-                  "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight"
-                )}
-              >
+            <h1
+              className={cn(
+                "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight space-y-0.5 sm:space-y-1"
+              )}
+            >
+              <div className="block">
                 <DecryptedText
                   text="full stack"
                   animateOn="view"
@@ -60,12 +60,8 @@ export const HeroSection = () => {
                   maxIterations={20}
                   className="block"
                 />
-              </h1>
-              <h1
-                className={cn(
-                  "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight"
-                )}
-              >
+              </div>
+              <div className="block">
                 <DecryptedText
                   text="developer"
                   animateOn="view"
@@ -74,8 +70,8 @@ export const HeroSection = () => {
                   maxIterations={20}
                   className="block"
                 />
-              </h1>
-            </div>
+              </div>
+            </h1>
 
             {/* Compact description */}
             <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground md:text-base max-w-2xl">

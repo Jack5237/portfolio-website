@@ -83,7 +83,7 @@ For more information, visit https://www.jacksdevfolio.com
       headers: {
         'Content-Type': 'text/markdown; charset=utf-8',
         'Cache-Control': 'public, max-age=300, s-maxage=3600',
-        'Vary': 'Accept',
+        'Vary': 'Accept, Accept-Encoding',
       },
     });
   }
@@ -110,7 +110,7 @@ Website: ${content.profile.website}
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
         'Cache-Control': 'public, max-age=300, s-maxage=3600',
-        'Vary': 'Accept',
+        'Vary': 'Accept, Accept-Encoding',
       },
     });
   }
@@ -121,7 +121,7 @@ Website: ${content.profile.website}
     headers: {
       'Content-Type': 'application/json',
       'Cache-Control': 'public, max-age=300, s-maxage=3600',
-      'Vary': 'Accept',
+      'Vary': 'Accept, Accept-Encoding',
     },
   });
 }

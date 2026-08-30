@@ -48,15 +48,26 @@ const HomePage = () => {
         strategy="afterInteractive"
       />
       <noscript>
-        <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif', lineHeight: '1.6' }}>
+        <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto' }}>
           <h1>Jack - Full Stack Developer from Scotland</h1>
-          <p>Full stack developer specializing in end-to-end solutions with React, Next.js, TypeScript, and Node.js. Email: contact@jacksdevfolio.com</p>
+          <p style={{ fontSize: '1.1em', marginBottom: '1.5em' }}>Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends with React, Next.js, TypeScript, Node.js, and modern web technologies. Passionate about clean code, performance, and full-stack engineering.</p>
+          <h2>Featured Projects</h2>
+          <p>Visit <a href="https://www.jacksdevfolio.com#work">the portfolio</a> to see featured projects and work examples.</p>
           <h2>Technologies</h2>
           <p>{TECHNOLOGIES_LEARNED.map(t => t.name).join(', ')}</p>
-          <h2>Contact</h2>
-          <p>Email: contact@jacksdevfolio.com | Website: https://www.jacksdevfolio.com | API: /api/content, /openapi.json</p>
-          <h2>Social</h2>
-          <ul><li><a href="https://github.com/Jack5237">GitHub</a></li><li><a href="https://www.linkedin.com/in/jack-dev-a732b4397">LinkedIn</a></li><li><a href="https://x.com/Jack1168556">Twitter</a></li></ul>
+          <h2>Social & Contact</h2>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            <li><a href="https://github.com/Jack5237">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/jack-dev-a732b4397">LinkedIn</a></li>
+            <li><a href="https://x.com/Jack1168556">Twitter / X</a></li>
+            <li>Email: <a href="mailto:contact@jacksdevfolio.com">contact@jacksdevfolio.com</a></li>
+          </ul>
+          <h2>Resources</h2>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            <li><a href="https://www.jacksdevfolio.com/api/content">API Content Endpoint</a> - Portfolio data in JSON, text, or markdown</li>
+            <li><a href="https://www.jacksdevfolio.com/text">Plain Text Version</a></li>
+            <li><a href="https://www.jacksdevfolio.com/openapi.json">OpenAPI Specification</a></li>
+          </ul>
         </div>
       </noscript>
       <main className="container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16 pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8">

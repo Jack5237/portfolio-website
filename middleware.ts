@@ -18,8 +18,17 @@ const AI_AGENTS = [
 ];
 
 export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
   const userAgent = request.headers.get('user-agent') || '';
   const isAiAgent = AI_AGENTS.some(agent => userAgent.includes(agent));
+
+  // Homepage markdown content negotiation
+  if (pathname === '/') {
+    const accept = request.headers.get('accept') || '';
+    if (accept.includes('text/markdown') && !accept.includes('text/html')) {
+      return NextResponse.rewrite(new URL('/api/home-markdown', request.url));
+    }
+  }
 
   // Create response
   const response = NextResponse.next();
@@ -38,12 +47,6 @@ export function middleware(request: NextRequest) {
 
     // Content negotiation
     response.headers.set('Accept-Ranges', 'bytes');
-  }
-
-  // Support markdown content negotiation
-  const acceptHeader = request.headers.get('accept') || '';
-  if (acceptHeader.includes('text/markdown')) {
-    response.headers.set('Content-Type', 'text/markdown; charset=utf-8');
   }
 
   return response;

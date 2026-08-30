@@ -104,7 +104,7 @@ export default function Dock({
   dockHeight?: number;
   baseItemSize?: number;
 }) {
-  const mouseX = useMotionValue(Infinity);
+  const mouseX = useMotionValue(Number.POSITIVE_INFINITY);
   const isHovered = useMotionValue(0);
 
   return (
@@ -113,7 +113,7 @@ export default function Dock({
       className="dock-outer"
       style={{ height: magnification + 40 }}
       onMouseMove={({ clientX }) => { isHovered.set(1); mouseX.set(clientX); }}
-      onMouseLeave={() => { isHovered.set(0); mouseX.set(Infinity); }}
+      onMouseLeave={() => { isHovered.set(0); mouseX.set(Number.POSITIVE_INFINITY); }}
     >
       <div
         className={`dock-panel ${className}`}
