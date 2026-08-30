@@ -8,6 +8,19 @@
   },
   "headers": [
     {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding, User-Agent"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
