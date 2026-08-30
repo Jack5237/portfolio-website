@@ -237,13 +237,12 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <Script
+        <script
           id="json-ld-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLd),
           }}
-          strategy="afterInteractive"
         />
         <Script
           id="performance-monitoring"

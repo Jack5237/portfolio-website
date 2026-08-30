@@ -51,25 +51,52 @@ const HomePage = () => {
         strategy="afterInteractive"
       />
       <noscript>
-        <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif', lineHeight: '1.6', maxWidth: '900px', margin: '0 auto' }}>
           <h1>Jack - Full Stack Developer from Scotland</h1>
-          <p style={{ fontSize: '1.1em', marginBottom: '1.5em' }}>Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends with React, Next.js, TypeScript, Node.js, and modern web technologies. Passionate about clean code, performance, and full-stack engineering.</p>
+          <p style={{ fontSize: '1.1em', marginBottom: '1.5em', fontWeight: '500' }}>Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends. Expert in React, Next.js, TypeScript, Node.js, and modern web technologies. Passionate about clean code, performance optimization, and full-stack engineering.</p>
+
+          <h2>About Jack</h2>
+          <p>Jack is a full-stack web developer based in Scotland with expertise in building scalable, performant web applications. Specializes in frontend development with React and Next.js, combined with robust backend systems using Node.js and Express. Experienced with TypeScript for type-safe development, database design (SQL, MongoDB), API development (REST), and responsive design. Strong focus on user experience, code quality, and modern development practices.</p>
+
+          <h2>Core Technologies</h2>
+          <p>JavaScript, TypeScript, React, Next.js, Node.js, Express, HTML5, CSS3, Tailwind CSS, Git, REST APIs, SQL, PostgreSQL, MongoDB, API Design, Web Performance, Responsive Design, Full-Stack Development</p>
+          <p>Additional: Python, Docker, Web Security, Performance Optimization, Clean Code, Agile Development</p>
+
           <h2>Featured Projects</h2>
-          <p>Visit <a href="https://www.jacksdevfolio.com#work">the portfolio</a> to see featured projects and work examples.</p>
-          <h2>Technologies</h2>
-          <p>{TECHNOLOGIES_LEARNED.map(t => t.name).join(', ')}</p>
-          <h2>Social & Contact</h2>
+          <p>Jack has built multiple full-stack applications showcasing expertise across the technology stack. View <a href="https://www.jacksdevfolio.com#work">featured projects</a> to see detailed case studies, technical implementations, and live demonstrations.</p>
+
+          <h2>Services & Expertise</h2>
           <ul style={{ listStyle: 'none', padding: 0 }}>
-            <li><a href="https://github.com/Jack5237">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/jack-dev-a732b4397">LinkedIn</a></li>
-            <li><a href="https://x.com/Jack1168556">Twitter / X</a></li>
-            <li>Email: <a href="mailto:contact@jacksdevfolio.com">contact@jacksdevfolio.com</a></li>
+            <li>• Full-stack web application development</li>
+            <li>• Frontend development (React, Next.js)</li>
+            <li>• Backend API development (Node.js, Express)</li>
+            <li>• Database design and optimization</li>
+            <li>• Performance optimization and web vitals</li>
+            <li>• Responsive design and accessibility</li>
           </ul>
-          <h2>Resources</h2>
+
+          <h2>Connect & Contact</h2>
+          <p>Email: <a href="mailto:contact@jacksdevfolio.com">contact@jacksdevfolio.com</a></p>
+          <p>Professional profiles:</p>
           <ul style={{ listStyle: 'none', padding: 0 }}>
-            <li><a href="https://www.jacksdevfolio.com/api/content">API Content Endpoint</a> - Portfolio data in JSON, text, or markdown</li>
-            <li><a href="https://www.jacksdevfolio.com/text">Plain Text Version</a></li>
-            <li><a href="https://www.jacksdevfolio.com/openapi.json">OpenAPI Specification</a></li>
+            <li><a href="https://github.com/Jack5237">GitHub - Source code and projects</a></li>
+            <li><a href="https://www.linkedin.com/in/jack-dev-a732b4397">LinkedIn - Professional profile</a></li>
+            <li><a href="https://x.com/Jack1168556">Twitter / X - Updates and insights</a></li>
+          </ul>
+
+          <h2>API & Data Access</h2>
+          <p>Jack's portfolio exposes a public API for programmatic access to portfolio data:</p>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            <li><a href="https://www.jacksdevfolio.com/api/content">GET /api/content</a> - Portfolio data (JSON, Markdown, Plain Text)</li>
+            <li><a href="https://www.jacksdevfolio.com/api/health">GET /api/health</a> - API health check</li>
+            <li><a href="https://www.jacksdevfolio.com/api/blog">GET /api/blog</a> - Blog posts</li>
+            <li><a href="https://www.jacksdevfolio.com/text">GET /text</a> - Plain text portfolio</li>
+          </ul>
+
+          <h2>Documentation</h2>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            <li><a href="https://www.jacksdevfolio.com/openapi.json">OpenAPI 3.0 Specification</a></li>
+            <li><a href="https://www.jacksdevfolio.com/developers">Developer Portal</a> - API documentation and examples</li>
           </ul>
         </div>
       </noscript>

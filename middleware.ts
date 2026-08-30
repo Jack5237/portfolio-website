@@ -26,15 +26,24 @@ export function middleware(request: NextRequest) {
   if (pathname === '/') {
     const accept = request.headers.get('accept') || '';
     if (accept.includes('text/markdown') && !accept.includes('text/html')) {
-      return NextResponse.rewrite(new URL('/api/home-markdown', request.url));
+      const response = NextResponse.rewrite(new URL('/api/home-markdown', request.url));
+      response.headers.set('Vary', 'Accept, Accept-Encoding');
+      return response;
     }
   }
 
   // Create response
   const response = NextResponse.next();
 
-  // Add Vary header for content negotiation
-  response.headers.set('Vary', 'Accept, Accept-Encoding, User-Agent');
+  // Add Vary header for ALL content negotiation
+  // CDN compliance: Vary must include Accept for content negotiation
+  const existingVary = response.headers.get('Vary') || '';
+  const varyParts = new Set(
+    existingVary.split(',').map(v => v.trim()).filter(Boolean)
+  );
+  varyParts.add('Accept');
+  varyParts.add('Accept-Encoding');
+  response.headers.set('Vary', Array.from(varyParts).join(', '));
 
   // Signal to downstream services (like Vercel WAF) to allow agent access
   if (isAiAgent) {
