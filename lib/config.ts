@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
   name: "Jack",
   description: "Full stack developer from Scotland, UK",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com",
-  email: "contact.jack.dev@gmail.com",
+  email: "contact@jacksdevfolio.com",
   social: {
     twitter: "https://x.com/Jack1168556",
     github: "https://github.com/Jack5237",

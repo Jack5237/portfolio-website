@@ -149,10 +149,10 @@ const TermsPage = () => {
                 If you have any questions about these Terms of Service, please
                 contact us at{" "}
                 <a
-                  href="mailto:contact.jack.dev@gmail.com"
+                  href="mailto:contact@jacksdevfolio.com"
                   className="text-foreground underline hover:text-accent transition-colors"
                 >
-                  contact.jack.dev@gmail.com
+                  contact@jacksdevfolio.com
                 </a>
                 .
               </p>
@@ -161,7 +161,7 @@ const TermsPage = () => {
         </article>
       </main>
       <Footer
-        email="contact.jack.dev@gmail.com"
+        email="contact@jacksdevfolio.com"
         socialLinks={{
           twitter: "https://x.com/Jack1168556",
           github: "https://github.com/Jack5237",

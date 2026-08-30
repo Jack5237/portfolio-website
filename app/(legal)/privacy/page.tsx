@@ -165,10 +165,10 @@ const PrivacyPage = () => {
                 If you have any questions about this Privacy Policy, please
                 contact us at{" "}
                 <a
-                  href="mailto:contact.jack.dev@gmail.com"
+                  href="mailto:contact@jacksdevfolio.com"
                   className="text-foreground underline hover:text-accent transition-colors"
                 >
-                  contact.jack.dev@gmail.com
+                  contact@jacksdevfolio.com
                 </a>
                 .
               </p>
@@ -177,7 +177,7 @@ const PrivacyPage = () => {
         </article>
       </main>
       <Footer
-        email="contact.jack.dev@gmail.com"
+        email="contact@jacksdevfolio.com"
         socialLinks={{
           twitter: "https://x.com/Jack1168556",
           github: "https://github.com/Jack5237",

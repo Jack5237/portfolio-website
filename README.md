@@ -105,7 +105,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it locally.
 
 ## Contact
 
-- 📧 **Email:** [contact.jack.dev@gmail.com](mailto:contact.jack.dev@gmail.com)
+- 📧 **Email:** [contact@jacksdevfolio.com](mailto:contact@jacksdevfolio.com)
 - 💬 **Discord:** `ttv_jack_`
 
 ---

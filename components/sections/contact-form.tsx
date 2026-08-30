@@ -275,10 +275,10 @@ export default function ContactForm() {
           Or email me directly at
         </p>
         <a
-          href="mailto:contact.jack.dev@gmail.com"
+          href="mailto:contact@jacksdevfolio.com"
           className="text-xs sm:text-sm text-foreground hover:underline underline-offset-2 block text-center font-medium"
         >
-          contact.jack.dev@gmail.com
+          contact@jacksdevfolio.com
         </a>
       </div>
     </section>

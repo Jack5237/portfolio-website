@@ -24,9 +24,16 @@ out/
 *~
 .DS_Store
 
+# Dev Tools
+.claude/
+.serena/
+.tokensave/
+
 # Build artifacts
 tsconfig.tsbuildinfo
 *.log
+build.log
+chrome.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -9,25 +9,32 @@ const logger = getWebLogger();
 logger.info("Loaded contact page module", { page: "Contact" });
 
 export const metadata: Metadata = {
-  title: "Contact Me - Get in Touch | Jack",
+  title: "Contact Jack - Full Stack Developer | Consultation & Inquiry",
   description:
-    "Get in touch with Jack. Send a message or schedule a free consultation call about your project.",
+    "Get in touch with Jack for web development inquiries, project quotes, or to schedule a free 30-minute consultation. Available for freelance and contract work.",
   keywords: [
     "contact Jack",
+    "hire developer",
+    "web development services",
+    "consultation",
+    "project inquiry",
+    "freelance developer",
     "book consultation",
-    "web development quote",
     "software engineer contact",
+    "development quote",
+    "work together",
   ],
   openGraph: {
-    title: "Contact Me - Jack",
-    description: "Ready to work together? Get in touch today.",
+    title: "Contact Jack - Schedule a Consultation",
+    description: "Ready to work together? Send a message or book a free 30-minute call.",
     type: "website",
     locale: "en_GB",
-    siteName: "Jack",
+    siteName: "Jack's Portfolio",
+    url: "https://www.jacksdevfolio.com/contact",
   },
 };
 
-const CONTACT_EMAIL = "contact.jack.dev@gmail.com";
+const CONTACT_EMAIL = "contact@jacksdevfolio.com";
 
 export default function ContactPage() {
   logger.debug("Rendering contact page", { page: "Contact" });

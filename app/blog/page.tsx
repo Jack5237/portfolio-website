@@ -206,7 +206,7 @@ const BlogPage = () => {
           </div>
         </main>
         <Footer
-          email="contact.jack.dev@gmail.com"
+          email="contact@jacksdevfolio.com"
           socialLinks={{
             twitter: "https://x.com/Jack1168556",
             github: "https://github.com/Jack5237",
@@ -690,7 +690,7 @@ const BlogPage = () => {
         </div>
       </main>
       <Footer
-        email="contact.jack.dev@gmail.com"
+        email="contact@jacksdevfolio.com"
         socialLinks={{
           twitter: "https://x.com/Jack1168556",
           github: "https://github.com/Jack5237",

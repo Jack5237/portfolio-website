@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
 
     const { error } = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: "contact.jack.dev@gmail.com",
+      to: "contact@jacksdevfolio.com",
       replyTo: email.trim(),
       subject: `New message from ${safeName}`,
       html: `
