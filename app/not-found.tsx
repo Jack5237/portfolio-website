@@ -1,39 +1,27 @@
-import { NextResponse } from 'next/server';
-
 export default function NotFound() {
-  const siteMap = `# Page Not Found
+  return (
+    <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif', maxWidth: '600px', margin: '0 auto' }}>
+      <h1>404 - Page Not Found</h1>
+      <p>The page you're looking for doesn't exist.</p>
 
-The page you're looking for doesn't exist.
+      <h2>Site Map</h2>
+      <ul>
+        <li><a href="/">Home</a> - Portfolio homepage</li>
+        <li><a href="/blog">Blog</a> - Articles and posts</li>
+        <li><a href="/contact">Contact</a> - Get in touch</li>
+      </ul>
 
-## Site Map
+      <h2>API Endpoints</h2>
+      <ul>
+        <li><a href="/api/content">/api/content</a> - Portfolio data (JSON, text, markdown)</li>
+        <li><a href="/api/health">/api/health</a> - Health check</li>
+        <li><a href="/api/blog">/api/blog</a> - Blog posts</li>
+        <li><a href="/text">/text</a> - Plain text version</li>
+        <li><a href="/openapi.json">/openapi.json</a> - OpenAPI spec</li>
+      </ul>
 
-- [Home](/) - Portfolio homepage with projects and skills
-- [Blog](/blog) - Latest articles and technical posts
-- [Contact](/contact) - Get in touch
-
-## API Endpoints
-
-- [/api/content](https://www.jacksdevfolio.com/api/content) - Portfolio data (supports JSON, text, markdown)
-- [/api/health](https://www.jacksdevfolio.com/api/health) - Health check endpoint
-- [/api/blog](https://www.jacksdevfolio.com/api/blog) - Blog posts API
-- [/text](/text) - Plain text version of portfolio
-- [/openapi.json](/openapi.json) - OpenAPI specification
-
-## Support
-
-For questions or issues, email [contact@jacksdevfolio.com](mailto:contact@jacksdevfolio.com)
-
----
-
-*This is a 404 Not Found response. If you believe this is an error, please check the URL or contact the site owner.*
-`;
-
-  return new Response(siteMap, {
-    status: 404,
-    headers: {
-      'Content-Type': 'text/markdown; charset=utf-8',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Vary': 'Accept',
-    },
-  });
+      <h2>Support</h2>
+      <p>Contact: <a href="mailto:contact@jacksdevfolio.com">contact@jacksdevfolio.com</a></p>
+    </div>
+  );
 }
