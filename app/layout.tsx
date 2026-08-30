@@ -229,6 +229,9 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com"} />
         <meta name="theme-color" content="#000000" />
+        <meta name="robots" content="index, follow, noarchive" />
+        <link rel="alternate" type="application/json+ld" href="/api/health" />
+        <link rel="alternate" type="application/openapi+json" href="/openapi.json" title="OpenAPI Specification" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />

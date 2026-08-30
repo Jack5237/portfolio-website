@@ -1,0 +1,49 @@
+# Agent Support Declaration
+# This file declares support for AI agents and autonomous systems
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /.vercel/
+
+# Explicitly allow major AI agent crawlers
+User-agent: ClaudeBot
+Allow: /
+Crawl-delay: 0
+
+User-agent: ChatGPT-User
+Allow: /
+Crawl-delay: 0
+
+User-agent: Google-Extended
+Allow: /
+Crawl-delay: 0
+
+User-agent: DeepSeekBot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Applebot-Extended
+Allow: /
+Crawl-delay: 0
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 0
+
+# API Documentation
+# OpenAPI/Swagger spec available at: /openapi.json
+# Health check endpoint: /api/health
+
+# Public endpoints accessible to agents:
+# GET  /api/blog         - Retrieve all blog posts
+# POST /api/contact      - Submit contact form
+# GET  /                 - Homepage with portfolio content
+# GET  /blog             - Blog listing page
+
+# Contact for questions
+# Email: contact@jacksdevfolio.com
+# Website: https://www.jacksdevfolio.com
+
+# Last updated: 2026-08-30

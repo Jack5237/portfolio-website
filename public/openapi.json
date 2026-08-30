@@ -1,0 +1,254 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Jack's Portfolio API",
+    "description": "Public API endpoints for Jack's portfolio website",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Jack",
+      "email": "contact@jacksdevfolio.com",
+      "url": "https://www.jacksdevfolio.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.jacksdevfolio.com",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/blog": {
+      "get": {
+        "summary": "Get all blog posts",
+        "description": "Retrieve a list of all published blog posts with metadata",
+        "tags": ["Blog"],
+        "operationId": "getBlogPosts",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved blog posts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BlogPost"
+                  }
+                },
+                "example": [
+                  {
+                    "id": "1",
+                    "title": "Building with React",
+                    "slug": "building-with-react",
+                    "date": "2026-01-17",
+                    "category": "Development",
+                    "tags": ["React", "JavaScript"],
+                    "excerpt": "A guide to modern React development...",
+                    "content": "# Building with React\n\nReact is a JavaScript library...",
+                    "bannerImage": "https://example.com/image.jpg"
+                  }
+                ]
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contact": {
+      "post": {
+        "summary": "Submit contact form",
+        "description": "Send a message through the contact form. Rate-limited to 3 submissions per 10 minutes per IP.",
+        "tags": ["Contact"],
+        "operationId": "submitContact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactRequest"
+              },
+              "example": {
+                "name": "John Doe",
+                "email": "john@example.com",
+                "message": "I'd like to discuss a project...",
+                "agreedToTerms": true,
+                "website": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Name, email, and message are required."
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Too many requests. Please wait a few minutes before trying again."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BlogPost": {
+        "type": "object",
+        "required": ["id", "title", "slug", "date", "category", "tags", "excerpt", "content"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the blog post"
+          },
+          "title": {
+            "type": "string",
+            "description": "Blog post title"
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-friendly slug derived from filename"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Publication date (YYYY-MM-DD)"
+          },
+          "category": {
+            "type": "string",
+            "description": "Blog post category"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of tags for categorization"
+          },
+          "excerpt": {
+            "type": "string",
+            "description": "Short summary of the blog post"
+          },
+          "content": {
+            "type": "string",
+            "description": "Full blog post content in Markdown format"
+          },
+          "bannerImage": {
+            "type": "string",
+            "format": "uri",
+            "description": "Optional banner image URL"
+          }
+        }
+      },
+      "ContactRequest": {
+        "type": "object",
+        "required": ["name", "email", "message", "agreedToTerms"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Sender's name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 200,
+            "description": "Sender's email address"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 5000,
+            "description": "Message content"
+          },
+          "agreedToTerms": {
+            "type": "boolean",
+            "description": "Must be true to submit"
+          },
+          "website": {
+            "type": "string",
+            "description": "Honeypot field (should remain empty)"
+          }
+        }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Message sent successfully."
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "code": {
+            "type": "string",
+            "description": "Optional error code"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Blog",
+      "description": "Blog post retrieval endpoints"
+    },
+    {
+      "name": "Contact",
+      "description": "Contact form submission"
+    }
+  ]
+}

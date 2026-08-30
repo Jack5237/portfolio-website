@@ -8,6 +8,11 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
+        userAgent: ["ClaudeBot", "ChatGPT-User", "Google-Extended", "DeepSeekBot", "Applebot-Extended", "PerplexityBot"],
+        allow: ["/"],
+        crawlDelay: 0,
+      },
+      {
         userAgent: "*",
         allow: ["/"],
         disallow: ["/api/", "/_next/", "/.vercel/"],
