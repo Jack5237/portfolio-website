@@ -18,6 +18,7 @@ import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provi
 import { MainNavbar } from "@/components/navigation/main-navbar";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const TopBanner = dynamic(() => import("@/components/navigation/top-banner").then(mod => ({ default: mod.TopBanner })), { ssr: false });
 
@@ -278,6 +279,23 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-CJ60ECJTVZ"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-CJ60ECJTVZ');
+            `,
+          }}
+        />
       </head>
       <body
         className={cn(
@@ -295,6 +313,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
