@@ -39,6 +39,9 @@ const HomePage = () => {
 
   return (
     <>
+      <h1 style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden' }}>
+        Jack - Full Stack Developer Portfolio
+      </h1>
       <Script
         id="portfolio-schema"
         type="application/ld+json"

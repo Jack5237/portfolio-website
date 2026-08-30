@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const accept = request.headers.get('accept') || '';
@@ -53,7 +53,7 @@ Having trouble? Reach out to [contact@jacksdevfolio.com](mailto:contact@jacksdev
       headers: {
         'Content-Type': 'text/markdown; charset=utf-8',
         'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Vary': 'Accept',
+        'Vary': 'Accept, Accept-Encoding',
       },
     });
   }
