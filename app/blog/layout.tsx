@@ -34,11 +34,11 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.jacksdevfolio.com/avatarImg.png",
+        url: "https://www.jacksdevfolio.com/images/brand/avatarImg.png",
         width: 512,
         height: 512,
         alt: "Jack's Development Blog",
-        secureUrl: "https://www.jacksdevfolio.com/avatarImg.png",
+        secureUrl: "https://www.jacksdevfolio.com/images/brand/avatarImg.png",
       },
     ],
   },
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blog - Development Insights",
     description: "Articles on full-stack development and modern web technologies.",
-    images: ["https://www.jacksdevfolio.com/avatarImg.png"],
+    images: ["https://www.jacksdevfolio.com/images/brand/avatarImg.png"],
   },
 };
 

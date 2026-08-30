@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/avatarImg.png",
+        url: "/images/brand/avatarImg.png",
         width: 512,
         height: 512,
         alt: "Jack - Contact",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact - Jack",
     description: "Get in touch with Jack for collaboration or inquiries.",
-    images: ["/avatarImg.png"],
+    images: ["/images/brand/avatarImg.png"],
   },
 };
 

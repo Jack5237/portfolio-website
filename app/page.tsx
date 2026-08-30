@@ -27,7 +27,7 @@ const HomePage = () => {
       "name": "Jack",
       "jobTitle": "Full Stack Developer",
       "url": process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com",
-      "image": "https://www.jacksdevfolio.com/avatarImg.png",
+      "image": "https://www.jacksdevfolio.com/images/brand/avatarImg.png",
       "sameAs": [
         "https://github.com/Jack5237",
         "https://www.linkedin.com/in/jack-dev-a732b4397",

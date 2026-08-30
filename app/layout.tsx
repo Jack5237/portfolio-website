@@ -121,12 +121,12 @@ export const metadata: Metadata = {
     emails: ["contact@jacksdevfolio.com"],
     images: [
       {
-        url: "https://www.jacksdevfolio.com/avatarImg.png",
+        url: "https://www.jacksdevfolio.com/images/brand/avatarImg.png",
         width: 512,
         height: 512,
         alt: "Jack - Full Stack Developer",
         type: "image/png",
-        secureUrl: "https://www.jacksdevfolio.com/avatarImg.png",
+        secureUrl: "https://www.jacksdevfolio.com/images/brand/avatarImg.png",
       },
     ],
   },
@@ -136,7 +136,7 @@ export const metadata: Metadata = {
     description:
       "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends.",
     creator: "@Jack1168556",
-    images: ["/avatarImg.png"],
+    images: ["/images/brand/avatarImg.png"],
   },
   robots: {
     index: true,
@@ -150,8 +150,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/avatarImg.png",
-    apple: "/avatarImg.png",
+    icon: "/images/brand/avatarImg.png",
+    apple: "/images/brand/avatarImg.png",
   },
 };
 
@@ -179,7 +179,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     url: "https://www.jacksdevfolio.com",
     image: {
       "@type": "ImageObject",
-      url: "https://www.jacksdevfolio.com/avatarImg.png",
+      url: "https://www.jacksdevfolio.com/images/brand/avatarImg.png",
       width: 512,
       height: 512,
     },
