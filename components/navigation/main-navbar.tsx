@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
@@ -57,12 +58,22 @@ export const MainNavbar = () => {
   return (
     <nav className="sticky top-0 z-40 border-b border-foreground/15 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="container mx-auto flex items-center justify-between px-4 py-3 sm:px-6 md:px-8">
-        {/* Logo */}
+        {/* Logo Section with Avatar */}
         <Link
           href="/"
-          className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-foreground flex-shrink-0 font-semibold"
+          className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0"
         >
-          JacksDevFolio
+          <Image
+            src="/images/brand/avatarImg.png"
+            alt="Jack"
+            width={32}
+            height={32}
+            className="rounded-full flex-shrink-0 hidden sm:block"
+            priority
+          />
+          <span className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-foreground font-semibold">
+            JacksDevFolio
+          </span>
         </Link>
 
         {/* Desktop Navigation */}

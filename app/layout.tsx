@@ -16,6 +16,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { MainNavbar } from "@/components/navigation/main-navbar";
+import { CookieConsent } from "@/components/cookie-consent";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -227,9 +228,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com"} />
         <meta name="theme-color" content="#000000" />
-        <meta name="robots" content="index, follow, noarchive" />
         <link rel="alternate" type="application/json+ld" href="/api/health" />
         <link rel="alternate" type="application/openapi+json" href="/openapi.json" title="OpenAPI Specification" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -266,12 +265,24 @@ const RootLayout = ({ children }: RootLayoutProps) => {
             `,
           }}
         />
+        {/* Consent Mode v2 defaults. Must run before any Google tag loads. */}
         <Script
-          id="disable-ads-thin-pages"
+          id="google-consent-mode"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              window.__disableAds = /^\/(privacy|terms|cookies|contact)\/?$/.test(window.location.pathname);
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              var stored = null;
+              try { stored = localStorage.getItem('cookie-consent'); } catch (e) {}
+              var state = stored === 'granted' ? 'granted' : 'denied';
+              gtag('consent', 'default', {
+                ad_storage: state,
+                ad_user_data: state,
+                ad_personalization: state,
+                analytics_storage: state,
+                wait_for_update: 500
+              });
             `,
           }}
         />
@@ -291,8 +302,6 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-CJ60ECJTVZ');
             `,
@@ -313,6 +322,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           <TopBanner />
           <MainNavbar />
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
+          <CookieConsent />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

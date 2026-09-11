@@ -1,0 +1,647 @@
+"use client";
+
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import Image from "next/image";
+import NextLink from "next/link";
+import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2, Minimize2, ArrowUp, Link, Copy, Check } from "lucide-react";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import { Dithering } from "@paper-design/shaders-react";
+
+import { Footer } from "@/components/sections/footer";
+import { BlogHeroSection } from "@/components/sections/blog-hero-section";
+import Dock from "@/components/ui/Dock";
+import { cn } from "@/lib/utils";
+import type { BlogPost } from "@/lib/types";
+
+const FEATURED_CATEGORIES = ["AI", "Development", "Tools", "Design", "Writing"];
+
+/**
+ * Minimal blog listing page with hero section, search functionality, and streamlined layout.
+ * @returns The blog listing page markup.
+ */
+interface BlogClientProps {
+  readonly posts: BlogPost[];
+}
+
+const BlogClient = ({ posts }: BlogClientProps) => {
+  const blogPosts = posts;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
+  const [shareOpen, setShareOpen] = useState<string | null>(null);
+  const [copiedShare, setCopiedShare] = useState<string | null>(null);
+  const [dockShareOpen, setDockShareOpen] = useState(false);
+  const [isImmersive, setIsImmersive] = useState(false);
+  const immersiveScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollImmersiveToTop = useCallback(() => {
+    immersiveScrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  // Lock body scroll when immersive reader is open so wheel events hit the overlay
+  useEffect(() => {
+    document.body.style.overflow = isImmersive ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isImmersive]);
+
+  /**
+   * Handle URL slug parameter when posts load (runs once on mount)
+   */
+  useEffect(() => {
+    if (blogPosts.length === 0) return;
+
+    const slug = new URLSearchParams(window.location.search).get("post");
+    if (slug) {
+      const post = blogPosts.find(p => p.slug === slug);
+      if (post) {
+        setExpandedPostId(post.id);
+      }
+    }
+  }, [blogPosts]);
+
+  /**
+   * Set URL when a post is expanded. Runs after React commits so it
+   * is outside Next.js's event-handler interception cycle.
+   */
+  useEffect(() => {
+    if (!expandedPostId || blogPosts.length === 0) return;
+    const post = blogPosts.find(p => p.id === expandedPostId);
+    if (post?.slug) {
+      window.history.replaceState(null, "", `/blog?post=${post.slug}`);
+    }
+  }, [expandedPostId, blogPosts]);
+
+  /**
+   * Handles keyboard shortcuts:
+   * - 'B' key to navigate home
+   * - Ctrl+Backspace to close expanded post
+   */
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement;
+      // Skip if typing in an input/textarea
+      if (
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable
+      ) {
+        return;
+      }
+
+      // Check for Ctrl+Backspace (or Cmd+Backspace on Mac) to close expanded post
+      if ((event.ctrlKey || event.metaKey) && event.key === "Backspace") {
+        if (expandedPostId) {
+          event.preventDefault();
+          setExpandedPostId(null);
+        }
+        return;
+      }
+
+      // Check for Ctrl+Delete to close expanded post
+      if ((event.ctrlKey || event.metaKey) && event.key === "Delete") {
+        if (expandedPostId) {
+          event.preventDefault();
+          setExpandedPostId(null);
+        }
+        return;
+      }
+
+      // Check for 'W' key to navigate to work section
+      if (event.key.toLowerCase() === "w" && !event.ctrlKey && !event.metaKey) {
+        event.preventDefault();
+        window.location.href = "/#projects";
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [expandedPostId]);
+
+  /**
+   * Memoized filtering of blog posts
+   */
+  const filteredPosts = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return blogPosts;
+    }
+
+    const query = searchQuery.toLowerCase();
+
+    return blogPosts.filter((post) => {
+      if (FEATURED_CATEGORIES.includes(post.category)) {
+        return post.category.toLowerCase() === query;
+      }
+
+      return (
+        post.title.toLowerCase().includes(query) ||
+        post.excerpt.toLowerCase().includes(query) ||
+        post.category.toLowerCase().includes(query) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(query))
+      );
+    });
+  }, [searchQuery, blogPosts]);
+
+  const availableCategories = useMemo(() => {
+    return Array.from(new Set(blogPosts.map((post) => post.category)))
+      .filter((cat) => FEATURED_CATEGORIES.includes(cat))
+      .sort();
+  }, [blogPosts]);
+
+
+  const expandedPost = blogPosts.find((p) => p.id === expandedPostId);
+
+  return (
+    <>
+      {/* Immersive reader overlay */}
+      {isImmersive && expandedPost && (
+        <div
+          ref={immersiveScrollRef}
+          data-lenis-prevent
+          className="fixed inset-0 z-50 bg-background overflow-y-auto"
+        >
+          <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 py-12 sm:py-16 pb-28">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold uppercase leading-tight tracking-wide mb-8 sm:mb-10">
+              {expandedPost.title}
+            </h1>
+
+            <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
+              <div className="text-sm sm:text-base leading-relaxed sm:leading-loose text-foreground">
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                  {expandedPost.content}
+                </ReactMarkdown>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom dock */}
+          <div className="fixed bottom-0 left-0 right-0 pointer-events-none flex justify-center items-end pb-2">
+            <div className="pointer-events-auto relative">
+              {/* Share popover */}
+              {dockShareOpen && expandedPost && (
+                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-background border border-foreground/20 rounded-sm shadow-lg z-50 min-w-[160px]">
+                  <button
+                    onClick={() => { const t = encodeURIComponent(`"${expandedPost.title}" by Jack`); const u = encodeURIComponent(window.location.href); window.open(`https://twitter.com/intent/tweet?text=${t}&url=${u}`, "_blank"); }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  ><Twitter size={13} /> Twitter / X</button>
+                  <button
+                    onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank")}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  ><Linkedin size={13} /> LinkedIn</button>
+                  <button
+                    onClick={() => { const ti = encodeURIComponent(expandedPost.title); const u = encodeURIComponent(window.location.href); window.open(`https://reddit.com/submit?title=${ti}&url=${u}`, "_blank"); }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  ><Share2 size={13} /> Reddit</button>
+                  <div className="border-t border-foreground/10 my-1" />
+                  <button
+                    onClick={() => { navigator.clipboard.writeText(window.location.href); setCopiedShare("dock-link"); setTimeout(() => setCopiedShare(null), 2000); }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  >{copiedShare === "dock-link" ? <Check size={13} className="text-foreground" /> : <Link size={13} />} {copiedShare === "dock-link" ? "Copied!" : "Copy link"}</button>
+                  <button
+                    onClick={() => { navigator.clipboard.writeText(expandedPost.content); setCopiedShare("dock-md"); setTimeout(() => setCopiedShare(null), 2000); }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                  >{copiedShare === "dock-md" ? <Check size={13} className="text-foreground" /> : <Copy size={13} />} {copiedShare === "dock-md" ? "Copied!" : "Copy markdown"}</button>
+                </div>
+              )}
+              {/* Desktop: animated dock */}
+              <div className="hidden sm:block">
+                <Dock
+                  panelHeight={52}
+                  baseItemSize={40}
+                  magnification={56}
+                  distance={160}
+                  items={[
+                    { icon: <ArrowUp size={16} />, label: "Top", onClick: scrollImmersiveToTop },
+                    { icon: <Share2 size={16} />, label: "Share", onClick: () => setDockShareOpen(o => !o) },
+                    { icon: <Minimize2 size={16} />, label: "Exit", onClick: () => { setIsImmersive(false); setDockShareOpen(false); } },
+                  ]}
+                />
+              </div>
+              {/* Mobile: simple bar */}
+              <div className="flex sm:hidden items-center gap-1 mb-4 bg-background border border-foreground/20 rounded-full px-3 py-2 shadow-lg">
+                <button onClick={scrollImmersiveToTop} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Top"><ArrowUp size={16} /></button>
+                <button onClick={() => setDockShareOpen(o => !o)} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Share"><Share2 size={16} /></button>
+                <button onClick={() => { setIsImmersive(false); setDockShareOpen(false); }} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Exit"><Minimize2 size={16} /></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <main
+        className={cn(
+          "container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16",
+          "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8",
+        )}
+      >
+        {/* Hero Section */}
+        <BlogHeroSection />
+
+        {/* Search and Tags Layout - Inline */}
+        <div
+          data-blog-content
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-6"
+        >
+          {/* Search Bar - Left Side */}
+          <div className="w-full md:max-w-md">
+            <input
+              type="text"
+              placeholder="search posts..."
+              value={searchQuery}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchQuery(e.target.value)
+              }
+              className={cn(
+                "w-full px-4 py-3 bg-transparent border-b border-foreground/20",
+                "text-sm sm:text-base text-foreground placeholder:text-muted-foreground/50",
+                "focus:outline-none focus:border-foreground transition-colors",
+                "tracking-wide",
+              )}
+            />
+          </div>
+
+          {/* Categories - Right Side (Plain Text, Right-Aligned) */}
+          <div className="flex flex-wrap gap-3 sm:gap-4 items-center md:justify-end">
+            <button
+              onClick={() => setSearchQuery("")}
+              className={cn(
+                "text-sm sm:text-base transition-colors",
+                !searchQuery
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              all
+            </button>
+            {availableCategories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSearchQuery(category)}
+                className={cn(
+                  "text-sm sm:text-base transition-colors",
+                  searchQuery === category
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Expanded Post Content */}
+        {expandedPostId && (
+          <div className="blog-expand-container border-t border-foreground/20 pt-8 sm:pt-10 space-y-6 overflow-hidden">
+            {(() => {
+              const post = blogPosts.find((p) => p.id === expandedPostId);
+              if (!post) return null;
+
+              return (
+                <article className="space-y-6">
+                  {/* Banner */}
+                  <div className="relative w-full h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+                    {post.bannerImage ? (
+                      <Image
+                        src={post.bannerImage}
+                        alt={post.title}
+                        fill
+                        className="object-contain grayscale opacity-80 hover:opacity-100 transition-opacity"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                      />
+                    ) : (
+                      <Dithering
+                        width={1280}
+                        height={720}
+                        colorBack="#141414"
+                        colorFront="#ebebeb"
+                        shape="ripple"
+                        type="2x2"
+                        size={3}
+                        speed={1}
+                      />
+                    )}
+                  </div>
+
+                  {/* Post Header */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-[9px] sm:text-[10px] uppercase tracking-[0.2rem] text-muted-foreground/60">
+                        <span>{post.category}</span>
+                        <span>•</span>
+                        <time dateTime={post.date}>{post.date}</time>
+                      </div>
+                      <button
+                        onClick={() => setIsImmersive(true)}
+                        className={cn(
+                          "flex items-center justify-center p-2 transition-colors",
+                          "text-muted-foreground/60 hover:text-foreground",
+                        )}
+                        title="Immersive reader"
+                      >
+                        <Maximize2 className="h-4 w-4" />
+                      </button>
+                    </div>
+
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold uppercase tracking-wide">
+                      {post.title}
+                    </h2>
+
+                    {/* Post Tags */}
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {post.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-sm text-muted-foreground/80"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Post Content - Left Aligned */}
+                  <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
+                    <div className="text-sm sm:text-base leading-relaxed text-foreground text-left whitespace-pre-wrap">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                        {post.content}
+                      </ReactMarkdown>
+                    </div>
+                  </div>
+
+                  {/* Footer - single row: nav left, actions right */}
+                  {(() => {
+                    const currentIndex = blogPosts.findIndex(p => p.id === post.id);
+                    const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
+                    const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
+                    return (
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-8 mt-8 border-t border-foreground/10 gap-4">
+                        {/* Left - Previous */}
+                        {prevPost ? (
+                          <button
+                            onClick={() => {
+                              setExpandedPostId(prevPost.id);
+                              setIsImmersive(false);
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            className={cn(
+                              "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
+                              "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                              "text-muted-foreground hover:text-foreground",
+                            )}
+                          >
+                            <ArrowLeft className="h-4 w-4" />
+                            previous
+                          </button>
+                        ) : <div />}
+
+                        {/* Right - Actions */}
+                        <div className="flex items-center gap-2 flex-wrap justify-start sm:justify-end">
+                          <a
+                            href="https://buymeacoffee.com/scottish.jack"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={cn(
+                              "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
+                              "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                              "text-muted-foreground hover:text-foreground",
+                            )}
+                          >
+                            <Coffee className="h-4 w-4" />
+                            coffee
+                          </a>
+
+                          {/* Share */}
+                          <div className="relative">
+                            <button
+                              onClick={() => setShareOpen(shareOpen === `expanded-${post.id}` ? null : `expanded-${post.id}`)}
+                              className={cn(
+                                "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
+                                "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                                "text-muted-foreground hover:text-foreground",
+                              )}
+                            >
+                              <Share2 className="h-4 w-4" />
+                              share
+                            </button>
+                            {shareOpen === `expanded-${post.id}` && (
+                              <div className="absolute bottom-full mb-2 right-0 sm:right-0 left-auto max-[400px]:right-auto max-[400px]:left-0 bg-background border border-foreground/20 rounded-sm z-50 shadow-lg shadow-foreground/10 min-w-[160px]">
+                                {/* Twitter */}
+                                <button
+                                  onClick={() => {
+                                    const text = `"${post.title}" by Jack`;
+                                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
+                                  }}
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                                >
+                                  <Twitter className="h-3.5 w-3.5 shrink-0" />
+                                  Twitter / X
+                                </button>
+                                {/* LinkedIn */}
+                                <button
+                                  onClick={() => {
+                                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
+                                  }}
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                                >
+                                  <Linkedin className="h-3.5 w-3.5 shrink-0" />
+                                  LinkedIn
+                                </button>
+                                {/* Reddit */}
+                                <button
+                                  onClick={() => {
+                                    const title = encodeURIComponent(post.title);
+                                    const url = encodeURIComponent(window.location.href);
+                                    window.open(`https://reddit.com/submit?title=${title}&url=${url}`, "_blank");
+                                  }}
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                                >
+                                  <Share2 className="h-3.5 w-3.5 shrink-0" />
+                                  Reddit
+                                </button>
+                                <div className="border-t border-foreground/10 my-1" />
+                                {/* Copy link */}
+                                <button
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(window.location.href);
+                                    setCopiedShare(`link-${post.id}`);
+                                    setTimeout(() => setCopiedShare(null), 2000);
+                                  }}
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                                >
+                                  {copiedShare === `link-${post.id}` ? <Check className="h-3.5 w-3.5 shrink-0 text-foreground" /> : <Link className="h-3.5 w-3.5 shrink-0" />}
+                                  {copiedShare === `link-${post.id}` ? "Copied!" : "Copy link"}
+                                </button>
+                                {/* Copy markdown */}
+                                <button
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(post.content);
+                                    setCopiedShare(`md-${post.id}`);
+                                    setTimeout(() => setCopiedShare(null), 2000);
+                                  }}
+                                  className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
+                                >
+                                  {copiedShare === `md-${post.id}` ? <Check className="h-3.5 w-3.5 shrink-0 text-foreground" /> : <Copy className="h-3.5 w-3.5 shrink-0" />}
+                                  {copiedShare === `md-${post.id}` ? "Copied!" : "Copy markdown"}
+                                </button>
+                              </div>
+                            )}
+                          </div>
+
+                          <button
+                            onClick={() => {
+                              setExpandedPostId(null);
+                              setShareOpen(null);
+                              setIsImmersive(false);
+                              window.history.replaceState(null, "", "/blog");
+                            }}
+                            className={cn(
+                              "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
+                              "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                              "text-muted-foreground hover:text-foreground",
+                            )}
+                          >
+                            <X className="h-4 w-4" />
+                            close
+                          </button>
+
+                          {nextPost && (
+                            <button
+                              onClick={() => {
+                                setExpandedPostId(nextPost.id);
+                                setIsImmersive(false);
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                              }}
+                              className={cn(
+                                "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
+                                "border border-foreground/10 hover:border-foreground/30 transition-colors",
+                                "text-muted-foreground hover:text-foreground",
+                              )}
+                            >
+                              next
+                              <ArrowRight className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </article>
+              );
+            })()}
+          </div>
+        )}
+
+        {/* Blog Posts - Card Layout matching Projects Section */}
+        <div className="grid gap-8 sm:gap-10 md:gap-12">
+          {filteredPosts.length === 0 ? (
+            <div className="text-left py-12 sm:py-16">
+              <p className="text-sm sm:text-base text-muted-foreground">
+                No posts found matching &quot;{searchQuery}&quot;
+              </p>
+            </div>
+          ) : (
+            filteredPosts.map((post, index) => {
+              const isLeftAligned = index % 2 === 0;
+              return (
+                <article
+                  key={post.id}
+                  className={cn(
+                    "group relative border-t border-foreground/15 pt-6 sm:pt-8 md:pt-10 transition-colors cursor-pointer",
+                    "hover:border-foreground",
+                    index === filteredPosts.length - 1 && "border-b pb-8",
+                  )}
+                  onClick={() => {
+                    if (expandedPostId === post.id) {
+                      setExpandedPostId(null);
+                      setIsImmersive(false);
+                      window.history.replaceState(null, "", "/blog");
+                    } else {
+                      setExpandedPostId(post.id);
+                      setShareOpen(null);
+                      setIsImmersive(false);
+                      setTimeout(() => {
+                        const expandContainer = document.querySelector(".blog-expand-container");
+                        if (expandContainer) {
+                          expandContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                      }, 0);
+                    }
+                  }}
+                >
+                  {/* Metadata row — category left/right, date opposite (mirrors work section) */}
+                  <div
+                    className={cn(
+                      "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground transition-colors group-hover:text-accent",
+                      isLeftAligned
+                        ? "md:flex-row md:items-center md:justify-between"
+                        : "md:flex-row-reverse md:items-center md:justify-between",
+                    )}
+                  >
+                    <span>{post.category}</span>
+                    <time dateTime={post.date}>{post.date}</time>
+                  </div>
+
+                  {/* Content row — title one side, excerpt opposite (exact work section pattern) */}
+                  <div
+                    className={cn(
+                      "flex flex-col gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-5 md:mt-6",
+                      "md:items-start md:justify-between",
+                      isLeftAligned ? "md:flex-row" : "md:flex-row-reverse",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent flex-1",
+                        isLeftAligned ? "text-left" : "text-left md:text-right",
+                      )}
+                    >
+                      {post.title}
+                    </span>
+
+                    {post.excerpt && (
+                      <p
+                        className={cn(
+                          "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs",
+                          "text-left",
+                          isLeftAligned ? "md:text-right" : "md:text-left",
+                        )}
+                      >
+                        {post.excerpt}
+                      </p>
+                    )}
+                  </div>
+
+                  <NextLink
+                    href={`/blog/${post.slug}`}
+                    onClick={(event) => event.stopPropagation()}
+                    className="mt-4 inline-flex text-[10px] uppercase tracking-[0.2rem] text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Read article →
+                  </NextLink>
+                </article>
+              );
+            })
+          )}
+        </div>
+      </main>
+      <Footer
+        email="contact@jacksdevfolio.com"
+        socialLinks={{
+          twitter: "https://x.com/Jack1168556",
+          github: "https://github.com/Jack5237",
+          linkedin: "https://www.linkedin.com/in/jack-dev-a732b4397",
+          discord: "https://discord.com/users/ttv_jack_",
+        }}
+      />
+    </>
+  );
+};
+
+export default BlogClient;
