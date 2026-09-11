@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import NextLink from "next/link";
 import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2, Minimize2, ArrowUp, Link, Copy, Check } from "lucide-react";
@@ -9,8 +8,6 @@ import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2,
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-
-const Dithering = dynamic(() => import("@paper-design/shaders-react").then(m => ({ default: m.Dithering })), { ssr: false });
 
 import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
@@ -316,16 +313,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                       />
                     ) : (
-                      <Dithering
-                        width={1280}
-                        height={720}
-                        colorBack="#141414"
-                        colorFront="#ebebeb"
-                        shape="ripple"
-                        type="2x2"
-                        size={3}
-                        speed={1}
-                      />
+                      <div className="w-full aspect-[16/9] bg-gradient-to-br from-foreground/5 to-foreground/10 rounded-lg" />
                     )}
                   </div>
 
