@@ -27,7 +27,7 @@ interface BlogClientProps {
 }
 
 const BlogClient = ({ posts }: BlogClientProps) => {
-  const blogPosts = posts;
+  const blogPosts = Array.isArray(posts) ? posts : [];
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
   const [shareOpen, setShareOpen] = useState<string | null>(null);

@@ -1,7 +1,7 @@
+import { getAllBlogPosts } from "@/lib/blog";
 import BlogClient from "./blog-client";
 
-import { getAllBlogPosts } from "@/lib/blog";
-
-const BlogPage = () => <BlogClient posts={getAllBlogPosts()} />;
-
-export default BlogPage;
+export default function BlogPage() {
+  const posts = getAllBlogPosts();
+  return <BlogClient posts={posts} />;
+}
