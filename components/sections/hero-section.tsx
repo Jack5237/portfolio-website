@@ -52,10 +52,14 @@ export const HeroSection = () => {
                 ease="power2.out"
                 trigger="mount"
                 fillMode="wipe"
-                fontSize="clamp(2.5rem, 6.5vw, 5rem)"
+                fontSize={120}
                 fontWeight={300}
                 letterSpacing={-2}
-                className="block lowercase"
+                className="block lowercase stroke-text-responsive"
+                style={{
+                  fontSize: "clamp(2.5rem, 6.5vw, 5rem)",
+                  display: "block"
+                }}
               />
             </h1>
 

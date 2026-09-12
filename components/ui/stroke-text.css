@@ -1,7 +1,13 @@
 .stroke-text {
   display: block;
   width: 100%;
-  line-height: 0;
+  line-height: 1.05;
+  min-height: 120px;
+}
+
+.stroke-text-responsive {
+  display: block;
+  width: 100%;
 }
 
 .stroke-text--hover {
@@ -11,7 +17,9 @@
 .stroke-text__svg {
   display: block;
   width: 100%;
-  height: var(--stroke-text-height, 160px);
+  height: auto;
+  min-height: 120px;
+  aspect-ratio: auto;
 }
 
 .stroke-text__stroke,
