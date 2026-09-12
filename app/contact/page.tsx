@@ -3,10 +3,6 @@ import { Calendar } from "lucide-react";
 import Script from "next/script";
 import { Footer } from "@/components/sections/footer";
 import ContactForm from "@/components/sections/contact-form";
-import { getWebLogger } from "@/lib/logger";
-
-const logger = getWebLogger();
-logger.info("Loaded contact page module", { page: "Contact" });
 
 export const metadata: Metadata = {
   title: "Contact – Full Stack Developer",
@@ -37,8 +33,6 @@ export const metadata: Metadata = {
 const CONTACT_EMAIL = "contact@jacksdevfolio.com";
 
 export default function ContactPage() {
-  logger.debug("Rendering contact page", { page: "Contact" });
-
   return (
     <>
       <main className="container relative mx-auto z-10 flex min-h-screen flex-col gap-5 pb-12 pt-8 px-4 sm:px-6 md:px-8 sm:gap-6 sm:pt-10 md:gap-8 md:pt-12 sm:pb-16 md:pb-20">

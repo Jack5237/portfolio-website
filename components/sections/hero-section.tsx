@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
  */
 export const HeroSection = () => {
   return (
-    <section className="relative flex min-h-[60vh] sm:min-h-[65vh] md:min-h-[70vh] flex-col justify-center gap-4 sm:gap-5 md:gap-6 pb-8 sm:pb-10 md:pb-12 pt-4 sm:pt-6 md:pt-8 overflow-hidden">
+    <section className="relative flex min-h-[55vh] sm:min-h-[60vh] md:min-h-[70vh] lg:min-h-[75vh] flex-col justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 pb-6 sm:pb-8 md:pb-10 lg:pb-12 pt-3 sm:pt-4 md:pt-6 lg:pt-8 overflow-hidden">
       {/* Faded Masonry Background */}
       <MasonryBackground
         items={MASONRY_ITEMS}
@@ -25,8 +25,8 @@ export const HeroSection = () => {
 
       {/* Hero Content */}
       <div className="relative z-10">
-        <header className="space-y-3 sm:space-y-4">
-          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
+        <header className="space-y-2 sm:space-y-3 md:space-y-4">
+          <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {/* Compact name and location header */}
             <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2 md:gap-3 text-[9px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.3rem] md:tracking-[0.4rem] text-muted-foreground md:text-sm md:tracking-[0.5rem]">
               <span className="font-medium text-foreground">Jack</span>
@@ -80,7 +80,7 @@ export const HeroSection = () => {
             </p>
 
             {/* Action Buttons */}
-            <div className="pt-2 sm:pt-3 flex flex-wrap gap-3 sm:gap-4">
+            <div className="pt-3 sm:pt-4 md:pt-6 flex gap-2 sm:gap-3 md:gap-4">
               <button
                 onClick={() => {
                   const element = document.querySelector("#work");
@@ -88,15 +88,15 @@ export const HeroSection = () => {
                     element.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
-                className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-muted-foreground hover:text-background h-12 px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]"
+                className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-muted-foreground hover:text-background h-10 sm:h-11 md:h-12 px-5 sm:px-7 md:px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem] whitespace-nowrap flex-shrink-0"
               >
                 See Projects
               </button>
-              <a href="/contact" className="inline-block">
+              <a href="/contact" className="inline-block flex-shrink-0">
                 <Button
                   variant="outline"
                   size="default"
-                  className="text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]"
+                  className="text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem] h-10 sm:h-11 md:h-12 px-5 sm:px-7 md:px-8 whitespace-nowrap"
                 >
                   Get in Touch
                 </Button>

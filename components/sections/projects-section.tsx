@@ -35,7 +35,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
 
   return (
     <section
-      className="space-y-6 sm:space-y-8 py-12 sm:py-16 md:py-20"
+      className="space-y-5 sm:space-y-6 md:space-y-8 py-10 sm:py-12 md:py-16 lg:py-20"
       id="projects"
     >
       <div className="flex items-center justify-between">

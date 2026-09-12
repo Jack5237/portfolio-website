@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/sections/footer";
 import { BackToHome } from "@/components/navigation/back-to-home";
-import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -11,15 +10,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/cookies" },
 };
 
-const logger = getWebLogger();
-logger.info("Loaded cookies page module", { page: "Cookies" });
-
 /**
  * Cookies Policy page matching the landing page style.
  * @returns The cookies policy page markup.
  */
 const CookiesPage = () => {
-  logger.debug("Rendering cookies page", { page: "Cookies" });
 
   return (
     <>

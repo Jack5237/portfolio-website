@@ -56,7 +56,7 @@ const StrokeText = ({
 
   const characters = useMemo(() => Array.from(String(text ?? '')), [text]);
 
-  const numFontSize = typeof fontSize === 'string' ? parseFloat(fontSize) : fontSize;
+  const numFontSize = typeof fontSize === 'string' ? Number.parseFloat(fontSize) : fontSize;
   const dash = Math.max(numFontSize * 7, 200);
 
   // ponytail: fixed em box (baseline at 0) so every instance scales identically,

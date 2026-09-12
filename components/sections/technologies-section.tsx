@@ -41,7 +41,7 @@ export const TechnologiesSection = ({
   const categories = Object.keys(grouped).sort().slice(0, 6); // Limit to 6 categories
 
   return (
-    <section className="space-y-6 py-12 sm:py-16">
+    <section className="space-y-5 sm:space-y-6 md:space-y-8 py-10 sm:py-12 md:py-16 lg:py-20">
       <ScrollSlide>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.4rem] text-muted-foreground">

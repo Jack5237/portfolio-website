@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/sections/footer";
 import { BackToHome } from "@/components/navigation/back-to-home";
-import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -11,15 +10,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/terms" },
 };
 
-const logger = getWebLogger();
-logger.info("Loaded terms page module", { page: "Terms" });
-
 /**
  * Terms of Service page matching the landing page style.
  * @returns The terms page markup.
  */
 const TermsPage = () => {
-  logger.debug("Rendering terms page", { page: "Terms" });
 
   return (
     <>

@@ -1,13 +1,36 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/sections/footer";
 import { ConnectSection } from "@/components/sections/connect-section";
-import { getWebLogger } from "@/lib/logger";
 import { SITE_CONFIG } from "@/lib/config";
 
-const logger = getWebLogger();
-logger.info("Loaded connect page module", { page: "Connect" });
+export const metadata: Metadata = {
+  title: "Connect",
+  description:
+    "Connect with Jack. Find all my social links, website, and QR code to share.",
+  alternates: { canonical: "/connect" },
+  openGraph: {
+    title: "Connect",
+    description: "All ways to connect with Jack — socials, website, and more.",
+    url: "/connect",
+    type: "website",
+    images: [
+      {
+        url: "/images/brand/avatarImg.png",
+        width: 512,
+        height: 512,
+        alt: "Jack - Connect",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Connect",
+    description: "All ways to connect with Jack.",
+    images: ["/images/brand/avatarImg.png"],
+  },
+};
 
 export default function ConnectPage() {
-  logger.debug("Rendering connect page", { page: "Connect" });
 
   return (
     <>

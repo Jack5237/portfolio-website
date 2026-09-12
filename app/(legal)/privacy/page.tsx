@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/sections/footer";
 import { BackToHome } from "@/components/navigation/back-to-home";
-import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -11,15 +10,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-const logger = getWebLogger();
-logger.info("Loaded privacy page module", { page: "Privacy" });
-
 /**
  * Privacy Policy page matching the landing page style.
  * @returns The privacy page markup.
  */
 const PrivacyPage = () => {
-  logger.debug("Rendering privacy page", { page: "Privacy" });
 
   return (
     <>

@@ -48,7 +48,7 @@ export const MainNavbar = () => {
 
   return (
     <nav className="sticky top-0 z-40 border-b border-foreground/15 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-      <div className="container mx-auto flex items-center justify-between px-4 py-3 sm:px-6 md:px-8">
+      <div className="container mx-auto flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 md:px-6 md:py-3 lg:px-8">
         {/* Logo Section with Avatar */}
         <Link
           href="/"
@@ -142,7 +142,7 @@ export const MainNavbar = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-foreground/15 bg-background/95 backdrop-blur">
-          <div className="container mx-auto px-4 py-4 sm:px-6 space-y-5">
+          <div className="container mx-auto px-3 py-3 sm:px-4 sm:py-4 space-y-4 sm:space-y-5">
             {/* Navigation Section */}
             <div className="space-y-3">
               <p className="text-[9px] uppercase tracking-[0.25rem] text-muted-foreground font-semibold px-2">
