@@ -1,12 +1,7 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import './stroke-text.css';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const DEFAULT_TEXT = 'Draw Attention';
 
@@ -19,7 +14,8 @@ interface StrokeTextProps {
   fillDelay?: number;
   stagger?: number;
   ease?: string;
-  trigger?: 'mount' | 'hover' | 'scroll' | 'loop';
+  // ponytail: no 'scroll' — would pull in gsap/ScrollTrigger (~15kB) for nothing
+  trigger?: 'mount' | 'hover' | 'loop';
   fillMode?: 'fade' | 'wipe' | 'none';
   fontSize?: number | string;
   fontWeight?: number | string;
@@ -62,6 +58,11 @@ const StrokeText = ({
 
   const numFontSize = typeof fontSize === 'string' ? parseFloat(fontSize) : fontSize;
   const dash = Math.max(numFontSize * 7, 200);
+
+  // ponytail: fixed em box (baseline at 0) so every instance scales identically,
+  // regardless of whether the string has ascenders/descenders.
+  const emTop = -numFontSize;
+  const emHeight = numFontSize * 1.3;
 
   const fontStyle = useMemo(
     () => ({
@@ -161,7 +162,7 @@ const StrokeText = ({
       if (wipe) gsap.set(wipe, { attr: { width: fillEnabled ? box.width : 0 } });
     };
 
-    const prefersReducedMotion = window.matchMedia?.('(prefers-reduce-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       setEnd();
       return () => gsap.killTweensOf(targets);
@@ -169,12 +170,7 @@ const StrokeText = ({
 
     const build = () => {
       setStart();
-      const tl = gsap.timeline({
-        paused: true,
-        repeat: trigger === 'loop' ? -1 : 0,
-        repeatDelay: trigger === 'loop' ? repeatDelay : 0,
-        defaults: { overwrite: 'auto' }
-      });
+      const tl = gsap.timeline({ paused: true, defaults: { overwrite: 'auto' } });
 
       tl.to(strokes, { strokeDashoffset: 0, duration: drawDuration, ease, stagger: staggerConfig }, 0);
 
@@ -195,8 +191,24 @@ const StrokeText = ({
       return tl;
     };
 
+    // ponytail: looping the intro would blank the heading every cycle. Instead the
+    // fill stays put and only the stroke sweeps over it — on, then off in the same
+    // direction, so it ends invisible and the next pass starts clean.
+    const buildRetrace = () => {
+      const sweep = drawDuration * 0.75;
+      const tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay, defaults: { overwrite: 'auto' } });
+      tl.set(strokes, { strokeDasharray: dash, strokeDashoffset: dash });
+      tl.to(strokes, { strokeDashoffset: 0, duration: sweep, ease, stagger: staggerConfig }, 0);
+      tl.to(
+        strokes,
+        { strokeDashoffset: -dash, duration: sweep, ease: 'power2.in', stagger: staggerConfig },
+        sweep + 0.3
+      );
+      return tl;
+    };
+
     let timeline: gsap.core.Timeline | null = null;
-    let scrollTrigger: ScrollTrigger | null = null;
+    let loop: gsap.core.Timeline | null = null;
     let removeHover: (() => void) | null = null;
 
     if (trigger === 'hover') {
@@ -210,41 +222,40 @@ const StrokeText = ({
       removeHover = () => root.removeEventListener('pointerenter', play);
     } else {
       timeline = build();
-      if (trigger === 'scroll') {
-        scrollTrigger = ScrollTrigger.create({
-          trigger: root,
-          start: 'top 82%',
-          once: true,
-          onEnter: () => timeline?.play(0)
+      if (trigger === 'loop') {
+        timeline.eventCallback('onComplete', () => {
+          loop = buildRetrace();
+          loop.play(0);
         });
-      } else {
-        timeline.play(0);
       }
+      timeline.play(0);
     }
 
     return () => {
       removeHover?.();
-      scrollTrigger?.kill();
+      loop?.kill();
       timeline?.kill();
       gsap.killTweensOf(targets);
     };
   }, [box, dash, drawDuration, fillDelay, stagger, ease, trigger, fillMode, reverse, repeatDelay]);
 
-  const viewBox = box ? `${box.x} ${box.y} ${box.width} ${box.height}` : `0 ${-numFontSize} 600 ${numFontSize * 1.3}`;
+  const viewBox = box
+    ? `${box.x} ${emTop} ${box.width} ${emHeight}`
+    : `0 ${emTop} ${numFontSize * 6} ${emHeight}`;
 
   return (
     <span
       ref={rootRef}
       className={`stroke-text ${trigger === 'hover' ? 'stroke-text--hover' : ''} ${className}`.trim()}
-      style={{ ...style, '--stroke-text-height': `${Math.round(numFontSize * 1.3)}px` } as React.CSSProperties}
+      style={style}
       role="img"
       aria-label={String(text ?? '')}
     >
-      <svg className="stroke-text__svg" viewBox={viewBox} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <svg className="stroke-text__svg" viewBox={viewBox} preserveAspectRatio="xMinYMid meet" aria-hidden="true">
         {fillMode === 'wipe' && box && (
           <defs>
             <clipPath id={wipeId} clipPathUnits="userSpaceOnUse">
-              <rect ref={wipeRectRef} x={box.x} y={box.y} width="0" height={box.height} />
+              <rect ref={wipeRectRef} x={box.x} y={emTop} width="0" height={emHeight} />
             </clipPath>
           </defs>
         )}

@@ -2,7 +2,7 @@
 
 import { MasonryBackground } from "@/components/background/masonry-background";
 import { Button } from "@/components/ui/button";
-import { DecryptedText } from "@/components/ui/decrypted-text";
+import StrokeText from "@/components/ui/stroke-text";
 import { MASONRY_ITEMS } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -42,29 +42,34 @@ export const HeroSection = () => {
             {/* Main title */}
             <h1
               className={cn(
-                "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight space-y-0.5 sm:space-y-1"
+                "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight"
               )}
             >
-              <div className="block">
-                <DecryptedText
-                  text="full stack"
-                  animateOn="view"
-                  revealDirection="left"
-                  speed={40}
-                  maxIterations={20}
-                  className="block"
-                />
-              </div>
-              <div className="block">
-                <DecryptedText
-                  text="developer"
-                  animateOn="view"
-                  revealDirection="right"
-                  speed={40}
-                  maxIterations={20}
-                  className="block"
-                />
-              </div>
+              {/* ponytail: StrokeText sizes itself in em off this h1's clamp(),
+                  so the glyphs match the plain-text version exactly. */}
+              <StrokeText
+                text="full stack"
+                strokeColor="#3368DC"
+                fillColor="currentColor"
+                fontSize={100}
+                fontWeight={600}
+                letterSpacing={-2.5}
+                strokeWidth={1.4}
+                trigger="loop"
+                repeatDelay={6}
+              />
+              <StrokeText
+                text="developer"
+                strokeColor="#3368DC"
+                fillColor="currentColor"
+                fontSize={100}
+                fontWeight={600}
+                letterSpacing={-2.5}
+                strokeWidth={1.4}
+                trigger="loop"
+                repeatDelay={6}
+                reverse
+              />
             </h1>
 
             {/* Compact description */}

@@ -1,9 +1,13 @@
+/* ponytail: size comes from the inherited CSS font-size, not the fontSize prop.
+   viewBox is a fixed 1.3em box around the baseline, so height:1.3em renders the
+   glyphs at exactly the inherited font-size. Negative margins pull the block
+   advance back to the 1.05em line-height of the surrounding heading. */
 .stroke-text {
   display: block;
-  width: 100%;
-  line-height: 1;
-  margin: 0;
+  height: 1.3em;
+  margin: -0.125em 0;
   padding: 0;
+  line-height: 1;
 }
 
 .stroke-text--hover {
@@ -12,8 +16,10 @@
 
 .stroke-text__svg {
   display: block;
-  width: 100%;
-  height: auto;
+  height: 1.3em;
+  width: auto;
+  max-width: 100%;
+  overflow: visible;
   vertical-align: top;
 }
 
