@@ -1,19 +1,17 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback, lazy, Suspense } from "react";
 import Image from "next/image";
 import NextLink from "next/link";
 import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2, Minimize2, ArrowUp, Link, Copy, Check } from "lucide-react";
-
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 
 import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
 import Dock from "@/components/ui/Dock";
 import { cn } from "@/lib/utils";
 import type { BlogPost } from "@/lib/types";
+
+const MarkdownRenderer = lazy(() => import("@/components/ui/markdown-renderer"));
 
 const FEATURED_CATEGORIES = ["AI", "Development", "Tools", "Design", "Writing"];
 
@@ -29,6 +27,8 @@ const BlogClient = ({ posts }: BlogClientProps) => {
   const blogPosts = Array.isArray(posts) ? posts : [];
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
+  const [expandedPostContent, setExpandedPostContent] = useState<Record<string, string>>({});
+  const [loadingContent, setLoadingContent] = useState<string | null>(null);
   const [shareOpen, setShareOpen] = useState<string | null>(null);
   const [copiedShare, setCopiedShare] = useState<string | null>(null);
   const [dockShareOpen, setDockShareOpen] = useState(false);
@@ -38,6 +38,27 @@ const BlogClient = ({ posts }: BlogClientProps) => {
   const scrollImmersiveToTop = useCallback(() => {
     immersiveScrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  // Fetch post content on expand (lazy-load markdown deps)
+  const fetchPostContent = useCallback(async (postId: string) => {
+    if (expandedPostContent[postId]) return; // Already cached
+
+    const post = blogPosts.find(p => p.id === postId);
+    if (!post) return;
+
+    setLoadingContent(postId);
+    try {
+      const response = await fetch(`/api/blog/${post.slug}`);
+      if (response.ok) {
+        const data = await response.json() as BlogPost;
+        setExpandedPostContent(prev => ({ ...prev, [postId]: data.content }));
+      }
+    } catch (error) {
+      console.error("Failed to fetch post content:", error);
+    } finally {
+      setLoadingContent(null);
+    }
+  }, [blogPosts, expandedPostContent]);
 
   // Lock body scroll when immersive reader is open so wheel events hit the overlay
   useEffect(() => {
@@ -170,9 +191,13 @@ const BlogClient = ({ posts }: BlogClientProps) => {
 
             <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
               <div className="text-sm sm:text-base leading-relaxed sm:leading-loose text-foreground">
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-                  {expandedPost.content}
-                </ReactMarkdown>
+                {loadingContent === expandedPost.id ? (
+                  <div className="animate-pulse">Loading content...</div>
+                ) : (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <MarkdownRenderer content={expandedPostContent[expandedPost.id] || ""} />
+                  </Suspense>
+                )}
               </div>
             </div>
           </div>
@@ -201,7 +226,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   >{copiedShare === "dock-link" ? <Check size={13} className="text-foreground" /> : <Link size={13} />} {copiedShare === "dock-link" ? "Copied!" : "Copy link"}</button>
                   <button
-                    onClick={() => { navigator.clipboard.writeText(expandedPost.content); setCopiedShare("dock-md"); setTimeout(() => setCopiedShare(null), 2000); }}
+                    onClick={() => { navigator.clipboard.writeText(expandedPostContent[expandedPost.id] || ""); setCopiedShare("dock-md"); setTimeout(() => setCopiedShare(null), 2000); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   >{copiedShare === "dock-md" ? <Check size={13} className="text-foreground" /> : <Copy size={13} />} {copiedShare === "dock-md" ? "Copied!" : "Copy markdown"}</button>
                 </div>
@@ -359,9 +384,13 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                   {/* Post Content - Left Aligned */}
                   <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
                     <div className="text-sm sm:text-base leading-relaxed text-foreground text-left whitespace-pre-wrap">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-                        {post.content}
-                      </ReactMarkdown>
+                      {loadingContent === post.id ? (
+                        <div className="animate-pulse">Loading content...</div>
+                      ) : (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <MarkdownRenderer content={expandedPostContent[post.id] || ""} />
+                        </Suspense>
+                      )}
                     </div>
                   </div>
 
@@ -471,7 +500,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                 {/* Copy markdown */}
                                 <button
                                   onClick={() => {
-                                    navigator.clipboard.writeText(post.content);
+                                    navigator.clipboard.writeText(expandedPostContent[post.id] || "");
                                     setCopiedShare(`md-${post.id}`);
                                     setTimeout(() => setCopiedShare(null), 2000);
                                   }}
@@ -547,7 +576,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                     "hover:border-foreground",
                     index === filteredPosts.length - 1 && "border-b pb-8",
                   )}
-                  onClick={() => {
+                  onClick={async () => {
                     if (expandedPostId === post.id) {
                       setExpandedPostId(null);
                       setIsImmersive(false);
@@ -556,6 +585,8 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                       setExpandedPostId(post.id);
                       setShareOpen(null);
                       setIsImmersive(false);
+                      // Fetch content asynchronously
+                      await fetchPostContent(post.id);
                       setTimeout(() => {
                         const expandContainer = document.querySelector(".blog-expand-container");
                         if (expandContainer) {

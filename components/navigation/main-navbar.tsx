@@ -8,11 +8,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
-import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
-
-const logger = getWebLogger();
-logger.info("Initialized main navbar module", { component: "MainNavbar" });
 
 type NavItem = {
   label: string;
@@ -50,25 +46,20 @@ export const MainNavbar = () => {
     }
   };
 
-  logger.debug("Rendering main navbar", {
-    component: "MainNavbar",
-    pathname,
-  });
-
   return (
     <nav className="sticky top-0 z-40 border-b border-foreground/15 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
       <div className="container mx-auto flex items-center justify-between px-4 py-3 sm:px-6 md:px-8">
         {/* Logo Section with Avatar */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0"
+          className="flex items-center gap-2 sm:gap-3 flex-shrink-0"
         >
           <Image
             src="/images/brand/avatarImg.png"
             alt="Jack"
             width={32}
             height={32}
-            className="rounded-full flex-shrink-0 hidden sm:block"
+            className="rounded-full flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8"
             priority
           />
           <span className="text-[10px] sm:text-xs uppercase tracking-[0.25rem] sm:tracking-[0.3rem] text-foreground font-semibold">

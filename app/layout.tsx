@@ -3,8 +3,6 @@ import type { ReactNode } from "react";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 import {
-  Space_Grotesk,
-  Inter,
   Outfit,
   Plus_Jakarta_Sans,
 } from "next/font/google";
@@ -17,11 +15,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { MainNavbar } from "@/components/navigation/main-navbar";
 import { CookieConsent } from "@/components/cookie-consent";
-import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const TopBanner = dynamic(() => import("@/components/navigation/top-banner").then(mod => ({ default: mod.TopBanner })), { ssr: false });
+const TopBanner = dynamic(() => import("@/components/navigation/top-banner").then(mod => ({ default: mod.TopBanner })), { ssr: true });
 
 import "lenis/dist/lenis.css";
 
@@ -48,25 +45,6 @@ const plusJakarta = Plus_Jakarta_Sans({
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
-
-// Fallback for geometric elements
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-// Primary sans-serif font
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const logger = getWebLogger();
-logger.info("Loaded root layout module", { component: "RootLayout" });
 
 export const metadata: Metadata = {
   title: {
@@ -108,9 +86,6 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ||
       "https://www.jacksdevfolio.com",
   ),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Jack - Full Stack Developer Portfolio",
     description:
@@ -169,8 +144,6 @@ interface RootLayoutProps {
  * @returns A fully themed document shell.
  */
 const RootLayout = ({ children }: RootLayoutProps) => {
-  logger.debug("Rendering root layout", { component: "RootLayout" });
-
   // JSON-LD Schema for person/professional profile
   const jsonLd = {
     "@context": "https://schema.org",
@@ -219,8 +192,6 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       suppressHydrationWarning
       className={cn(
         "bg-background text-foreground",
-        spaceGrotesk.variable,
-        inter.variable,
         outfit.variable,
         plusJakarta.variable,
       )}
@@ -229,11 +200,6 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
-        <link rel="alternate" type="application/json+ld" href="/api/health" />
-        <link rel="alternate" type="application/openapi+json" href="/openapi.json" title="OpenAPI Specification" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <script
@@ -290,7 +256,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9861926351506362"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <Script
           async
@@ -309,10 +275,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         />
       </head>
       <body
-        className={cn(
-          "min-h-screen bg-background font-body text-foreground antialiased",
-          inter.variable,
-        )}
+        className="min-h-screen bg-background font-body text-foreground antialiased"
       >
         <ThemeProvider
           attribute="class"

@@ -30,12 +30,6 @@ const nextConfig = {
     minimumCacheTTL: 31536000, // 1 year
   },
 
-  // Enable SWR (stale-while-revalidate) for better performance
-  onDemandEntries: {
-    maxInactiveAge: 60 * 1000,
-    pagesBufferLength: 5,
-  },
-
   // Compression
   compress: true,
 
@@ -45,7 +39,7 @@ const nextConfig = {
   // Experimental features for better performance
   experimental: {
     typedRoutes: true,
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "motion"],
   },
 
   // Headers for better caching, performance, and security
@@ -132,12 +126,8 @@ const nextConfig = {
             value: "max-age=63072000; includeSubDomains; preload",
           },
           {
-            key: "Vary",
-            value: "Accept, Accept-Encoding, User-Agent",
-          },
-          {
             key: "Content-Security-Policy",
-            value: `default-src 'self'; script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://pagead2.googlesyndication.com https://assets.calendly.com https://*.vercel.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://vercel.com https://api.vercel.com https://pagead2.googlesyndication.com https://www.gstatic.com; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';`,
+            value: `default-src 'self'; script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://assets.calendly.com https://*.vercel.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://vercel.com https://api.vercel.com https://pagead2.googlesyndication.com https://www.google-analytics.com https://vitals.vercel-insights.com https://www.gstatic.com; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';`,
           },
         ],
       },

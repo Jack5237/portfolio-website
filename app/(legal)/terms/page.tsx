@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Terms of service for Jack's portfolio website.",
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/terms" },
 };
 
 const logger = getWebLogger();

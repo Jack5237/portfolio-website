@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Privacy policy for Jack's portfolio website. Learn how your data is collected, used, and protected.",
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/privacy" },
 };
 
 const logger = getWebLogger();

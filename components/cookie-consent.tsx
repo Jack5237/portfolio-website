@@ -53,28 +53,27 @@ export const CookieConsent = () => {
       aria-label="Cookie consent"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-foreground/15 bg-background/95 backdrop-blur"
     >
-      <div className="container mx-auto flex flex-col gap-4 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between">
-        <p className="text-xs leading-relaxed text-muted-foreground">
-          This site uses cookies for analytics and advertising. You can accept or
-          reject non-essential cookies. Read the{" "}
+      <div className="container mx-auto flex flex-col gap-3 sm:gap-4 px-4 py-3 sm:px-6 sm:py-4 md:flex-row md:items-center md:justify-between md:gap-4">
+        <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground md:flex-1">
+          This site uses cookies for analytics and advertising. Read the{" "}
           <Link href="/cookies" className="underline hover:text-foreground">
             cookie policy
           </Link>
           .
         </p>
 
-        <div className="flex flex-shrink-0 gap-2">
+        <div className="flex flex-shrink-0 gap-2 w-full sm:w-auto">
           <Button
             size="sm"
             variant="outline"
-            className="text-[10px] uppercase tracking-[0.2rem]"
+            className="flex-1 sm:flex-none text-[10px] uppercase tracking-[0.2rem]"
             onClick={() => decide("denied")}
           >
             Reject
           </Button>
           <Button
             size="sm"
-            className="text-[10px] uppercase tracking-[0.2rem]"
+            className="flex-1 sm:flex-none text-[10px] uppercase tracking-[0.2rem]"
             onClick={() => decide("granted")}
           >
             Accept

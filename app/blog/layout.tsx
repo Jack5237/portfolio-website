@@ -6,7 +6,8 @@ interface BlogLayoutProps {
 }
 
 export const metadata: Metadata = {
-  title: "Blog - Full Stack Development Insights | Jack",
+  title: "Blog – Full Stack Development Insights",
+  alternates: { canonical: "/blog" },
   description:
     "Read articles on full-stack development, TypeScript, React, Next.js, software engineering best practices, and web development tips from experienced developer Jack.",
   keywords: [

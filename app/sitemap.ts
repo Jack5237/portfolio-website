@@ -33,30 +33,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${BASE_URL}/privacy`,
+      url: `${BASE_URL}/developers`,
       lastModified: new Date(),
-      changeFrequency: "yearly" as const,
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/terms`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/cookies`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
-      priority: 0.3,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
     },
   ];
 
   const blogPosts = getAllBlogPosts().map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
+    changeFrequency: "never" as const,
+    priority: 0.6,
   }));
 
   return [...staticRoutes, ...blogPosts];

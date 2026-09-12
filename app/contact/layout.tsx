@@ -6,11 +6,12 @@ interface ContactLayoutProps {
 }
 
 export const metadata: Metadata = {
-  title: "Contact - Jack",
+  title: "Contact",
   description:
     "Get in touch with Jack. Interested in collaborating or have a question? Reach out today.",
+  alternates: { canonical: "/contact" },
   openGraph: {
-    title: "Contact - Jack",
+    title: "Contact",
     description: "Get in touch with Jack for collaboration or inquiries.",
     url: "/contact",
     type: "website",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact - Jack",
+    title: "Contact",
     description: "Get in touch with Jack for collaboration or inquiries.",
     images: ["/images/brand/avatarImg.png"],
   },

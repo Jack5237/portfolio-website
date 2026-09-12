@@ -49,18 +49,6 @@ export const SmoothScrollProvider = ({
           autoRaf: true,
         });
 
-        // Handle scroll events for debugging (optional)
-        lenis.on("scroll", ({ scroll, direction, progress }) => {
-          // Log scroll progress at key intervals for monitoring
-          if (progress % 0.25 < 0.01) {
-            logger.debug("Lenis scroll progress", {
-              progress: Math.round(progress * 100),
-              scroll,
-              direction,
-            });
-          }
-        });
-
         // Cleanup function
         return () => {
           logger.debug("Destroying Lenis instance", {
@@ -90,7 +78,7 @@ export const SmoothScrollProvider = ({
         error: error instanceof Error ? error.message : String(error),
       });
     }
-  }, [pathname, mounted]);
+  }, [mounted]); // ponytail: no pathname; Lenis stays alive across route changes
 
   return <>{children}</>;
 };

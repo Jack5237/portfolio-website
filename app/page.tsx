@@ -1,21 +1,22 @@
+import type { Metadata } from "next";
 import Script from "next/script";
 import { Footer } from "@/components/sections/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { TechnologiesSection } from "@/components/sections/technologies-section";
 import { FEATURED_PROJECTS, TECHNOLOGIES_LEARNED } from "@/lib/content";
-import { getWebLogger } from "@/lib/logger";
 
-const logger = getWebLogger();
-logger.info("Loaded home page module", { page: "Home" });
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 /**
  * Landing page that blends bold typography with a structured monochrome layout.
  * @returns The completed home route JSX.
  */
 const HomePage = () => {
-  logger.debug("Rendering home page", { page: "Home", sections: 4 });
-
   const portfolioSchema = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
@@ -39,16 +40,13 @@ const HomePage = () => {
 
   return (
     <>
-      <h1 style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden' }}>
-        Jack - Full Stack Developer Portfolio
-      </h1>
       <Script
         id="portfolio-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(portfolioSchema),
         }}
-        strategy="afterInteractive"
+        strategy="beforeInteractive"
       />
       <noscript>
         <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif', lineHeight: '1.6', maxWidth: '900px', margin: '0 auto' }}>

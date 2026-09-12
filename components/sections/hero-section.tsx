@@ -3,12 +3,8 @@
 import { DecryptedText } from "@/components/ui/decrypted-text";
 import { MasonryBackground } from "@/components/background/masonry-background";
 import { Button } from "@/components/ui/button";
-import { getWebLogger } from "@/lib/logger";
 import { MASONRY_ITEMS } from "@/lib/content";
 import { cn } from "@/lib/utils";
-
-const logger = getWebLogger();
-logger.info("Initialized hero section module", { section: "Hero" });
 
 /**
  * Renders a compact, streamlined hero banner with personalized content, decrypted text effects,
@@ -16,8 +12,6 @@ logger.info("Initialized hero section module", { section: "Hero" });
  * @returns The hero section markup.
  */
 export const HeroSection = () => {
-  logger.debug("Rendering hero section", { section: "Hero" });
-
   return (
     <section className="relative flex min-h-[60vh] sm:min-h-[65vh] md:min-h-[70vh] flex-col justify-center gap-4 sm:gap-5 md:gap-6 pb-8 sm:pb-10 md:pb-12 pt-4 sm:pt-6 md:pt-8 overflow-hidden">
       {/* Faded Masonry Background */}

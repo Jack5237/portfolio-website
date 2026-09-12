@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Developers - Jack\'s Portfolio API',
+  title: 'Developers API',
   description: 'API documentation and developer resources for Jack\'s portfolio integration.',
+  alternates: { canonical: "/developers" },
 };
 
 export default function DevelopersPage() {

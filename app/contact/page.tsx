@@ -9,7 +9,7 @@ const logger = getWebLogger();
 logger.info("Loaded contact page module", { page: "Contact" });
 
 export const metadata: Metadata = {
-  title: "Contact Jack - Full Stack Developer | Consultation & Inquiry",
+  title: "Contact – Full Stack Developer",
   description:
     "Get in touch with Jack for web development inquiries, project quotes, or to schedule a free 30-minute consultation. Available for freelance and contract work.",
   keywords: [

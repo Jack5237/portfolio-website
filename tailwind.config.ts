@@ -30,15 +30,13 @@ const config: Config = {
         ring: "hsl(var(--ring))",
       },
       fontFamily: {
-        // Primary sans-serif font
-        sans: ["var(--font-inter)", "sans-serif"],
-        // Display headings and small-caps
-        display: ["var(--font-outfit)", "var(--font-space-grotesk)", "sans-serif"],
+        // Display headings
+        display: ["var(--font-outfit)", "sans-serif"],
         // Body text - clean and readable
-        body: ["var(--font-plus-jakarta)", "var(--font-inter)", "sans-serif"],
+        body: ["var(--font-plus-jakarta)", "sans-serif"],
         // Additional font utilities
         outfit: ["var(--font-outfit)", "sans-serif"],
-        smooth: ["var(--font-plus-jakarta)", "var(--font-inter)", "sans-serif"],
+        smooth: ["var(--font-plus-jakarta)", "sans-serif"],
       },
       letterSpacing: {
         mega: "0.6rem",
