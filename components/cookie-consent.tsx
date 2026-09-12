@@ -52,8 +52,8 @@ export const CookieConsent = () => {
       aria-label="Cookie consent"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-foreground/15 bg-background/95 backdrop-blur safe-bottom"
     >
-      <div className="container mx-auto flex flex-col gap-2 sm:gap-3 md:gap-4 px-3 py-2.5 sm:px-4 sm:py-3 md:px-6 md:py-4 md:flex-row md:items-center md:justify-between">
-        <p className="text-[11px] sm:text-xs leading-relaxed text-muted-foreground md:flex-1 md:text-sm">
+      <div className="container mx-auto flex flex-col gap-3 sm:gap-4 px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-4 md:flex-row md:items-center md:justify-between">
+        <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground md:flex-1">
           This site uses cookies for analytics and advertising. Read the{" "}
           <Link href="/cookies" className="underline hover:text-foreground">
             cookie policy
@@ -61,18 +61,18 @@ export const CookieConsent = () => {
           .
         </p>
 
-        <div className="flex gap-2 w-full sm:w-auto flex-shrink-0 mt-2 sm:mt-0">
+        <div className="flex gap-2 sm:gap-3 w-full sm:w-auto flex-shrink-0">
           <Button
             size="sm"
             variant="outline"
-            className="flex-1 sm:flex-none text-[9px] sm:text-[10px] uppercase tracking-[0.15rem] sm:tracking-[0.2rem] h-9 sm:h-10"
+            className="flex-1 sm:flex-none text-xs uppercase tracking-[0.2rem] px-4 sm:px-6 py-2.5 sm:py-3"
             onClick={() => decide("denied")}
           >
             Reject
           </Button>
           <Button
             size="sm"
-            className="flex-1 sm:flex-none text-[9px] sm:text-[10px] uppercase tracking-[0.15rem] sm:tracking-[0.2rem] h-9 sm:h-10"
+            className="flex-1 sm:flex-none text-xs uppercase tracking-[0.2rem] px-4 sm:px-6 py-2.5 sm:py-3"
             onClick={() => decide("granted")}
           >
             Accept
