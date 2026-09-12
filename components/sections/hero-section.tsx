@@ -40,8 +40,12 @@ export const HeroSection = () => {
             </div>
 
             {/* Main title with stroke effect */}
-            <h1 className="font-display font-semibold lowercase space-y-0.5 sm:space-y-1">
-              <div style={{ fontSize: "clamp(2.5rem, 6.5vw, 5rem)", lineHeight: 1.05 }}>
+            <h1
+              className={cn(
+                "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight space-y-0.5 sm:space-y-1"
+              )}
+            >
+              <div className="block overflow-hidden">
                 <StrokeText
                   text="full stack"
                   strokeColor="#3368DC"
@@ -53,12 +57,13 @@ export const HeroSection = () => {
                   ease="power2.out"
                   trigger="mount"
                   fillMode="wipe"
-                  fontSize={256}
+                  fontSize={96}
                   fontWeight={600}
-                  letterSpacing={-8}
+                  letterSpacing={-3}
+                  className="block"
                 />
               </div>
-              <div style={{ fontSize: "clamp(2.5rem, 6.5vw, 5rem)", lineHeight: 1.05 }}>
+              <div className="block overflow-hidden">
                 <StrokeText
                   text="developer"
                   strokeColor="#3368DC"
@@ -70,9 +75,10 @@ export const HeroSection = () => {
                   ease="power2.out"
                   trigger="mount"
                   fillMode="wipe"
-                  fontSize={256}
+                  fontSize={96}
                   fontWeight={600}
-                  letterSpacing={-8}
+                  letterSpacing={-3}
+                  className="block"
                 />
               </div>
             </h1>
