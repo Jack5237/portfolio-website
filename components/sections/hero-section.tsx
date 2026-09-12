@@ -1,8 +1,8 @@
 "use client";
 
-import { DecryptedText } from "@/components/ui/decrypted-text";
 import { MasonryBackground } from "@/components/background/masonry-background";
 import { Button } from "@/components/ui/button";
+import StrokeText from "@/components/ui/stroke-text";
 import { MASONRY_ITEMS } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -39,32 +39,24 @@ export const HeroSection = () => {
               <span className="hidden md:inline">Crazy Scotsman</span>
             </div>
 
-            {/* Main title with decrypted effect - modern Geist font for lowercase "full stack developer" */}
-            <h1
-              className={cn(
-                "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight space-y-0.5 sm:space-y-1"
-              )}
-            >
-              <div className="block">
-                <DecryptedText
-                  text="full stack"
-                  animateOn="view"
-                  revealDirection="left"
-                  speed={40}
-                  maxIterations={20}
-                  className="block"
-                />
-              </div>
-              <div className="block">
-                <DecryptedText
-                  text="developer"
-                  animateOn="view"
-                  revealDirection="right"
-                  speed={40}
-                  maxIterations={20}
-                  className="block"
-                />
-              </div>
+            {/* Main title with stroke effect */}
+            <h1 className="overflow-hidden">
+              <StrokeText
+                text="full stack developer"
+                strokeColor="#3368DC"
+                fillColor="#F8FAFC"
+                strokeWidth={1.2}
+                drawDuration={2.0}
+                fillDelay={0.3}
+                stagger={0.04}
+                ease="power2.out"
+                trigger="mount"
+                fillMode="wipe"
+                fontSize="clamp(2.5rem, 6.5vw, 5rem)"
+                fontWeight={300}
+                letterSpacing={-2}
+                className="block lowercase"
+              />
             </h1>
 
             {/* Compact description */}
