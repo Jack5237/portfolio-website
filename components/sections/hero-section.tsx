@@ -28,9 +28,9 @@ export const HeroSection = () => {
         <header className="space-y-3 sm:space-y-4">
           <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
             {/* Compact name and location header */}
-            <div className="flex flex-wrap items-baseline gap-2 sm:gap-3 text-[10px] sm:text-xs uppercase tracking-[0.3rem] sm:tracking-[0.4rem] text-muted-foreground md:text-sm md:tracking-[0.5rem]">
+            <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2 md:gap-3 text-[9px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.3rem] md:tracking-[0.4rem] text-muted-foreground md:text-sm md:tracking-[0.5rem]">
               <span className="font-medium text-foreground">Jack</span>
-              <span>—</span>
+              <span className="hidden xs:inline">—</span>
               <span>from Scotland</span>
               <span className="hidden sm:inline md:hidden">—</span>
               <span className="hidden md:inline">—</span>

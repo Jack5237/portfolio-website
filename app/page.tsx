@@ -109,7 +109,7 @@ const HomePage = () => {
           <p style={{ marginTop: '2rem', fontSize: '0.9em', color: '#666' }}>This page is fully functional without JavaScript. All links and content are directly accessible.</p>
         </div>
       </noscript>
-      <main className="container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16 pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8">
+      <main className="container relative mx-auto z-10 flex min-h-screen flex-col gap-10 sm:gap-12 md:gap-14 lg:gap-16 pb-12 sm:pb-16 md:pb-20 lg:pb-24 pt-8 sm:pt-12 md:pt-14 lg:pt-16 px-3 sm:px-4 md:px-6 lg:px-8">
         <HeroSection />
 
         <div id="work">

@@ -41,6 +41,11 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Safe area support for devices with notches/safe zones */
+.safe-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
