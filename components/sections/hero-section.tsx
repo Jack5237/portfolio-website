@@ -2,7 +2,7 @@
 
 import { MasonryBackground } from "@/components/background/masonry-background";
 import { Button } from "@/components/ui/button";
-import StrokeText from "@/components/ui/stroke-text";
+import { DecryptedText } from "@/components/ui/decrypted-text";
 import { MASONRY_ITEMS } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -39,45 +39,29 @@ export const HeroSection = () => {
               <span className="hidden md:inline">Crazy Scotsman</span>
             </div>
 
-            {/* Main title with stroke effect */}
+            {/* Main title */}
             <h1
               className={cn(
                 "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight space-y-0.5 sm:space-y-1"
               )}
             >
-              <div className="block overflow-hidden">
-                <StrokeText
+              <div className="block">
+                <DecryptedText
                   text="full stack"
-                  strokeColor="#3368DC"
-                  fillColor="#F8FAFC"
-                  strokeWidth={1.5}
-                  drawDuration={1.6}
-                  fillDelay={0.2}
-                  stagger={0.05}
-                  ease="power2.out"
-                  trigger="mount"
-                  fillMode="wipe"
-                  fontSize={96}
-                  fontWeight={600}
-                  letterSpacing={-3}
+                  animateOn="view"
+                  revealDirection="left"
+                  speed={40}
+                  maxIterations={20}
                   className="block"
                 />
               </div>
-              <div className="block overflow-hidden">
-                <StrokeText
+              <div className="block">
+                <DecryptedText
                   text="developer"
-                  strokeColor="#3368DC"
-                  fillColor="#F8FAFC"
-                  strokeWidth={1.5}
-                  drawDuration={1.6}
-                  fillDelay={0.2}
-                  stagger={0.05}
-                  ease="power2.out"
-                  trigger="mount"
-                  fillMode="wipe"
-                  fontSize={96}
-                  fontWeight={600}
-                  letterSpacing={-3}
+                  animateOn="view"
+                  revealDirection="right"
+                  speed={40}
+                  maxIterations={20}
                   className="block"
                 />
               </div>
