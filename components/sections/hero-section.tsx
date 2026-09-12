@@ -39,22 +39,23 @@ export const HeroSection = () => {
               <span className="hidden md:inline">Crazy Scotsman</span>
             </div>
 
-            {/* Main title with stroke effect */}
+            {/* Main title with looping stroke effect */}
             <h1 className="overflow-hidden">
               <StrokeText
                 text="full stack developer"
                 strokeColor="#3368DC"
                 fillColor="#F8FAFC"
                 strokeWidth={1.2}
-                drawDuration={2.0}
-                fillDelay={0.3}
-                stagger={0.04}
+                drawDuration={1.6}
+                fillDelay={0.2}
+                stagger={0.05}
                 ease="power2.out"
-                trigger="mount"
+                trigger="loop"
                 fillMode="wipe"
+                repeatDelay={28}
                 fontSize={120}
-                fontWeight={300}
-                letterSpacing={-2}
+                fontWeight={800}
+                letterSpacing={-4}
                 className="block lowercase stroke-text-responsive"
                 style={{
                   fontSize: "clamp(2.5rem, 6.5vw, 5rem)",

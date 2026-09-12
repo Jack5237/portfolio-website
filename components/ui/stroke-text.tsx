@@ -25,6 +25,7 @@ interface StrokeTextProps {
   fontWeight?: number | string;
   letterSpacing?: number | string;
   reverse?: boolean;
+  repeatDelay?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -44,6 +45,7 @@ const StrokeText = ({
   fontWeight = 800,
   letterSpacing = -4,
   reverse = false,
+  repeatDelay = 0.9,
   className = '',
   style = {}
 }: StrokeTextProps) => {
@@ -170,7 +172,7 @@ const StrokeText = ({
       const tl = gsap.timeline({
         paused: true,
         repeat: trigger === 'loop' ? -1 : 0,
-        repeatDelay: trigger === 'loop' ? 0.9 : 0,
+        repeatDelay: trigger === 'loop' ? repeatDelay : 0,
         defaults: { overwrite: 'auto' }
       });
 
@@ -226,7 +228,7 @@ const StrokeText = ({
       timeline?.kill();
       gsap.killTweensOf(targets);
     };
-  }, [box, dash, drawDuration, fillDelay, stagger, ease, trigger, fillMode, reverse]);
+  }, [box, dash, drawDuration, fillDelay, stagger, ease, trigger, fillMode, reverse, repeatDelay]);
 
   const viewBox = box ? `${box.x} ${box.y} ${box.width} ${box.height}` : `0 ${-numFontSize} 600 ${numFontSize * 1.3}`;
 
