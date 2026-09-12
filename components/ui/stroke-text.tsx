@@ -65,9 +65,9 @@ const StrokeText = ({
 
   const fontStyle = useMemo(
     () => ({
-      fontSize: `${fontSize}px`,
+      fontSize: typeof fontSize === 'string' ? fontSize : `${fontSize}px`,
       fontWeight,
-      letterSpacing: `${letterSpacing}px`
+      letterSpacing: typeof letterSpacing === 'string' ? letterSpacing : `${letterSpacing}px`
     }),
     [fontSize, fontWeight, letterSpacing]
   );

@@ -1,13 +1,9 @@
 .stroke-text {
   display: block;
   width: 100%;
-  line-height: 1.05;
-  min-height: 120px;
-}
-
-.stroke-text-responsive {
-  display: block;
-  width: 100%;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
 }
 
 .stroke-text--hover {
@@ -18,11 +14,11 @@
   display: block;
   width: 100%;
   height: auto;
-  min-height: 120px;
-  aspect-ratio: auto;
+  vertical-align: top;
 }
 
 .stroke-text__stroke,
 .stroke-text__fill {
   user-select: none;
+  font-family: inherit;
 }
