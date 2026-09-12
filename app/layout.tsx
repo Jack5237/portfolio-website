@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 import {
+  Space_Grotesk,
   Outfit,
   Plus_Jakarta_Sans,
 } from "next/font/google";
@@ -44,6 +45,14 @@ const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
   display: "swap",
   weight: ["400", "500", "600", "700"],
+});
+
+// Fallback for display headings (optimize: load 400 only)
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -192,6 +201,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       suppressHydrationWarning
       className={cn(
         "bg-background text-foreground",
+        spaceGrotesk.variable,
         outfit.variable,
         plusJakarta.variable,
       )}

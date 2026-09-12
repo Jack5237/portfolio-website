@@ -30,8 +30,8 @@ const config: Config = {
         ring: "hsl(var(--ring))",
       },
       fontFamily: {
-        // Display headings
-        display: ["var(--font-outfit)", "sans-serif"],
+        // Display headings with fallback
+        display: ["var(--font-outfit)", "var(--font-space-grotesk)", "sans-serif"],
         // Body text - clean and readable
         body: ["var(--font-plus-jakarta)", "sans-serif"],
         // Additional font utilities
