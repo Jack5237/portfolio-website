@@ -2,7 +2,7 @@
 
 import { MasonryBackground } from "@/components/background/masonry-background";
 import { Button } from "@/components/ui/button";
-import StrokeText from "@/components/ui/stroke-text";
+import { DecryptedText } from "@/components/ui/decrypted-text";
 import { MASONRY_ITEMS } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -39,29 +39,32 @@ export const HeroSection = () => {
               <span className="hidden md:inline">Crazy Scotsman</span>
             </div>
 
-            {/* Main title with looping stroke effect */}
-            <h1 className="overflow-hidden">
-              <StrokeText
-                text="full stack developer"
-                strokeColor="#3368DC"
-                fillColor="#F8FAFC"
-                strokeWidth={1.2}
-                drawDuration={1.6}
-                fillDelay={0.2}
-                stagger={0.05}
-                ease="power2.out"
-                trigger="loop"
-                fillMode="wipe"
-                repeatDelay={28}
-                fontSize={120}
-                fontWeight={800}
-                letterSpacing={-4}
-                className="block lowercase stroke-text-responsive"
-                style={{
-                  fontSize: "clamp(2.5rem, 6.5vw, 5rem)",
-                  display: "block"
-                }}
-              />
+            {/* Main title with decrypted effect */}
+            <h1
+              className={cn(
+                "text-[clamp(2.5rem,6.5vw,5rem)] sm:text-[clamp(3rem,7.5vw,6rem)] font-display font-semibold lowercase leading-[1.05] tracking-tight space-y-0.5 sm:space-y-1"
+              )}
+            >
+              <div className="block">
+                <DecryptedText
+                  text="full stack"
+                  animateOn="view"
+                  revealDirection="left"
+                  speed={40}
+                  maxIterations={20}
+                  className="block"
+                />
+              </div>
+              <div className="block">
+                <DecryptedText
+                  text="developer"
+                  animateOn="view"
+                  revealDirection="right"
+                  speed={40}
+                  maxIterations={20}
+                  className="block"
+                />
+              </div>
             </h1>
 
             {/* Compact description */}
