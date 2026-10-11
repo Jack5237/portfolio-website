@@ -39,7 +39,7 @@ export const SmoothScrollProvider = ({
         // Initialize Lenis with recommended settings for monochrome portfolio
         const lenis = new Lenis({
           duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+          easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)), // easeOutExpo
           orientation: "vertical",
           gestureOrientation: "vertical",
           smoothWheel: true,

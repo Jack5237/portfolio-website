@@ -44,7 +44,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
         </div>
         <div className="flex items-center gap-3">
           {!isExpanded && projects.length > 4 && (
-            <button
+            <button type="button"
               onClick={() => setIsExpanded(true)}
               className="text-[10px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.25rem] text-foreground hover:text-muted-foreground transition-colors underline underline-offset-4 decoration-foreground/30 hover:decoration-foreground"
             >
@@ -140,7 +140,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
       </div>
       {!isExpanded && projects.length > 4 && (
         <div className="flex justify-center pt-8 sm:pt-12">
-          <button
+          <button type="button"
             onClick={() => setIsExpanded(true)}
             className="text-xs sm:text-sm uppercase tracking-[0.4rem] sm:tracking-[0.5rem] text-muted-foreground hover:text-foreground transition-colors border border-foreground/10 px-6 py-2 sm:px-8 sm:py-3 hover:border-foreground/30"
           >
@@ -150,7 +150,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
       )}
       {isExpanded && (
         <div className="flex justify-center pt-8 sm:pt-12">
-          <button
+          <button type="button"
             onClick={() => {
               setIsExpanded(false);
               document

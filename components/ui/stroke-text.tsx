@@ -73,6 +73,7 @@ const StrokeText = ({
     [fontSize, fontWeight, letterSpacing]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally runs only on listed deps
   useLayoutEffect(() => {
     const node = strokeTextRef.current;
     if (!node) return undefined;
@@ -273,6 +274,7 @@ const StrokeText = ({
           style={fontStyle as React.CSSProperties}
         >
           {characters.map((char, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: static list that is never reordered
             <tspan data-stroke-char key={`s-${index}`}>
               {char}
             </tspan>
@@ -289,6 +291,7 @@ const StrokeText = ({
           clipPath={fillMode === 'wipe' && box ? `url(#${wipeId})` : undefined}
         >
           {characters.map((char, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: static list that is never reordered
             <tspan data-fill-char key={`f-${index}`}>
               {char}
             </tspan>

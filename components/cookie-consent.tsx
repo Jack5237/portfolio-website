@@ -47,6 +47,7 @@ export const CookieConsent = () => {
   if (!visible) return null;
 
   return (
+    // biome-ignore lint/a11y/useSemanticElements: custom dialog/button widget with explicit ARIA and keyboard handling
     <div
       role="dialog"
       aria-label="Cookie consent"

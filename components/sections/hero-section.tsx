@@ -81,7 +81,7 @@ export const HeroSection = () => {
 
             {/* Action Buttons */}
             <div className="pt-3 sm:pt-4 md:pt-6 flex gap-2 sm:gap-3 md:gap-4">
-              <button
+              <button type="button"
                 onClick={() => {
                   const element = document.querySelector("#work");
                   if (element) {

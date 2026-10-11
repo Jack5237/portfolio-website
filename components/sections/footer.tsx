@@ -134,7 +134,7 @@ export const Footer = ({ email, socialLinks }: FooterProps) => {
           </p>
 
           {/* Scroll to Top */}
-          <button
+          <button type="button"
             onClick={scrollToTop}
             className="order-1 lg:order-2 flex items-center justify-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Scroll to top"

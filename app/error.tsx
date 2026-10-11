@@ -7,7 +7,7 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorProps) {
+export default function ErrorPage({ error, reset }: ErrorProps) {
   useEffect(() => {
     console.error("Application error:", error);
   }, [error]);
@@ -19,7 +19,7 @@ export default function Error({ error, reset }: ErrorProps) {
         <p className="text-muted-foreground text-lg">
           An unexpected error occurred. Please try again.
         </p>
-        <button
+        <button type="button"
           onClick={reset}
           className="inline-flex items-center justify-center rounded-full font-medium transition-colors bg-foreground text-background hover:bg-muted-foreground h-10 px-8 text-sm uppercase tracking-[0.2rem]"
         >

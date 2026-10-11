@@ -208,24 +208,24 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               {/* Share popover */}
               {dockShareOpen && expandedPost && (
                 <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-background border border-foreground/20 rounded-sm shadow-lg z-50 min-w-[160px]">
-                  <button
+                  <button type="button"
                     onClick={() => { const t = encodeURIComponent(`"${expandedPost.title}" by Jack`); const u = encodeURIComponent(window.location.href); window.open(`https://twitter.com/intent/tweet?text=${t}&url=${u}`, "_blank"); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   ><Twitter size={13} /> Twitter / X</button>
-                  <button
+                  <button type="button"
                     onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank")}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   ><Linkedin size={13} /> LinkedIn</button>
-                  <button
+                  <button type="button"
                     onClick={() => { const ti = encodeURIComponent(expandedPost.title); const u = encodeURIComponent(window.location.href); window.open(`https://reddit.com/submit?title=${ti}&url=${u}`, "_blank"); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   ><Share2 size={13} /> Reddit</button>
                   <div className="border-t border-foreground/10 my-1" />
-                  <button
+                  <button type="button"
                     onClick={() => { navigator.clipboard.writeText(window.location.href); setCopiedShare("dock-link"); setTimeout(() => setCopiedShare(null), 2000); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   >{copiedShare === "dock-link" ? <Check size={13} className="text-foreground" /> : <Link size={13} />} {copiedShare === "dock-link" ? "Copied!" : "Copy link"}</button>
-                  <button
+                  <button type="button"
                     onClick={() => { navigator.clipboard.writeText(expandedPostContent[expandedPost.id] || ""); setCopiedShare("dock-md"); setTimeout(() => setCopiedShare(null), 2000); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   >{copiedShare === "dock-md" ? <Check size={13} className="text-foreground" /> : <Copy size={13} />} {copiedShare === "dock-md" ? "Copied!" : "Copy markdown"}</button>
@@ -247,9 +247,9 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               </div>
               {/* Mobile: simple bar */}
               <div className="flex sm:hidden items-center gap-1 mb-4 bg-background border border-foreground/20 rounded-full px-3 py-2 shadow-lg">
-                <button onClick={scrollImmersiveToTop} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Top"><ArrowUp size={16} /></button>
-                <button onClick={() => setDockShareOpen(o => !o)} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Share"><Share2 size={16} /></button>
-                <button onClick={() => { setIsImmersive(false); setDockShareOpen(false); }} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Exit"><Minimize2 size={16} /></button>
+                <button type="button" onClick={scrollImmersiveToTop} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Top"><ArrowUp size={16} /></button>
+                <button type="button" onClick={() => setDockShareOpen(o => !o)} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Share"><Share2 size={16} /></button>
+                <button type="button" onClick={() => { setIsImmersive(false); setDockShareOpen(false); }} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Exit"><Minimize2 size={16} /></button>
               </div>
             </div>
           </div>
@@ -290,7 +290,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
 
           {/* Categories - Right Side (Plain Text, Right-Aligned) */}
           <div className="flex flex-wrap gap-3 sm:gap-4 items-center md:justify-end">
-            <button
+            <button type="button"
               onClick={() => setSearchQuery("")}
               className={cn(
                 "text-sm sm:text-base transition-colors",
@@ -302,7 +302,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               all
             </button>
             {availableCategories.map((category) => (
-              <button
+              <button type="button"
                 key={category}
                 onClick={() => setSearchQuery(category)}
                 className={cn(
@@ -350,7 +350,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                         <span>•</span>
                         <time dateTime={post.date}>{post.date}</time>
                       </div>
-                      <button
+                      <button type="button"
                         onClick={() => setIsImmersive(true)}
                         className={cn(
                           "flex items-center justify-center p-2 transition-colors",
@@ -403,7 +403,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-8 mt-8 border-t border-foreground/10 gap-4">
                         {/* Left - Previous */}
                         {prevPost ? (
-                          <button
+                          <button type="button"
                             onClick={() => {
                               setExpandedPostId(prevPost.id);
                               setIsImmersive(false);
@@ -438,7 +438,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
 
                           {/* Share */}
                           <div className="relative">
-                            <button
+                            <button type="button"
                               onClick={() => setShareOpen(shareOpen === `expanded-${post.id}` ? null : `expanded-${post.id}`)}
                               className={cn(
                                 "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
@@ -452,7 +452,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                             {shareOpen === `expanded-${post.id}` && (
                               <div className="absolute bottom-full mb-2 right-0 sm:right-0 left-auto max-[400px]:right-auto max-[400px]:left-0 bg-background border border-foreground/20 rounded-sm z-50 shadow-lg shadow-foreground/10 min-w-[160px]">
                                 {/* Twitter */}
-                                <button
+                                <button type="button"
                                   onClick={() => {
                                     const text = `"${post.title}" by Jack`;
                                     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
@@ -463,7 +463,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   Twitter / X
                                 </button>
                                 {/* LinkedIn */}
-                                <button
+                                <button type="button"
                                   onClick={() => {
                                     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
                                   }}
@@ -473,7 +473,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   LinkedIn
                                 </button>
                                 {/* Reddit */}
-                                <button
+                                <button type="button"
                                   onClick={() => {
                                     const title = encodeURIComponent(post.title);
                                     const url = encodeURIComponent(window.location.href);
@@ -486,7 +486,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                 </button>
                                 <div className="border-t border-foreground/10 my-1" />
                                 {/* Copy link */}
-                                <button
+                                <button type="button"
                                   onClick={() => {
                                     navigator.clipboard.writeText(window.location.href);
                                     setCopiedShare(`link-${post.id}`);
@@ -498,7 +498,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   {copiedShare === `link-${post.id}` ? "Copied!" : "Copy link"}
                                 </button>
                                 {/* Copy markdown */}
-                                <button
+                                <button type="button"
                                   onClick={() => {
                                     navigator.clipboard.writeText(expandedPostContent[post.id] || "");
                                     setCopiedShare(`md-${post.id}`);
@@ -513,7 +513,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                             )}
                           </div>
 
-                          <button
+                          <button type="button"
                             onClick={() => {
                               setExpandedPostId(null);
                               setShareOpen(null);
@@ -531,7 +531,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                           </button>
 
                           {nextPost && (
-                            <button
+                            <button type="button"
                               onClick={() => {
                                 setExpandedPostId(nextPost.id);
                                 setIsImmersive(false);
@@ -569,6 +569,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
             filteredPosts.map((post, index) => {
               const isLeftAligned = index % 2 === 0;
               return (
+                // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard access is provided by the inner controls
                 <article
                   key={post.id}
                   className={cn(

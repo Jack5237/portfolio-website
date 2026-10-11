@@ -45,6 +45,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
       onBlur={() => isHovered.set(0)}
       onClick={onClick}
       className={`dock-item ${className}`}
+      // biome-ignore lint/a11y/useSemanticElements: custom dialog/button widget with explicit ARIA and keyboard handling
       tabIndex={0}
       role="button"
       aria-label={label}
@@ -123,6 +124,7 @@ export default function Dock({
       >
         {items.map((item, i) => (
           <DockItem
+            // biome-ignore lint/suspicious/noArrayIndexKey: static list that is never reordered
             key={i}
             onClick={item.onClick}
             className={item.className}

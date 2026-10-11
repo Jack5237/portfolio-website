@@ -125,7 +125,7 @@ export const MainNavbar = () => {
         {/* Mobile Menu Button and Theme Toggler */}
         <div className="flex md:hidden items-center gap-2 flex-shrink-0">
           <AnimatedThemeToggler className="flex-shrink-0" />
-          <button
+          <button type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg hover:bg-foreground/10 transition-colors"
             aria-label="Toggle mobile menu"

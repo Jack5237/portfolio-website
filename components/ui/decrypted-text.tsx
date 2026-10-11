@@ -135,10 +135,12 @@ export const DecryptedText = ({
   /**
    * Sets up intersection observer for 'view' trigger mode.
    */
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally runs only on listed deps
   useEffect(() => {
     if (animateOn === "view" && !isRevealed && elementRef.current) {
       const observer = new IntersectionObserver(
         (entries) => {
+          // biome-ignore lint/complexity/noForEach: readability only, behaviour identical
           entries.forEach((entry) => {
             if (entry.isIntersecting && !isRevealed && !isAnimating) {
               setIsAnimating(true);

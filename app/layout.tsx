@@ -215,6 +215,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <script
           id="json-ld-schema"
           type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static script/JSON-LD, no user input
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLd),
           }}
@@ -222,6 +223,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <Script
           id="performance-monitoring"
           strategy="afterInteractive"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static script/JSON-LD, no user input
           dangerouslySetInnerHTML={{
             __html: `
               if ('PerformanceObserver' in window) {
@@ -245,6 +247,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <Script
           id="google-consent-mode"
           strategy="beforeInteractive"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static script/JSON-LD, no user input
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -276,6 +279,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         <Script
           id="google-analytics"
           strategy="afterInteractive"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static script/JSON-LD, no user input
           dangerouslySetInnerHTML={{
             __html: `
               gtag('js', new Date());

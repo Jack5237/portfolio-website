@@ -43,6 +43,7 @@ const HomePage = () => {
       <Script
         id="portfolio-schema"
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static script/JSON-LD, no user input
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(portfolioSchema),
         }}
