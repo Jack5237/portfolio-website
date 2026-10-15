@@ -14,7 +14,7 @@ export async function GET(_request: Request, { params }: { params: { slug: strin
 
     return NextResponse.json(post, {
       headers: {
-        'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+        'Cache-Control': 'public, max-age=0, s-maxage=60, stale-while-revalidate=600',
       },
     });
   } catch (error) {

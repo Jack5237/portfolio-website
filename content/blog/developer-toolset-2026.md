@@ -128,3 +128,41 @@ shadcn adds zero. Radix is individually importable. Ant Design full build requir
 
 **Does it match your design language?** A library requiring heavy overriding is slower than writing the component from scratch.
 </details>
+
+## How to pick a UI stack in 2026
+
+Choosing tools is easier when you start from the product instead of the library list. Ask three questions before installing anything.
+
+**1. How custom does the interface need to be?** If your brand is mostly clean and conventional, copy-paste primitives with sensible defaults will get you most of the way. If the interface is the product, expect to write more of it yourself and use libraries only for accessibility-critical pieces such as dialogs, menus and comboboxes.
+
+**2. Who maintains it after launch?** A component you own is a component you can fix on a Friday afternoon. A dependency you cannot change is a dependency you will eventually fight. Prefer approaches that leave the source in your repository.
+
+**3. What does it cost at runtime?** Every animation library, icon pack and styling solution adds weight. Measure the effect on your page before committing, especially on mobile connections.
+
+## A simple workflow that works
+
+1. Collect a few references on inspiration sites and note what you actually like about each, whether that is spacing, typography or motion.
+2. Build the structure with accessible primitives so keyboard and screen reader behaviour is correct from day one.
+3. Layer in visual polish with an effects library, but only where it supports the message.
+4. Use an AI design tool to explore alternative layouts quickly, then rebuild the winner in real code.
+5. Test on a real phone before calling anything finished.
+
+## Common mistakes
+
+* **Installing three component libraries for one page.** Pick one as the base and borrow from the others by copying individual components.
+* **Animating everything.** Motion should guide attention. When every element moves, nothing stands out.
+* **Ignoring accessibility.** Contrast, focus states and semantic markup are far cheaper to build in than to retrofit.
+* **Copying a trending style without a reason.** Glassmorphism, bento grids and gradients all work when they serve the content and fail when they are decoration.
+
+<details>
+<summary>Frequently asked questions</summary>
+
+**Is shadcn/ui a library?** Not in the usual sense. It is a collection of components you copy into your project, which is why there is no runtime dependency to maintain.
+
+**Should beginners start with a full library or primitives?** A full library gets you moving faster. Primitives teach you more. Many developers start with the first and graduate to the second.
+
+**Do AI design tools replace designers?** They speed up exploration, but they do not replace judgement about brand, usability or the needs of real users.
+
+**How do I keep my site fast with all these effects?** Load heavy effects lazily, respect reduced-motion preferences and test performance on mid-range phones.
+
+</details>

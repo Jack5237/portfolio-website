@@ -328,13 +328,13 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               return (
                 <article className="space-y-6">
                   {/* Banner */}
-                  <div className="relative w-full h-48 sm:h-64 md:h-80 overflow-hidden rounded-sm">
+                  <div className="relative w-full aspect-[3/1] min-h-40 overflow-hidden rounded-sm">
                     {post.bannerImage ? (
                       <Image
                         src={post.bannerImage}
                         alt={post.title}
                         fill
-                        className="object-contain grayscale opacity-80 hover:opacity-100 transition-opacity"
+                        className="object-cover grayscale opacity-80 hover:opacity-100 transition-opacity"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                       />
                     ) : (
@@ -353,12 +353,14 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                       <button type="button"
                         onClick={() => setIsImmersive(true)}
                         className={cn(
-                          "flex items-center justify-center p-2 transition-colors",
-                          "text-muted-foreground/60 hover:text-foreground",
+                          "flex items-center gap-2 px-3 py-1.5 text-[10px] uppercase tracking-[0.2rem] transition-colors",
+                          "border border-foreground/15 hover:border-foreground/40",
+                          "text-muted-foreground hover:text-foreground",
                         )}
                         title="Immersive reader"
                       >
-                        <Maximize2 className="h-4 w-4" />
+                        Full screen
+                        <Maximize2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     </div>
 
