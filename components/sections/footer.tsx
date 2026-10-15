@@ -1,7 +1,8 @@
 "use client";
 
+import { ArrowUp, Github, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
-import { ArrowUp } from "lucide-react";
+import type { SVGProps } from "react";
 
 import { getWebLogger } from "@/lib/logger";
 
@@ -23,6 +24,20 @@ interface FooterProps {
     readonly discord?: string;
   };
 }
+
+// lucide has no Discord brand icon, so the official glyph is inlined.
+const DiscordIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+    <path d="M20.317 4.369A19.79 19.79 0 0 0 15.885 3a14.7 14.7 0 0 0-.634 1.307 18.27 18.27 0 0 0-5.487 0A14.1 14.1 0 0 0 9.13 3a19.74 19.74 0 0 0-4.433 1.37C1.89 8.56 1.13 12.646 1.51 16.674a19.9 19.9 0 0 0 6.073 3.07 14.8 14.8 0 0 0 1.30-2.114 12.9 12.9 0 0 1-2.05-.98c.172-.126.34-.258.502-.394a14.2 14.2 0 0 0 12.31 0c.163.136.33.268.502.394-.655.39-1.343.72-2.052.98.37.74.806 1.447 1.3 2.113a19.86 19.86 0 0 0 6.075-3.07c.446-4.67-.762-8.718-3.153-12.305ZM8.52 14.2c-1.183 0-2.157-1.085-2.157-2.42s.95-2.42 2.157-2.42c1.21 0 2.18 1.095 2.157 2.42 0 1.335-.95 2.42-2.157 2.42Zm6.96 0c-1.183 0-2.157-1.085-2.157-2.42s.95-2.42 2.157-2.42c1.21 0 2.18 1.095 2.157 2.42 0 1.335-.947 2.42-2.157 2.42Z" />
+  </svg>
+);
+
+const SOCIAL_ITEMS = [
+  { key: "twitter", label: "Twitter", Icon: Twitter },
+  { key: "github", label: "GitHub", Icon: Github },
+  { key: "linkedin", label: "LinkedIn", Icon: Linkedin },
+  { key: "discord", label: "Discord", Icon: DiscordIcon },
+] as const;
 
 /**
  * Enhanced footer component with improved design and comprehensive information.
@@ -69,46 +84,22 @@ export const Footer = ({ email, socialLinks }: FooterProps) => {
               Connect
             </h3>
             <nav className="flex flex-wrap justify-center gap-2">
-              {socialLinks?.twitter && (
-                <a
-                  href={socialLinks.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block rounded-full border border-foreground/25 bg-background px-3 py-1 sm:px-4 sm:py-1.5 text-xs font-medium uppercase tracking-wide transition-all hover:border-foreground hover:bg-foreground hover:text-background"
-                >
-                  Twitter
-                </a>
-              )}
-              {socialLinks?.github && (
-                <a
-                  href={socialLinks.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block rounded-full border border-foreground/25 bg-background px-3 py-1 sm:px-4 sm:py-1.5 text-xs font-medium uppercase tracking-wide transition-all hover:border-foreground hover:bg-foreground hover:text-background"
-                >
-                  GitHub
-                </a>
-              )}
-              {socialLinks?.linkedin && (
-                <a
-                  href={socialLinks.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block rounded-full border border-foreground/25 bg-background px-3 py-1 sm:px-4 sm:py-1.5 text-xs font-medium uppercase tracking-wide transition-all hover:border-foreground hover:bg-foreground hover:text-background"
-                >
-                  LinkedIn
-                </a>
-              )}
-              {socialLinks?.discord && (
-                <a
-                  href={socialLinks.discord}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block rounded-full border border-foreground/25 bg-background px-3 py-1 sm:px-4 sm:py-1.5 text-xs font-medium uppercase tracking-wide transition-all hover:border-foreground hover:bg-foreground hover:text-background"
-                >
-                  Discord
-                </a>
-              )}
+              {SOCIAL_ITEMS.map(({ key, label, Icon }) => {
+                const href = socialLinks?.[key];
+                if (!href) return null;
+                return (
+                  <a
+                    key={key}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-foreground/25 bg-background px-3 py-1 sm:px-4 sm:py-1.5 text-xs font-medium uppercase tracking-wide transition-all hover:border-foreground hover:bg-foreground hover:text-background"
+                  >
+                    <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    {label}
+                  </a>
+                );
+              })}
             </nav>
           </div>
 
@@ -134,7 +125,8 @@ export const Footer = ({ email, socialLinks }: FooterProps) => {
           </p>
 
           {/* Scroll to Top */}
-          <button type="button"
+          <button
+            type="button"
             onClick={scrollToTop}
             className="order-1 lg:order-2 flex items-center justify-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Scroll to top"
@@ -145,22 +137,13 @@ export const Footer = ({ email, socialLinks }: FooterProps) => {
 
           {/* Legal Links */}
           <nav className="order-2 lg:order-3 flex flex-wrap justify-center lg:justify-end gap-3 sm:gap-4 lg:gap-6">
-            <Link
-              href="/terms"
-              className="transition-colors hover:text-foreground"
-            >
+            <Link href="/terms" className="transition-colors hover:text-foreground">
               Terms
             </Link>
-            <Link
-              href="/privacy"
-              className="transition-colors hover:text-foreground"
-            >
+            <Link href="/privacy" className="transition-colors hover:text-foreground">
               Privacy
             </Link>
-            <Link
-              href="/cookies"
-              className="transition-colors hover:text-foreground"
-            >
+            <Link href="/cookies" className="transition-colors hover:text-foreground">
               Cookies
             </Link>
           </nav>

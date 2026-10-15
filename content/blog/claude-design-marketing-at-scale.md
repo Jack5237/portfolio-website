@@ -27,6 +27,10 @@ This 15-second promo for ServaDiscord was generated this way:
   <source src="/videos/serva-discord-promo-v7.mp4" type="video/mp4" />
 </video>
 
+## Interactive tutorial
+
+Want to try it yourself? Follow the [interactive tutorial](https://claude.ai/artifact/GknV1Fa456bHvKnsNXVg7X#play-15dd8cd198dd) step by step.
+
 ## My favourite prompt
 
 > Create a 15-second promotional video for our app using this design system and the attached screenshots. Match the product UI exactly, make every scene clean and visually distinct, use polished transitions, show the app's key workflow and end with a clear "Get started" message and website link.
