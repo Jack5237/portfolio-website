@@ -93,6 +93,14 @@ const BlogClient = ({ posts }: BlogClientProps) => {
     }
   }, [expandedPostId, blogPosts]);
 
+  /** Scroll to the start of a post each time one is opened (incl. switching posts). */
+  useEffect(() => {
+    if (!expandedPostId) return;
+    document
+      .querySelector(".blog-expand-container")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [expandedPostId]);
+
   /**
    * Handles keyboard shortcuts:
    * - 'B' key to navigate home
@@ -165,6 +173,11 @@ const BlogClient = ({ posts }: BlogClientProps) => {
       );
     });
   }, [searchQuery, blogPosts]);
+
+  const listedPosts = useMemo(
+    () => filteredPosts.filter((post) => post.id !== expandedPostId),
+    [filteredPosts, expandedPostId],
+  );
 
   const availableCategories = useMemo(() => {
     return Array.from(new Set(blogPosts.map((post) => post.category)))
@@ -565,7 +578,8 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               </p>
             </div>
           ) : (
-            filteredPosts.map((post, index) => {
+            // The open post is already shown above, so list only the others.
+            listedPosts.map((post, index) => {
               const isLeftAligned = index % 2 === 0;
               return (
                 // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard access is provided by the inner controls
@@ -574,7 +588,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                   className={cn(
                     "group relative border-t border-foreground/15 pt-6 sm:pt-8 md:pt-10 transition-colors cursor-pointer",
                     "hover:border-foreground",
-                    index === filteredPosts.length - 1 && "border-b pb-8",
+                    index === listedPosts.length - 1 && "border-b pb-8",
                   )}
                   onClick={async () => {
                     if (expandedPostId === post.id) {
@@ -587,12 +601,6 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                       setIsImmersive(false);
                       // Fetch content asynchronously
                       await fetchPostContent(post.id);
-                      setTimeout(() => {
-                        const expandContainer = document.querySelector(".blog-expand-container");
-                        if (expandContainer) {
-                          expandContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-                        }
-                      }, 0);
                     }
                   }}
                 >
