@@ -9,9 +9,7 @@ bannerImage: "/images/internet-this-week-meme.png"
 
 Between 16 and 22 October 2026, the internet had what can only be described as a full-stack bad week. A language, a runtime, a git server, an AI proxy, a coding tool, a certificate authority and a hosting platform all had a very public incident, and most of them landed within 48 hours of each other.
 
-![The internet this week: SpongeBob surrounded by seven burning incidents, then walking out the door with a suitcase labelled Legacy Code](/images/internet-this-week-meme.png)
-
-The meme is funny because it is accurate. This post is the part the meme can't fit on a wooden sign: what actually happened, how bad it is, and what to do before your Friday gets ruined.
+The meme up top (click the banner to pop it out) is funny because it is accurate. This post is the part the meme can't fit on a wooden sign: what actually happened, how bad it is, and what to do before your Friday gets ruined.
 
 ## TL;DR: the checklist
 

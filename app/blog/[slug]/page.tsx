@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { BannerImage } from "@/components/ui/banner-image";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -132,14 +132,11 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
         </header>
 
         {post.bannerImage && (
-          <Image
+          <BannerImage
             src={post.bannerImage}
             alt={post.title}
-            width={1200}
-            height={400}
-            className="mt-8 aspect-[3/1] w-full rounded-xl object-cover"
+            className="mt-8 aspect-[3/1] rounded-xl"
             priority
-            sizes="(max-width: 768px) 100vw, 1200px"
           />
         )}
 

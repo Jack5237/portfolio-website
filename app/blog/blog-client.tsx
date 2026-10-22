@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef, useCallback, lazy, Suspense } from "react";
-import Image from "next/image";
 import NextLink from "next/link";
 import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2, Minimize2, ArrowUp, Link, Copy, Check } from "lucide-react";
 
 import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
 import Dock from "@/components/ui/Dock";
+import { BannerImage } from "@/components/ui/banner-image";
 import { cn } from "@/lib/utils";
 import type { BlogPost } from "@/lib/types";
 
@@ -328,19 +328,16 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               return (
                 <article className="space-y-6">
                   {/* Banner */}
-                  <div className="relative w-full aspect-[3/1] min-h-40 overflow-hidden rounded-sm">
-                    {post.bannerImage ? (
-                      <Image
-                        src={post.bannerImage}
-                        alt={post.title}
-                        fill
-                        className="object-cover grayscale opacity-80 hover:opacity-100 transition-opacity"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                      />
-                    ) : (
-                      <div className="w-full aspect-[16/9] bg-gradient-to-br from-foreground/5 to-foreground/10 rounded-lg" />
-                    )}
-                  </div>
+                  {post.bannerImage ? (
+                    <BannerImage
+                      src={post.bannerImage}
+                      alt={post.title}
+                      className="aspect-[3/1] min-h-40 rounded-sm"
+                      imageClassName="grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-focus-visible:grayscale-0 group-focus-visible:opacity-100"
+                    />
+                  ) : (
+                    <div className="w-full aspect-[16/9] bg-gradient-to-br from-foreground/5 to-foreground/10 rounded-lg" />
+                  )}
 
                   {/* Post Header */}
                   <div className="space-y-4">
@@ -385,7 +382,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
 
                   {/* Post Content - Left Aligned */}
                   <div className="prose dark:prose-invert prose-neutral max-w-none prose-p:text-foreground/80 prose-li:text-foreground/90 prose-ul:list-disc prose-ul:pl-6">
-                    <div className="text-sm sm:text-base leading-relaxed text-foreground text-left whitespace-pre-wrap">
+                    <div className="text-sm sm:text-base leading-relaxed text-foreground text-left">
                       {loadingContent === post.id ? (
                         <div className="animate-pulse">Loading content...</div>
                       ) : (
