@@ -197,6 +197,13 @@ const BlogClient = ({ posts }: BlogClientProps) => {
           data-lenis-prevent
           className="fixed inset-0 z-50 bg-background overflow-y-auto"
         >
+          {expandedPost.bannerImage && (
+            <BannerImage
+              src={expandedPost.bannerImage}
+              alt={expandedPost.title}
+              className="w-full aspect-[3/1] min-h-40"
+            />
+          )}
           <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 py-12 sm:py-16 pb-28">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold uppercase leading-tight tracking-wide mb-8 sm:mb-10">
               {expandedPost.title}
