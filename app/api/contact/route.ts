@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "placeholder_key_for_build");
 
 // Sliding-window rate limiter: 3 submissions per IP per 10 minutes
 const attempts = new Map<string, number[]>();
@@ -26,6 +26,15 @@ function escapeHtml(str: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  // Check if API key is configured at runtime
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not configured");
+    return NextResponse.json(
+      { error: "Contact form is not configured. Please contact the administrator." },
+      { status: 503 },
+    );
+  }
+
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
     req.headers.get("x-real-ip") ??
