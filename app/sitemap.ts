@@ -2,9 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { getAllBlogPosts } from "@/lib/blog";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://www.jacksdevfolio.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
@@ -26,18 +24,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
-    {
-      url: `${BASE_URL}/connect`,
+    // /connect and /developers are noindexed thin pages, so they stay out of the sitemap
+    ...["privacy", "terms", "cookies"].map((page) => ({
+      url: `${BASE_URL}/${page}`,
       lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/developers`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    },
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    })),
   ];
 
   const blogPosts = getAllBlogPosts().map((post) => ({
