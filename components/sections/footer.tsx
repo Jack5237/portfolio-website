@@ -136,7 +136,10 @@ export const Footer = ({ email, socialLinks }: FooterProps) => {
           </button>
 
           {/* Legal Links */}
-          <nav className="order-2 lg:order-3 flex flex-wrap justify-center lg:justify-end gap-3 sm:gap-4 lg:gap-6">
+          <nav aria-label="Legal" className="order-2 lg:order-3 flex flex-wrap justify-center lg:justify-end gap-3 sm:gap-4 lg:gap-6">
+            <a href="/sitemap.xml" className="transition-colors hover:text-foreground">
+              Sitemap
+            </a>
             <Link href="/terms" className="transition-colors hover:text-foreground">
               Terms
             </Link>

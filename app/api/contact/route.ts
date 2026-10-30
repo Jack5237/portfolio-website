@@ -43,7 +43,6 @@ export async function POST(req: NextRequest) {
       name?: string;
       email?: string;
       message?: string;
-      agreedToTerms?: boolean;
       website?: string; // honeypot — must be empty
     };
 
@@ -52,14 +51,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Message sent successfully." }, { status: 200 });
     }
 
-    const { name, email, message, agreedToTerms } = body;
+    const { name, email, message } = body;
 
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json({ error: "Name, email, and message are required." }, { status: 400 });
-    }
-
-    if (!agreedToTerms) {
-      return NextResponse.json({ error: "You must agree to the terms." }, { status: 400 });
     }
 
     // Basic length guards
@@ -80,7 +75,7 @@ export async function POST(req: NextRequest) {
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: "contact@jacksdevfolio.com",
       replyTo: email.trim(),
-      subject: `New message from ${safeName}`,
+      subject: `New message from ${name.trim().replace(/\s+/g, " ")}`,
       html: `
         <div style="font-family:monospace;max-width:600px;padding:24px;background:#0a0a0a;color:#ebebeb;border:1px solid #333">
           <p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 16px">Portfolio Contact</p>

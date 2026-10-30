@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { ArrowRight, Newspaper } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { getWebLogger } from "@/lib/logger";
@@ -17,6 +18,7 @@ logger.info("Initialized top banner module", { component: "TopBanner" });
  */
 export const TopBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
   // Only show back link on blog page, not on home page
@@ -27,6 +29,7 @@ export const TopBanner = () => {
    */
   useEffect(() => {
     setIsVisible(true);
+    setMounted(true);
     logger.debug("Top banner shown on mount", { component: "TopBanner" });
   }, []);
 
@@ -68,8 +71,14 @@ export const TopBanner = () => {
     };
   }, []);
 
+  // Avoid hydration mismatch: render only after mount
+  if (!mounted) {
+    return null;
+  }
+
   return (
-    <div
+    <aside
+      aria-label="Site announcement"
       suppressHydrationWarning
       className={cn(
         "relative z-50 w-full border-b border-foreground/20 bg-muted/50 py-2 sm:py-2.5",
@@ -77,33 +86,35 @@ export const TopBanner = () => {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full",
       )}
     >
-      <div className="container mx-auto flex items-center justify-center gap-3 sm:gap-4 px-4 sm:px-6">
+      <div className="container mx-auto flex items-center justify-center gap-3 sm:gap-4 px-4 sm:px-6 overflow-hidden">
         {/* Left Side - Back Link (only on blog page) */}
         {isBlogPage ? (
           <Link
             href="/"
-            className="flex items-center gap-1 text-[10px] sm:text-xs text-muted-foreground/70 hover:text-foreground/80 transition-colors"
+            className="flex items-center gap-1 text-[10px] sm:text-xs text-muted-foreground hover:text-foreground/80 transition-colors"
           >
             <span>← Back</span>
-            <span className="text-muted-foreground/50">(B)</span>
+            <span className="text-muted-foreground">(B)</span>
           </Link>
         ) : (
           <div className="flex-shrink-0 w-0 sm:w-auto" />
         )}
 
-        {/* Center - Banner Content */}
-        <p className="text-[10px] sm:text-xs font-outfit uppercase tracking-[0.2rem] sm:tracking-[0.25rem] text-foreground text-center flex-1">
-          <span className="text-muted-foreground/80">New:</span>{" "}
+        {/* Center - Banner Content: icon + single line, truncated rather than wrapped */}
+        <p className="flex min-w-0 flex-1 items-center justify-center gap-2 whitespace-nowrap text-[10px] sm:text-xs font-outfit uppercase tracking-[0.1rem] sm:tracking-[0.25rem] text-foreground">
+          <Newspaper aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+          <span className="shrink-0 text-muted-foreground">New Post:</span>
           <Link
             href="/blog"
-            className="transition-colors hover:text-muted-foreground hover:underline"
+            className="flex min-w-0 items-center gap-1.5 transition-colors hover:text-muted-foreground hover:underline"
           >
-            Check out my latest blog posts
+            <span className="truncate">
+              <span className="hidden sm:inline">Check out the </span>latest blog update
+            </span>
+            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0" />
           </Link>
         </p>
-
-        <div className="flex-shrink-0 w-0 sm:w-auto" />
       </div>
-    </div>
+    </aside>
   );
 };
