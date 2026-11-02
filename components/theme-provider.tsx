@@ -14,7 +14,7 @@ interface ThemeProviderProps {
   /**
    * HTML attribute to use for theme switching (e.g., "class", "data-theme").
    */
-  readonly attribute?: string;
+  readonly attribute?: "class" | "data-theme" | string[];
   /**
    * Default theme to apply on initial load.
    */
@@ -37,7 +37,7 @@ export const ThemeProvider = ({
   enableSystem = true
 }: ThemeProviderProps) => (
   <NextThemesProvider
-    attribute={attribute}
+    attribute={attribute as any}
     defaultTheme={defaultTheme}
     enableSystem={enableSystem}
   >

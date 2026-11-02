@@ -2,7 +2,18 @@
 
 import { useState, useEffect, useMemo, useRef, useCallback, lazy, Suspense } from "react";
 import NextLink from "next/link";
-import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2, Minimize2, ArrowUp, Link, Copy, Check } from "lucide-react";
+import { X, Coffee, Share2, ArrowLeft, ArrowRight, Maximize2, Minimize2, ArrowUp, Link as LinkIcon, Copy, Check } from "lucide-react";
+import type { SVGProps } from "react";
+
+interface IconProps extends SVGProps<SVGSVGElement> {
+  size?: number;
+}
+
+const LinkedinIcon = ({ size, ...props }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width={size} height={size} {...props}>
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+  </svg>
+);
 
 import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
@@ -231,11 +242,11 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                   <button type="button"
                     onClick={() => { const t = encodeURIComponent(`"${expandedPost.title}" by Jack`); const u = encodeURIComponent(window.location.href); window.open(`https://twitter.com/intent/tweet?text=${t}&url=${u}`, "_blank"); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
-                  ><Twitter size={13} /> Twitter / X</button>
+                  ><X size={13} /> Twitter / X</button>
                   <button type="button"
                     onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank")}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
-                  ><Linkedin size={13} /> LinkedIn</button>
+                  ><LinkedinIcon size={13} /> LinkedIn</button>
                   <button type="button"
                     onClick={() => { const ti = encodeURIComponent(expandedPost.title); const u = encodeURIComponent(window.location.href); window.open(`https://reddit.com/submit?title=${ti}&url=${u}`, "_blank"); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
@@ -244,7 +255,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                   <button type="button"
                     onClick={() => { navigator.clipboard.writeText(window.location.href); setCopiedShare("dock-link"); setTimeout(() => setCopiedShare(null), 2000); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
-                  >{copiedShare === "dock-link" ? <Check size={13} className="text-foreground" /> : <Link size={13} />} {copiedShare === "dock-link" ? "Copied!" : "Copy link"}</button>
+                  >{copiedShare === "dock-link" ? <Check size={13} className="text-foreground" /> : <LinkIcon size={13} />} {copiedShare === "dock-link" ? "Copied!" : "Copy link"}</button>
                   <button type="button"
                     onClick={() => { navigator.clipboard.writeText(expandedPostContent[expandedPost.id] || ""); setCopiedShare("dock-md"); setTimeout(() => setCopiedShare(null), 2000); }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
@@ -478,7 +489,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  <Twitter className="h-3.5 w-3.5 shrink-0" />
+                                  <X className="h-3.5 w-3.5 shrink-0" />
                                   Twitter / X
                                 </button>
                                 {/* LinkedIn */}
@@ -488,7 +499,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  <Linkedin className="h-3.5 w-3.5 shrink-0" />
+                                  <LinkedinIcon className="h-3.5 w-3.5 shrink-0" />
                                   LinkedIn
                                 </button>
                                 {/* Reddit */}
@@ -513,7 +524,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  {copiedShare === `link-${post.id}` ? <Check className="h-3.5 w-3.5 shrink-0 text-foreground" /> : <Link className="h-3.5 w-3.5 shrink-0" />}
+                                  {copiedShare === `link-${post.id}` ? <Check className="h-3.5 w-3.5 shrink-0 text-foreground" /> : <LinkIcon className="h-3.5 w-3.5 shrink-0" />}
                                   {copiedShare === `link-${post.id}` ? "Copied!" : "Copy link"}
                                 </button>
                                 {/* Copy markdown */}
