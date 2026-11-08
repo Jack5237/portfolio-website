@@ -1,19 +1,17 @@
-import fs from "node:fs";
-import path from "node:path";
 import matter from "gray-matter";
 
+import { RAW_POSTS } from "@/lib/blog-posts.generated";
 import type { BlogPost } from "@/lib/types";
 
-const BLOG_DIR = path.join(process.cwd(), "content", "blog");
-
-function readPost(fileName: string): BlogPost | null {
+function readPost(slug: string): BlogPost | null {
+  if (!Object.hasOwn(RAW_POSTS, slug)) return null;
+  const raw = RAW_POSTS[slug];
   try {
-    const raw = fs.readFileSync(path.join(BLOG_DIR, fileName), "utf8");
     const { data, content } = matter(raw);
 
     return {
-      id: path.basename(fileName, ".md"),
-      slug: path.basename(fileName, ".md"),
+      id: slug,
+      slug,
       title: data.title || "Untitled",
       date: data.date || new Date().toISOString().split("T")[0],
       category: data.category || "Uncategorized",
@@ -23,30 +21,20 @@ function readPost(fileName: string): BlogPost | null {
       bannerImage: data.bannerImage || "",
     };
   } catch (error) {
-    console.error(`Error reading blog post ${fileName}:`, error);
+    console.error(`Error reading blog post ${slug}:`, error);
     return null;
   }
 }
 
 export function getAllBlogPosts(): BlogPost[] {
-  if (!fs.existsSync(BLOG_DIR)) {
-    console.warn(`Blog directory does not exist at: ${BLOG_DIR}`);
-    return [];
-  }
-
-  return fs
-    .readdirSync(BLOG_DIR)
-    .filter((file) => file.endsWith(".md"))
+  return Object.keys(RAW_POSTS)
     .map(readPost)
     .filter((post): post is BlogPost => post !== null)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getBlogPost(slug: string): BlogPost | null {
-  // ponytail: slug comes from the filesystem-backed route, but normalise anyway
-  // so a crafted path can never escape content/blog.
-  if (!/^[a-z0-9-]+$/i.test(slug)) return null;
-  return readPost(`${slug}.md`);
+  return readPost(slug);
 }
 
 export function estimateReadingMinutes(content: string): number {

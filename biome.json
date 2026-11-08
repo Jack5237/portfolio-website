@@ -21,6 +21,9 @@
       }
     },
     "ignore": [
+      ".open-next",
+      ".wrangler",
+      "lib/blog-posts.generated.ts",
       "node_modules",
       ".next",
       ".git",
