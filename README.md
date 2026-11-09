@@ -8,10 +8,10 @@ A **minimal, fast, and accessible** personal portfolio website to showcase proje
 
 ## Tech Used 
 
-- **Next.js 14** – framework (App Router)
+- **Next.js 14 API on vinext (Vite)** – framework (App Router)
 - **Tailwind CSS** – styling
 - **Bun** – runtime & package manager (recommended)
-- **Vercel** – deployment & hosting
+- **Cloudflare Workers** – deployment & hosting
 
 ## 🚀 Getting Started
 

@@ -5,7 +5,6 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /_next/
-Disallow: /.vercel/
 
 # Explicitly allow major AI agent crawlers
 User-agent: ClaudeBot

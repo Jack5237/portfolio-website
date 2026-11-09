@@ -23,6 +23,8 @@
     "ignore": [
       "node_modules",
       ".next",
+      ".vinext",
+      ".cloudflare",
       ".git",
       "dist",
       "build",
@@ -35,6 +37,8 @@
     "ignore": [
       "node_modules",
       ".next",
+      ".vinext",
+      ".cloudflare",
       ".git",
       "dist",
       "build",

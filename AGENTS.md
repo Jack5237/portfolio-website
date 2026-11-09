@@ -8,12 +8,13 @@ This file contains full project context for AI agents and Claude Code working on
 
 ```bash
 # Development
-bun run dev              # Start dev server (http://localhost:3000)
-bun run build            # Production build
-bun run start            # Start production server
+bun run dev              # Start vinext dev server (http://localhost:3005)
+bun run build            # Production build (vite build)
+bun run start            # Preview production build locally
 bun run lint             # Run Biome linting & formatting
 bun run type-check       # Run TypeScript check
-bun run clean            # Remove .next and out directories
+bun run deploy           # Build & deploy to Cloudflare Workers
+bun run clean            # Remove build output
 ```
 
 **Package manager:** Bun (recommended) with fallback to npm/yarn.
@@ -28,7 +29,8 @@ A minimal, performance-focused personal portfolio website built with **Next.js 1
 - **Framework:** Next.js 14 with App Router
 - **Styling:** Tailwind CSS (+ typography plugin for markdown)
 - **Runtime:** Bun (recommended), Node 18+
-- **Deployment:** Vercel
+- **Framework runtime:** vinext (Next.js API on Vite)
+- **Deployment:** Cloudflare Workers (`cloudflare.config.ts`)
 - **Backend:** API routes (contact form, blog loading)
 - **Email:** Resend (RESEND_API_KEY env var required)
 - **Linting & Formatting:** Biome (replaces ESLint)
@@ -126,7 +128,7 @@ All use `display: "swap"` to avoid layout shift and are self-hosted by Next.js.
 
 All requests get headers for defense-in-depth:
 - **HSTS** — Preload-ready HSTS (63M seconds, includeSubDomains)
-- **CSP** — Restrictive default-src with exceptions for Calendly, Vercel, analytics
+- **CSP** — Restrictive default-src with exceptions for Calendly and analytics
 - **X-Content-Type-Options** — Prevent MIME sniffing
 - **X-Frame-Options** — Only allow same-origin framing
 - **Permissions-Policy** — Disable camera, microphone, geolocation
@@ -141,7 +143,7 @@ RESEND_API_KEY                 # Required for contact form email delivery
 NEXT_PUBLIC_SITE_URL           # (Optional) Canonical URL; defaults to https://www.jacksdevfolio.com
 ```
 
-**Development:** Create a `.env.local` file at the repo root. **Vercel:** Configure in project settings.
+**Development:** Create a `.env.local` file at the repo root. **Cloudflare:** set `RESEND_API_KEY` as a Worker secret (dashboard → Workers → Settings → Variables and Secrets).
 
 ---
 
@@ -188,17 +190,16 @@ No component changes needed—just update the data.
 
 ## Deployment
 
-The site is deployed on **Vercel**. Push to `main` → Vercel auto-builds and deploys.
+The site runs on **Cloudflare Workers** via **vinext**. Config: `vite.config.ts`, `cloudflare.config.ts`.
+Blog markdown in `content/blog/` is bundled at build time (no runtime filesystem on Workers).
+
+**Deploy:** `bun run deploy` (or connect the repo in the Cloudflare dashboard with build command `bun run build`).
 
 **Pre-deployment checklist:**
-- Env vars set in Vercel project settings (RESEND_API_KEY, NEXT_PUBLIC_SITE_URL)
+- Worker secret `RESEND_API_KEY` set; `NEXT_PUBLIC_SITE_URL` optional (defaults to https://www.jacksdevfolio.com)
 - No build errors: `bun run build`
 - Type-check passes: `bun run type-check`
 - Linting passes: `bun run lint`
-
-**Vercel-specific features enabled:**
-- Analytics via @vercel/analytics (imported in layout)
-- Web Vitals optimization via next/core-web-vitals ESLint config
 
 ---
 
@@ -209,7 +210,7 @@ No test suite currently configured. Manual QA or add Jest/Vitest if needed.
 
 ### Debug Issues
 - **Dev server:** `bun run dev` — opens http://localhost:3000
-- **Build issues:** `bun run build` and check .next/ output
+- **Build issues:** `bun run build` and check dist/ output
 - **Type errors:** `bun run type-check` for full TS diagnostics
 - **Linting:** `bun run lint` to check code quality
 - **Contact form:** Check browser console and server logs for Resend errors

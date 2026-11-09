@@ -45,9 +45,9 @@ export function middleware(request: NextRequest) {
   varyParts.add('Accept-Encoding');
   response.headers.set('Vary', Array.from(varyParts).join(', '));
 
-  // Signal to downstream services (like Vercel WAF) to allow agent access
+  // Signal to downstream services (like the Cloudflare WAF) to allow agent access
   if (isAiAgent) {
-    // Headers to bypass Vercel bot protection
+    // Headers to let agents through bot protection
     response.headers.set('X-Agent-Access', 'allowed');
     response.headers.set('X-Purpose', 'agent-access');
 

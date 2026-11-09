@@ -1,19 +1,30 @@
-import fs from "node:fs";
-import path from "node:path";
 import matter from "gray-matter";
 
 import type { BlogPost } from "@/lib/types";
 
-const BLOG_DIR = path.join(process.cwd(), "content", "blog");
+/**
+ * Markdown posts are bundled at build time (Cloudflare Workers have no
+ * filesystem at runtime). Adding a file to content/blog/ is picked up on the
+ * next build.
+ */
+const RAW_POSTS = (
+  import.meta as unknown as {
+    glob: (
+      pattern: string,
+      options: { query: string; import: string; eager: boolean },
+    ) => Record<string, string>;
+  }
+).glob("/content/blog/*.md", { query: "?raw", import: "default", eager: true });
 
-function readPost(fileName: string): BlogPost | null {
+/** Parse one raw markdown file (path + source) into a BlogPost. */
+function readPost(filePath: string, raw: string): BlogPost | null {
   try {
-    const raw = fs.readFileSync(path.join(BLOG_DIR, fileName), "utf8");
     const { data, content } = matter(raw);
+    const slug = filePath.split("/").pop()?.replace(/\.md$/, "") ?? "";
 
     return {
-      id: path.basename(fileName, ".md"),
-      slug: path.basename(fileName, ".md"),
+      id: slug,
+      slug,
       title: data.title || "Untitled",
       date: data.date || new Date().toISOString().split("T")[0],
       category: data.category || "Uncategorized",
@@ -23,30 +34,22 @@ function readPost(fileName: string): BlogPost | null {
       bannerImage: data.bannerImage || "",
     };
   } catch (error) {
-    console.error(`Error reading blog post ${fileName}:`, error);
+    console.error(`Error reading blog post ${filePath}:`, error);
     return null;
   }
 }
 
 export function getAllBlogPosts(): BlogPost[] {
-  if (!fs.existsSync(BLOG_DIR)) {
-    console.warn(`Blog directory does not exist at: ${BLOG_DIR}`);
-    return [];
-  }
-
-  return fs
-    .readdirSync(BLOG_DIR)
-    .filter((file) => file.endsWith(".md"))
-    .map(readPost)
+  return Object.entries(RAW_POSTS)
+    .map(([filePath, raw]) => readPost(filePath, raw))
     .filter((post): post is BlogPost => post !== null)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getBlogPost(slug: string): BlogPost | null {
-  // ponytail: slug comes from the filesystem-backed route, but normalise anyway
-  // so a crafted path can never escape content/blog.
+  // Reject anything that isn't a plain slug.
   if (!/^[a-z0-9-]+$/i.test(slug)) return null;
-  return readPost(`${slug}.md`);
+  return getAllBlogPosts().find((post) => post.slug === slug) ?? null;
 }
 
 export function estimateReadingMinutes(content: string): number {

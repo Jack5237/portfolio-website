@@ -10,14 +10,12 @@ import {
 
 import "./globals.css";
 
-import { Analytics } from "@vercel/analytics/next";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { MainNavbar } from "@/components/navigation/main-navbar";
 import { CookieConsent } from "@/components/cookie-consent";
 import { cn } from "@/lib/utils";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const TopBanner = dynamic(() => import("@/components/navigation/top-banner").then(mod => ({ default: mod.TopBanner })), { ssr: true });
 
@@ -301,8 +299,6 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
           <CookieConsent />
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

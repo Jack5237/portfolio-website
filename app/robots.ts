@@ -15,7 +15,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: ["/"],
-        disallow: ["/api/", "/_next/", "/.vercel/"],
+        disallow: ["/api/", "/_next/"],
         crawlDelay: 1,
       },
       {
