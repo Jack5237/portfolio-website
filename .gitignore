@@ -53,3 +53,8 @@ coverage/
 
 .vinext/
 .cloudflare/
+
+# Cloudflare / build artifacts
+.wrangler/
+.open-next/
+.codex/
