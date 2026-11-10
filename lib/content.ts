@@ -63,6 +63,13 @@ export interface Company {
 export const FEATURED_PROJECTS: Project[] = [
   // — First 4 (default visible) —
   {
+    title: "Caledonia Systems",
+    category: "Software Studio",
+    discipline: "Full Stack Development",
+    href: "https://caledonia-systems.com",
+    description: "Scottish software studio building fast, reliable web products and systems for modern businesses.",
+  },
+  {
     title: "portfolio website",
     category: "Personal Portfolio",
     discipline: "Full Stack Development",
@@ -180,7 +187,8 @@ export const TECHNOLOGIES_LEARNED: Technology[] = [
   { name: "GCP", category: "DevOps" },
 
   // Cloud - Bottom section with more items
-  { name: "Vercel", category: "Cloud", href: "https://vercel.com/?ref=jack" },
+  { name: "Cloudflare", category: "Cloud", href: "https://www.cloudflare.com/" },
+  { name: "Vercel", category: "Cloud" },
   { name: "Render", category: "Cloud" },
   { name: "Fly.io", category: "Cloud" },
   { name: "Azure", category: "Cloud" },

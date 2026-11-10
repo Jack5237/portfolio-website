@@ -10,7 +10,7 @@
     "lint": "biome lint --write .",
     "prepare": "husky",
     "type-check": "tsc --noEmit",
-    "clean": "rm -rf .next out",
+    "clean": "rm -rf dist .vinext .cloudflare",
     "deploy": "vinext-cloudflare deploy"
   },
   "dependencies": {

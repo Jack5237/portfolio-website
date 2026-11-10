@@ -26,11 +26,6 @@
         "./styles/*"
       ]
     },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "allowJs": true,
     "incremental": true,
     "isolatedModules": true,
@@ -44,7 +39,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
     ".cloudflare/types"
   ],
   "exclude": [

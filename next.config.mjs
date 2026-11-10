@@ -30,18 +30,6 @@ const nextConfig = {
     minimumCacheTTL: 31536000, // 1 year
   },
 
-  // Compression
-  compress: true,
-
-  // Enable static optimization
-  staticPageGenerationTimeout: 120,
-
-  // Experimental features for better performance
-  experimental: {
-    typedRoutes: true,
-    optimizePackageImports: ["lucide-react", "motion"],
-  },
-
   // Headers for better caching, performance, and security
   async headers() {
     return [

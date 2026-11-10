@@ -60,7 +60,7 @@
       "arrowParentheses": "always",
       "bracketSpacing": true,
       "bracketSameLine": false,
-      "trailingComma": "es5"
+      "trailingCommas": "es5"
     }
   },
   "json": {
