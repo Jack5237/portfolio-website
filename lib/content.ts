@@ -66,7 +66,7 @@ export const FEATURED_PROJECTS: Project[] = [
     title: "Caledonia Systems",
     category: "Software Studio",
     discipline: "Full Stack Development",
-    href: "https://caledonia-systems.com",
+    href: "https://www.caledonia-systems.com/",
     description: "Scottish software studio building fast, reliable web products and systems for modern businesses.",
   },
   {
