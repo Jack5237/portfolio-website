@@ -11,7 +11,7 @@
     "prepare": "husky",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf dist .vinext .cloudflare",
-    "deploy": "vinext-cloudflare deploy"
+    "deploy": "cf deploy"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.17",

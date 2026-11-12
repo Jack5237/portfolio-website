@@ -13,7 +13,7 @@ bun run build            # Production build (vite build)
 bun run start            # Preview production build locally
 bun run lint             # Run Biome linting & formatting
 bun run type-check       # Run TypeScript check
-bun run deploy           # Build & deploy to Cloudflare Workers
+bun run deploy           # Deploy built output via `cf deploy` (run build first)
 bun run clean            # Remove build output
 ```
 
@@ -193,7 +193,7 @@ No component changes needed—just update the data.
 The site runs on **Cloudflare Workers** via **vinext**. Config: `vite.config.ts`, `cloudflare.config.ts`.
 Blog markdown in `content/blog/` is bundled at build time (no runtime filesystem on Workers).
 
-**Deploy:** `bun run deploy` (or connect the repo in the Cloudflare dashboard with build command `bun run build`).
+**Deploy:** `bun run build && bun run deploy` (runs `cf deploy`). In the Cloudflare dashboard set build command `bun run build` and deploy command `bun run deploy` (or `bunx cf deploy`) — NOT `npx wrangler deploy`, which rejects `.cloudflare/output`.
 
 **Pre-deployment checklist:**
 - Worker secret `RESEND_API_KEY` set; `NEXT_PUBLIC_SITE_URL` optional (defaults to https://www.jacksdevfolio.com)
