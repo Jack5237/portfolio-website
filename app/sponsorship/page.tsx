@@ -103,12 +103,12 @@ export default function SponsorshipPage() {
           className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5"
         >
           <article
-            className={`${CARD} flex min-h-72 flex-col justify-between gap-8 sm:col-span-2 md:row-span-2`}
+            className={`${CARD} flex flex-col justify-between gap-10 sm:col-span-2 md:row-span-2`}
           >
-            <div className="pointer-events-auto absolute right-6 top-6 hidden w-64 opacity-70 md:block">
+            <div className="pointer-events-auto absolute right-6 top-5 hidden w-56 opacity-70 md:block">
               <Laptop intensity={0.6} />
             </div>
-            <div className="relative max-w-md">
+            <div className="relative max-w-sm">
               <h2 className="font-display text-2xl font-semibold sm:text-3xl">
                 What I&apos;m building
               </h2>
@@ -142,8 +142,8 @@ export default function SponsorshipPage() {
           </article>
 
           {TILES.map(({ Figure, title, text }) => (
-            <article key={title} className={`${CARD} min-h-56`}>
-              <div className="-ml-2 w-28 opacity-80">
+            <article key={title} className={`${CARD} min-h-48`}>
+              <div className="-mr-2 ml-auto w-24 opacity-80">
                 <Figure intensity={0.6} />
               </div>
               <h3 className="mt-2 font-display text-base font-semibold">{title}</h3>
