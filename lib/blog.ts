@@ -11,7 +11,7 @@ const RAW_POSTS = (
   import.meta as unknown as {
     glob: (
       pattern: string,
-      options: { query: string; import: string; eager: boolean },
+      options: { query: string; import: string; eager: boolean }
     ) => Record<string, string>;
   }
 ).glob("/content/blog/*.md", { query: "?raw", import: "default", eager: true });

@@ -1,19 +1,14 @@
+import { BannerImage } from "@/components/ui/banner-image";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BannerImage } from "@/components/ui/banner-image";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
-import {
-  estimateReadingMinutes,
-  getAllBlogPosts,
-  getBlogPost,
-} from "@/lib/blog";
+import { estimateReadingMinutes, getAllBlogPosts, getBlogPost } from "@/lib/blog";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com";
 
 interface BlogPostPageProps {
   readonly params: { slug: string };

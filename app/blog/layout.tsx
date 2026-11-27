@@ -1,3 +1,4 @@
+import { SponsorCta } from "@/components/sections/sponsor-cta";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
@@ -52,5 +53,10 @@ export const metadata: Metadata = {
 };
 
 export default function BlogLayout({ children }: BlogLayoutProps) {
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <SponsorCta />
+    </>
+  );
 }

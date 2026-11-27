@@ -31,7 +31,7 @@ export const HeroSection = () => {
             <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2 md:gap-3 text-[9px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.3rem] md:tracking-[0.4rem] text-muted-foreground md:text-sm md:tracking-[0.5rem]">
               <span className="font-medium text-foreground">Jack</span>
               <span className="hidden xs:inline">—</span>
-              <span>from Scotland</span>
+              <span>16, from Scotland</span>
               <span className="hidden sm:inline md:hidden">—</span>
               <span className="hidden md:inline">—</span>
               <span className="hidden md:inline">tech enthusiast</span>
@@ -74,21 +74,22 @@ export const HeroSection = () => {
 
             {/* Compact description */}
             <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground md:text-base max-w-2xl">
-              Crafting end-to-end solutions from robust backends to polished
-              frontends. Passionate about clean code, performance, and
-              full-stack engineering.
+              A 16-year-old developer from Scotland, out here shipping real products: from robust
+              backends to polished frontends. Clean code, fast sites and full-stack engineering,
+              built in public.
             </p>
 
             {/* Action Buttons */}
             <div className="pt-3 sm:pt-4 md:pt-6 flex gap-2 sm:gap-3 md:gap-4">
-              <button type="button"
+              <button
+                type="button"
                 onClick={() => {
                   const element = document.querySelector("#work");
                   if (element) {
                     element.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
-                className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-muted-foreground hover:text-background h-10 sm:h-11 md:h-12 px-5 sm:px-7 md:px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem] whitespace-nowrap flex-shrink-0"
+                className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-brand hover:text-white h-10 sm:h-11 md:h-12 px-5 sm:px-7 md:px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem] whitespace-nowrap flex-shrink-0"
               >
                 See Projects
               </button>

@@ -4,7 +4,7 @@
 
 export const SITE_CONFIG = {
   name: "Jack",
-  description: "Full stack developer from Scotland, UK",
+  description: "16-year-old full stack developer from Scotland, UK, shipping real products",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com",
   email: "contact@jacksdevfolio.com",
   social: {
@@ -12,6 +12,9 @@ export const SITE_CONFIG = {
     github: "https://github.com/Jack5237",
     linkedin: "https://www.linkedin.com/in/jack-dev-a732b4397",
     discord: "https://discord.com/users/ttv_jack_",
+    tiktok: "https://www.tiktok.com/@jackdotdev",
+    instagram: "https://www.instagram.com/jackdotdev",
+    facebook: "https://www.facebook.com/jackdotdev",
   },
 };
 

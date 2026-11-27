@@ -47,10 +47,12 @@ A minimal, performance-focused personal portfolio website built with **Next.js 1
 - `api/` — API endpoints:
   - `contact/route.ts` — Contact form handler (rate-limited, honeypot, HTML-escaped input)
   - `blog/route.ts` — Blog post loader from markdown files
-- `blog/`, `contact/`, `privacy/`, `terms/`, `cookies/`, `pricing/` — Route-specific pages/layouts
+- `blog/`, `contact/`, `privacy/`, `terms/`, `cookies/` — Route-specific pages/layouts
+- `sponsors/` — Sponsor grid with empty state; add entries to `SPONSORS` in `lib/content.ts`
+- `sponsorship/` — Sponsorship landing page for approaching companies
 
 **`components/`** — Reusable React components
-- `sections/` — Major page sections (hero, projects, technologies, blog, footer, contact form)
+- `sections/` — Major page sections (hero, projects, technologies, blog, footer, contact form, `sponsor-cta` closing CTA with `sponsor`/`contact`/`enquiry` variants)
 - `navigation/` — Navbar, banners, back-to-home links
 - `ui/` — Primitive components (button, dropdown, theme toggler, text decryption, scroll animations)
 - `background/` — Decorative masonry background
@@ -109,6 +111,14 @@ All use `display: "swap"` to avoid layout shift and are self-hosted by Next.js.
 - **Sorting:** Posts ordered by date (newest first)
 - **Parsing:** Uses `gray-matter` to extract frontmatter and content
 - **Rendering:** Posts use react-markdown with GitHub-flavored markdown (remark-gfm) and Tailwind typography
+
+### Brand colour
+
+`--brand` (#3368DC, same blue as Caledonia Systems) is exposed as `text-brand` / `bg-brand` / `border-brand`. Use it sparingly: hover states, focus rings, small icons and the odd highlight. Everything else stays monochrome.
+
+### Social links
+
+`SITE_CONFIG.social` in `lib/config.ts` feeds both the top banner and the footer. An empty link renders a greyed-out "coming soon" button.
 
 ### Theme & Smooth Scroll
 

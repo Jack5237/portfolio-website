@@ -1,15 +1,29 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef, useCallback, lazy, Suspense } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  Check,
+  Coffee,
+  Copy,
+  Link,
+  Linkedin,
+  Maximize2,
+  Minimize2,
+  Share2,
+  Twitter,
+  X,
+} from "lucide-react";
 import NextLink from "next/link";
-import { X, Coffee, Share2, Linkedin, Twitter, ArrowLeft, ArrowRight, Maximize2, Minimize2, ArrowUp, Link, Copy, Check } from "lucide-react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { Footer } from "@/components/sections/footer";
 import { BlogHeroSection } from "@/components/sections/blog-hero-section";
+import { Footer } from "@/components/sections/footer";
 import Dock from "@/components/ui/Dock";
 import { BannerImage } from "@/components/ui/banner-image";
-import { cn } from "@/lib/utils";
 import type { BlogPost } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 const MarkdownRenderer = lazy(() => import("@/components/ui/markdown-renderer"));
 
@@ -40,30 +54,35 @@ const BlogClient = ({ posts }: BlogClientProps) => {
   }, []);
 
   // Fetch post content on expand (lazy-load markdown deps)
-  const fetchPostContent = useCallback(async (postId: string) => {
-    if (expandedPostContent[postId]) return; // Already cached
+  const fetchPostContent = useCallback(
+    async (postId: string) => {
+      if (expandedPostContent[postId]) return; // Already cached
 
-    const post = blogPosts.find(p => p.id === postId);
-    if (!post) return;
+      const post = blogPosts.find((p) => p.id === postId);
+      if (!post) return;
 
-    setLoadingContent(postId);
-    try {
-      const response = await fetch(`/api/blog/${post.slug}`);
-      if (response.ok) {
-        const data = await response.json() as BlogPost;
-        setExpandedPostContent(prev => ({ ...prev, [postId]: data.content }));
+      setLoadingContent(postId);
+      try {
+        const response = await fetch(`/api/blog/${post.slug}`);
+        if (response.ok) {
+          const data = (await response.json()) as BlogPost;
+          setExpandedPostContent((prev) => ({ ...prev, [postId]: data.content }));
+        }
+      } catch (error) {
+        console.error("Failed to fetch post content:", error);
+      } finally {
+        setLoadingContent(null);
       }
-    } catch (error) {
-      console.error("Failed to fetch post content:", error);
-    } finally {
-      setLoadingContent(null);
-    }
-  }, [blogPosts, expandedPostContent]);
+    },
+    [blogPosts, expandedPostContent]
+  );
 
   // Lock body scroll when immersive reader is open so wheel events hit the overlay
   useEffect(() => {
-    document.body.style.overflow = isImmersive ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    document.body.style.overflow = isImmersive ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isImmersive]);
 
   /**
@@ -74,7 +93,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
 
     const slug = new URLSearchParams(window.location.search).get("post");
     if (slug) {
-      const post = blogPosts.find(p => p.slug === slug);
+      const post = blogPosts.find((p) => p.slug === slug);
       if (post) {
         setExpandedPostId(post.id);
       }
@@ -87,7 +106,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
    */
   useEffect(() => {
     if (!expandedPostId || blogPosts.length === 0) return;
-    const post = blogPosts.find(p => p.id === expandedPostId);
+    const post = blogPosts.find((p) => p.id === expandedPostId);
     if (post?.slug) {
       window.history.replaceState(null, "", `/blog?post=${post.slug}`);
     }
@@ -110,11 +129,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement;
       // Skip if typing in an input/textarea
-      if (
-        target.tagName === "INPUT" ||
-        target.tagName === "TEXTAREA" ||
-        target.isContentEditable
-      ) {
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
         return;
       }
 
@@ -176,7 +191,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
 
   const listedPosts = useMemo(
     () => filteredPosts.filter((post) => post.id !== expandedPostId),
-    [filteredPosts, expandedPostId],
+    [filteredPosts, expandedPostId]
   );
 
   const availableCategories = useMemo(() => {
@@ -184,7 +199,6 @@ const BlogClient = ({ posts }: BlogClientProps) => {
       .filter((cat) => FEATURED_CATEGORIES.includes(cat))
       .sort();
   }, [blogPosts]);
-
 
   const expandedPost = blogPosts.find((p) => p.id === expandedPostId);
 
@@ -228,27 +242,73 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               {/* Share popover */}
               {dockShareOpen && expandedPost && (
                 <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-background border border-foreground/20 rounded-sm shadow-lg z-50 min-w-[160px]">
-                  <button type="button"
-                    onClick={() => { const t = encodeURIComponent(`"${expandedPost.title}" by Jack`); const u = encodeURIComponent(window.location.href); window.open(`https://twitter.com/intent/tweet?text=${t}&url=${u}`, "_blank"); }}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const t = encodeURIComponent(`"${expandedPost.title}" by Jack`);
+                      const u = encodeURIComponent(window.location.href);
+                      window.open(`https://twitter.com/intent/tweet?text=${t}&url=${u}`, "_blank");
+                    }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
-                  ><Twitter size={13} /> Twitter / X</button>
-                  <button type="button"
-                    onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank")}
+                  >
+                    <Twitter size={13} /> Twitter / X
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      window.open(
+                        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`,
+                        "_blank"
+                      )
+                    }
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
-                  ><Linkedin size={13} /> LinkedIn</button>
-                  <button type="button"
-                    onClick={() => { const ti = encodeURIComponent(expandedPost.title); const u = encodeURIComponent(window.location.href); window.open(`https://reddit.com/submit?title=${ti}&url=${u}`, "_blank"); }}
+                  >
+                    <Linkedin size={13} /> LinkedIn
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const ti = encodeURIComponent(expandedPost.title);
+                      const u = encodeURIComponent(window.location.href);
+                      window.open(`https://reddit.com/submit?title=${ti}&url=${u}`, "_blank");
+                    }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
-                  ><Share2 size={13} /> Reddit</button>
+                  >
+                    <Share2 size={13} /> Reddit
+                  </button>
                   <div className="border-t border-foreground/10 my-1" />
-                  <button type="button"
-                    onClick={() => { navigator.clipboard.writeText(window.location.href); setCopiedShare("dock-link"); setTimeout(() => setCopiedShare(null), 2000); }}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(window.location.href);
+                      setCopiedShare("dock-link");
+                      setTimeout(() => setCopiedShare(null), 2000);
+                    }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
-                  >{copiedShare === "dock-link" ? <Check size={13} className="text-foreground" /> : <Link size={13} />} {copiedShare === "dock-link" ? "Copied!" : "Copy link"}</button>
-                  <button type="button"
-                    onClick={() => { navigator.clipboard.writeText(expandedPostContent[expandedPost.id] || ""); setCopiedShare("dock-md"); setTimeout(() => setCopiedShare(null), 2000); }}
+                  >
+                    {copiedShare === "dock-link" ? (
+                      <Check size={13} className="text-foreground" />
+                    ) : (
+                      <Link size={13} />
+                    )}{" "}
+                    {copiedShare === "dock-link" ? "Copied!" : "Copy link"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(expandedPostContent[expandedPost.id] || "");
+                      setCopiedShare("dock-md");
+                      setTimeout(() => setCopiedShare(null), 2000);
+                    }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
-                  >{copiedShare === "dock-md" ? <Check size={13} className="text-foreground" /> : <Copy size={13} />} {copiedShare === "dock-md" ? "Copied!" : "Copy markdown"}</button>
+                  >
+                    {copiedShare === "dock-md" ? (
+                      <Check size={13} className="text-foreground" />
+                    ) : (
+                      <Copy size={13} />
+                    )}{" "}
+                    {copiedShare === "dock-md" ? "Copied!" : "Copy markdown"}
+                  </button>
                 </div>
               )}
               {/* Desktop: animated dock */}
@@ -260,16 +320,51 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                   distance={160}
                   items={[
                     { icon: <ArrowUp size={16} />, label: "Top", onClick: scrollImmersiveToTop },
-                    { icon: <Share2 size={16} />, label: "Share", onClick: () => setDockShareOpen(o => !o) },
-                    { icon: <Minimize2 size={16} />, label: "Exit", onClick: () => { setIsImmersive(false); setDockShareOpen(false); } },
+                    {
+                      icon: <Share2 size={16} />,
+                      label: "Share",
+                      onClick: () => setDockShareOpen((o) => !o),
+                    },
+                    {
+                      icon: <Minimize2 size={16} />,
+                      label: "Exit",
+                      onClick: () => {
+                        setIsImmersive(false);
+                        setDockShareOpen(false);
+                      },
+                    },
                   ]}
                 />
               </div>
               {/* Mobile: simple bar */}
               <div className="flex sm:hidden items-center gap-1 mb-4 bg-background border border-foreground/20 rounded-full px-3 py-2 shadow-lg">
-                <button type="button" onClick={scrollImmersiveToTop} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Top"><ArrowUp size={16} /></button>
-                <button type="button" onClick={() => setDockShareOpen(o => !o)} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Share"><Share2 size={16} /></button>
-                <button type="button" onClick={() => { setIsImmersive(false); setDockShareOpen(false); }} className="p-2 text-muted-foreground hover:text-foreground transition-colors" aria-label="Exit"><Minimize2 size={16} /></button>
+                <button
+                  type="button"
+                  onClick={scrollImmersiveToTop}
+                  className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="Top"
+                >
+                  <ArrowUp size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDockShareOpen((o) => !o)}
+                  className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="Share"
+                >
+                  <Share2 size={16} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsImmersive(false);
+                    setDockShareOpen(false);
+                  }}
+                  className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="Exit"
+                >
+                  <Minimize2 size={16} />
+                </button>
               </div>
             </div>
           </div>
@@ -279,7 +374,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
       <main
         className={cn(
           "container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16",
-          "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8",
+          "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8"
         )}
       >
         {/* Hero Section */}
@@ -296,40 +391,38 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               type="text"
               placeholder="search posts..."
               value={searchQuery}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSearchQuery(e.target.value)
-              }
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
               className={cn(
                 "w-full px-4 py-3 bg-transparent border-b border-foreground/20",
                 "text-sm sm:text-base text-foreground placeholder:text-muted-foreground/50",
                 "focus:outline-none focus:border-foreground transition-colors",
-                "tracking-wide",
+                "tracking-wide"
               )}
             />
           </div>
 
           {/* Categories - Right Side (Plain Text, Right-Aligned) */}
           <div className="flex flex-wrap gap-3 sm:gap-4 items-center md:justify-end">
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setSearchQuery("")}
               className={cn(
                 "text-sm sm:text-base transition-colors",
-                !searchQuery
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground",
+                !searchQuery ? "text-foreground" : "text-muted-foreground hover:text-foreground"
               )}
             >
               all
             </button>
             {availableCategories.map((category) => (
-              <button type="button"
+              <button
+                type="button"
                 key={category}
                 onClick={() => setSearchQuery(category)}
                 className={cn(
                   "text-sm sm:text-base transition-colors",
                   searchQuery === category
                     ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {category}
@@ -367,12 +460,13 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                         <span>•</span>
                         <time dateTime={post.date}>{post.date}</time>
                       </div>
-                      <button type="button"
+                      <button
+                        type="button"
                         onClick={() => setIsImmersive(true)}
                         className={cn(
                           "flex items-center gap-2 px-3 py-1.5 text-[10px] uppercase tracking-[0.2rem] transition-colors",
                           "border border-foreground/15 hover:border-foreground/40",
-                          "text-muted-foreground hover:text-foreground",
+                          "text-muted-foreground hover:text-foreground"
                         )}
                         title="Immersive reader"
                       >
@@ -389,10 +483,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                     {post.tags && post.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2">
                         {post.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-sm text-muted-foreground/80"
-                          >
+                          <span key={tag} className="text-sm text-muted-foreground/80">
                             {tag}
                           </span>
                         ))}
@@ -415,29 +506,33 @@ const BlogClient = ({ posts }: BlogClientProps) => {
 
                   {/* Footer - single row: nav left, actions right */}
                   {(() => {
-                    const currentIndex = blogPosts.findIndex(p => p.id === post.id);
+                    const currentIndex = blogPosts.findIndex((p) => p.id === post.id);
                     const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
-                    const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
+                    const nextPost =
+                      currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
                     return (
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-8 mt-8 border-t border-foreground/10 gap-4">
                         {/* Left - Previous */}
                         {prevPost ? (
-                          <button type="button"
+                          <button
+                            type="button"
                             onClick={() => {
                               setExpandedPostId(prevPost.id);
                               setIsImmersive(false);
-                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                              window.scrollTo({ top: 0, behavior: "smooth" });
                             }}
                             className={cn(
                               "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
                               "border border-foreground/10 hover:border-foreground/30 transition-colors",
-                              "text-muted-foreground hover:text-foreground",
+                              "text-muted-foreground hover:text-foreground"
                             )}
                           >
                             <ArrowLeft className="h-4 w-4" />
                             previous
                           </button>
-                        ) : <div />}
+                        ) : (
+                          <div />
+                        )}
 
                         {/* Right - Actions */}
                         <div className="flex items-center gap-2 flex-wrap justify-start sm:justify-end">
@@ -448,7 +543,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                             className={cn(
                               "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
                               "border border-foreground/10 hover:border-foreground/30 transition-colors",
-                              "text-muted-foreground hover:text-foreground",
+                              "text-muted-foreground hover:text-foreground"
                             )}
                           >
                             <Coffee className="h-4 w-4" />
@@ -457,12 +552,17 @@ const BlogClient = ({ posts }: BlogClientProps) => {
 
                           {/* Share */}
                           <div className="relative">
-                            <button type="button"
-                              onClick={() => setShareOpen(shareOpen === `expanded-${post.id}` ? null : `expanded-${post.id}`)}
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setShareOpen(
+                                  shareOpen === `expanded-${post.id}` ? null : `expanded-${post.id}`
+                                )
+                              }
                               className={cn(
                                 "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
                                 "border border-foreground/10 hover:border-foreground/30 transition-colors",
-                                "text-muted-foreground hover:text-foreground",
+                                "text-muted-foreground hover:text-foreground"
                               )}
                             >
                               <Share2 className="h-4 w-4" />
@@ -471,10 +571,14 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                             {shareOpen === `expanded-${post.id}` && (
                               <div className="absolute bottom-full mb-2 right-0 sm:right-0 left-auto max-[400px]:right-auto max-[400px]:left-0 bg-background border border-foreground/20 rounded-sm z-50 shadow-lg shadow-foreground/10 min-w-[160px]">
                                 {/* Twitter */}
-                                <button type="button"
+                                <button
+                                  type="button"
                                   onClick={() => {
                                     const text = `"${post.title}" by Jack`;
-                                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, "_blank");
+                                    window.open(
+                                      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`,
+                                      "_blank"
+                                    );
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
@@ -482,9 +586,13 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   Twitter / X
                                 </button>
                                 {/* LinkedIn */}
-                                <button type="button"
+                                <button
+                                  type="button"
                                   onClick={() => {
-                                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, "_blank");
+                                    window.open(
+                                      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`,
+                                      "_blank"
+                                    );
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
@@ -492,11 +600,15 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   LinkedIn
                                 </button>
                                 {/* Reddit */}
-                                <button type="button"
+                                <button
+                                  type="button"
                                   onClick={() => {
                                     const title = encodeURIComponent(post.title);
                                     const url = encodeURIComponent(window.location.href);
-                                    window.open(`https://reddit.com/submit?title=${title}&url=${url}`, "_blank");
+                                    window.open(
+                                      `https://reddit.com/submit?title=${title}&url=${url}`,
+                                      "_blank"
+                                    );
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
@@ -505,7 +617,8 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                 </button>
                                 <div className="border-t border-foreground/10 my-1" />
                                 {/* Copy link */}
-                                <button type="button"
+                                <button
+                                  type="button"
                                   onClick={() => {
                                     navigator.clipboard.writeText(window.location.href);
                                     setCopiedShare(`link-${post.id}`);
@@ -513,26 +626,38 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  {copiedShare === `link-${post.id}` ? <Check className="h-3.5 w-3.5 shrink-0 text-foreground" /> : <Link className="h-3.5 w-3.5 shrink-0" />}
+                                  {copiedShare === `link-${post.id}` ? (
+                                    <Check className="h-3.5 w-3.5 shrink-0 text-foreground" />
+                                  ) : (
+                                    <Link className="h-3.5 w-3.5 shrink-0" />
+                                  )}
                                   {copiedShare === `link-${post.id}` ? "Copied!" : "Copy link"}
                                 </button>
                                 {/* Copy markdown */}
-                                <button type="button"
+                                <button
+                                  type="button"
                                   onClick={() => {
-                                    navigator.clipboard.writeText(expandedPostContent[post.id] || "");
+                                    navigator.clipboard.writeText(
+                                      expandedPostContent[post.id] || ""
+                                    );
                                     setCopiedShare(`md-${post.id}`);
                                     setTimeout(() => setCopiedShare(null), 2000);
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  {copiedShare === `md-${post.id}` ? <Check className="h-3.5 w-3.5 shrink-0 text-foreground" /> : <Copy className="h-3.5 w-3.5 shrink-0" />}
+                                  {copiedShare === `md-${post.id}` ? (
+                                    <Check className="h-3.5 w-3.5 shrink-0 text-foreground" />
+                                  ) : (
+                                    <Copy className="h-3.5 w-3.5 shrink-0" />
+                                  )}
                                   {copiedShare === `md-${post.id}` ? "Copied!" : "Copy markdown"}
                                 </button>
                               </div>
                             )}
                           </div>
 
-                          <button type="button"
+                          <button
+                            type="button"
                             onClick={() => {
                               setExpandedPostId(null);
                               setShareOpen(null);
@@ -542,7 +667,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                             className={cn(
                               "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
                               "border border-foreground/10 hover:border-foreground/30 transition-colors",
-                              "text-muted-foreground hover:text-foreground",
+                              "text-muted-foreground hover:text-foreground"
                             )}
                           >
                             <X className="h-4 w-4" />
@@ -550,16 +675,17 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                           </button>
 
                           {nextPost && (
-                            <button type="button"
+                            <button
+                              type="button"
                               onClick={() => {
                                 setExpandedPostId(nextPost.id);
                                 setIsImmersive(false);
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                window.scrollTo({ top: 0, behavior: "smooth" });
                               }}
                               className={cn(
                                 "flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2rem]",
                                 "border border-foreground/10 hover:border-foreground/30 transition-colors",
-                                "text-muted-foreground hover:text-foreground",
+                                "text-muted-foreground hover:text-foreground"
                               )}
                             >
                               next
@@ -595,7 +721,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                   className={cn(
                     "group relative border-t border-foreground/15 pt-6 sm:pt-8 md:pt-10 transition-colors cursor-pointer",
                     "hover:border-foreground",
-                    index === listedPosts.length - 1 && "border-b pb-8",
+                    index === listedPosts.length - 1 && "border-b pb-8"
                   )}
                   onClick={async () => {
                     if (expandedPostId === post.id) {
@@ -614,10 +740,10 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                   {/* Metadata row — category left/right, date opposite (mirrors work section) */}
                   <div
                     className={cn(
-                      "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground transition-colors group-hover:text-accent",
+                      "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground transition-colors group-hover:text-brand",
                       isLeftAligned
                         ? "md:flex-row md:items-center md:justify-between"
-                        : "md:flex-row-reverse md:items-center md:justify-between",
+                        : "md:flex-row-reverse md:items-center md:justify-between"
                     )}
                   >
                     <span>{post.category}</span>
@@ -629,13 +755,13 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                     className={cn(
                       "flex flex-col gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-5 md:mt-6",
                       "md:items-start md:justify-between",
-                      isLeftAligned ? "md:flex-row" : "md:flex-row-reverse",
+                      isLeftAligned ? "md:flex-row" : "md:flex-row-reverse"
                     )}
                   >
                     <span
                       className={cn(
-                        "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent flex-1",
-                        isLeftAligned ? "text-left" : "text-left md:text-right",
+                        "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-brand flex-1",
+                        isLeftAligned ? "text-left" : "text-left md:text-right"
                       )}
                     >
                       {post.title}
@@ -646,7 +772,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                         className={cn(
                           "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs",
                           "text-left",
-                          isLeftAligned ? "md:text-right" : "md:text-left",
+                          isLeftAligned ? "md:text-right" : "md:text-left"
                         )}
                       >
                         {post.excerpt}

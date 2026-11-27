@@ -1,14 +1,19 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://www.jacksdevfolio.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: ["ClaudeBot", "ChatGPT-User", "Google-Extended", "DeepSeekBot", "Applebot-Extended", "PerplexityBot"],
+        userAgent: [
+          "ClaudeBot",
+          "ChatGPT-User",
+          "Google-Extended",
+          "DeepSeekBot",
+          "Applebot-Extended",
+          "PerplexityBot",
+        ],
         allow: ["/"],
         crawlDelay: 0,
       },

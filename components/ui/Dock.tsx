@@ -1,8 +1,15 @@
-'use client';
+"use client";
 
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, type SpringOptions } from 'motion/react';
-import { Children, cloneElement, useEffect, useRef, useState } from 'react';
-import './Dock.css';
+import {
+  AnimatePresence,
+  type SpringOptions,
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import { Children, cloneElement, useEffect, useRef, useState } from "react";
+import "./Dock.css";
 
 interface DockItemData {
   icon: React.ReactNode;
@@ -23,16 +30,30 @@ interface DockItemProps {
   label: string;
 }
 
-function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize, label }: DockItemProps) {
+function DockItem({
+  children,
+  className = "",
+  onClick,
+  mouseX,
+  spring,
+  distance,
+  magnification,
+  baseItemSize,
+  label,
+}: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isHovered = useMotionValue(0);
 
-  const mouseDistance = useTransform(mouseX, val => {
+  const mouseDistance = useTransform(mouseX, (val) => {
     const rect = ref.current?.getBoundingClientRect() ?? { x: 0, width: baseItemSize };
     return val - rect.x - baseItemSize / 2;
   });
 
-  const targetSize = useTransform(mouseDistance, [-distance, 0, distance], [baseItemSize, magnification, baseItemSize]);
+  const targetSize = useTransform(
+    mouseDistance,
+    [-distance, 0, distance],
+    [baseItemSize, magnification, baseItemSize]
+  );
   const size = useSpring(targetSize, spring);
 
   return (
@@ -49,19 +70,34 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
       tabIndex={0}
       role="button"
       aria-label={label}
-      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick?.(); } }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
     >
-      {Children.map(children, child => cloneElement(child as React.ReactElement<{ isHovered: typeof isHovered }>, { isHovered }))}
+      {Children.map(children, (child) =>
+        cloneElement(child as React.ReactElement<{ isHovered: typeof isHovered }>, { isHovered })
+      )}
     </motion.div>
   );
 }
 
-function DockLabel({ children, className = '', isHovered }: { children: React.ReactNode; className?: string; isHovered?: ReturnType<typeof useMotionValue<number>> }) {
+function DockLabel({
+  children,
+  className = "",
+  isHovered,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  isHovered?: ReturnType<typeof useMotionValue<number>>;
+}) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     if (!isHovered) return;
-    return isHovered.on('change', v => setVisible(v === 1));
+    return isHovered.on("change", (v) => setVisible(v === 1));
   }, [isHovered]);
 
   return (
@@ -74,7 +110,7 @@ function DockLabel({ children, className = '', isHovered }: { children: React.Re
           transition={{ duration: 0.15 }}
           className={`dock-label ${className}`}
           role="tooltip"
-          style={{ x: '-50%' }}
+          style={{ x: "-50%" }}
         >
           {children}
         </motion.div>
@@ -83,13 +119,20 @@ function DockLabel({ children, className = '', isHovered }: { children: React.Re
   );
 }
 
-function DockIcon({ children, className = '' }: { children: React.ReactNode; className?: string; isHovered?: ReturnType<typeof useMotionValue<number>> }) {
+function DockIcon({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  isHovered?: ReturnType<typeof useMotionValue<number>>;
+}) {
   return <div className={`dock-icon ${className}`}>{children}</div>;
 }
 
 export default function Dock({
   items,
-  className = '',
+  className = "",
   spring = { mass: 0.1, stiffness: 150, damping: 12 },
   magnification = 70,
   distance = 200,
@@ -113,8 +156,14 @@ export default function Dock({
     <div
       className="dock-outer"
       style={{ height: magnification + 40 }}
-      onMouseMove={({ clientX }) => { isHovered.set(1); mouseX.set(clientX); }}
-      onMouseLeave={() => { isHovered.set(0); mouseX.set(Number.POSITIVE_INFINITY); }}
+      onMouseMove={({ clientX }) => {
+        isHovered.set(1);
+        mouseX.set(clientX);
+      }}
+      onMouseLeave={() => {
+        isHovered.set(0);
+        mouseX.set(Number.POSITIVE_INFINITY);
+      }}
     >
       <div
         className={`dock-panel ${className}`}

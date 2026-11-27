@@ -32,15 +32,16 @@ export async function POST(req: NextRequest) {
   if (isRateLimited(ip)) {
     return NextResponse.json(
       { error: "Too many requests. Please wait a few minutes before trying again." },
-      { status: 429 },
+      { status: 429 }
     );
   }
 
   try {
-    const body = await req.json() as {
+    const body = (await req.json()) as {
       name?: string;
       email?: string;
       message?: string;
+      topic?: string;
       website?: string; // honeypot — must be empty
     };
 
@@ -50,9 +51,13 @@ export async function POST(req: NextRequest) {
     }
 
     const { name, email, message } = body;
+    const topic = body.topic?.trim().slice(0, 60) || "General";
 
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
-      return NextResponse.json({ error: "Name, email, and message are required." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Name, email, and message are required." },
+        { status: 400 }
+      );
     }
 
     // Basic length guards
@@ -67,17 +72,19 @@ export async function POST(req: NextRequest) {
 
     const safeName = escapeHtml(name.trim());
     const safeEmail = escapeHtml(email.trim());
+    const safeTopic = escapeHtml(topic);
     const safeMessage = escapeHtml(message.trim());
 
     const { error } = await new Resend(process.env.RESEND_API_KEY).emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: "contact@jacksdevfolio.com",
       replyTo: email.trim(),
-      subject: `New message from ${name.trim().replace(/\s+/g, " ")}`,
+      subject: `[${topic.replace(/\s+/g, " ")}] New message from ${name.trim().replace(/\s+/g, " ")}`,
       html: `
         <div style="font-family:monospace;max-width:600px;padding:24px;background:#0a0a0a;color:#ebebeb;border:1px solid #333">
           <p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0 0 16px">Portfolio Contact</p>
           <h2 style="margin:0 0 16px;font-size:20px">${safeName}</h2>
+          <p style="font-size:12px;color:#888;margin:0 0 4px">Topic: ${safeTopic}</p>
           <p style="font-size:12px;color:#888;margin:0 0 4px">From: <a href="mailto:${safeEmail}" style="color:#ebebeb">${safeEmail}</a></p>
           <hr style="border:none;border-top:1px solid #333;margin:16px 0"/>
           <p style="white-space:pre-wrap;line-height:1.7;font-size:14px">${safeMessage}</p>
@@ -87,12 +94,18 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("Resend error:", error);
-      return NextResponse.json({ error: "Failed to send message. Please try again." }, { status: 500 });
+      return NextResponse.json(
+        { error: "Failed to send message. Please try again." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ message: "Message sent successfully." }, { status: 200 });
   } catch (err) {
     console.error("Contact form error:", err);
-    return NextResponse.json({ error: "Failed to send message. Please try again." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to send message. Please try again." },
+      { status: 500 }
+    );
   }
 }

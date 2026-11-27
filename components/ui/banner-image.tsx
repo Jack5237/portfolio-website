@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { createPortal } from "react-dom";
-import { Maximize2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Maximize2, X } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface BannerImageProps {
   src: string;

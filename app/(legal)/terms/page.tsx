@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import { Footer } from "@/components/sections/footer";
 import { BackToHome } from "@/components/navigation/back-to-home";
+import { Footer } from "@/components/sections/footer";
 import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Terms of service for Jack's portfolio website.",
+  description: "Terms of service for jacksdevfolio.com, covering use of the site, freelance enquiries, intellectual property and liability.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/terms" },
 };
@@ -15,13 +15,12 @@ export const metadata: Metadata = {
  * @returns The terms page markup.
  */
 const TermsPage = () => {
-
   return (
     <>
       <main
         className={cn(
           "container relative mx-auto z-10 flex min-h-screen flex-col gap-12 sm:gap-14 md:gap-16",
-          "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8",
+          "pb-16 sm:pb-20 md:pb-24 pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8"
         )}
       >
         <article className="max-w-3xl mx-auto space-y-8 sm:space-y-10 md:space-y-12">
@@ -33,7 +32,7 @@ const TermsPage = () => {
             <h1
               className={cn(
                 "text-[clamp(2rem,5vw,3.5rem)] sm:text-[clamp(2.5rem,6vw,4rem)]",
-                "font-display font-bold uppercase leading-tight tracking-[0.05em] sm:tracking-[0.06em]",
+                "font-display font-bold uppercase leading-tight tracking-[0.05em] sm:tracking-[0.06em]"
               )}
             >
               Terms of Service
@@ -53,100 +52,86 @@ const TermsPage = () => {
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
                 )}
               >
                 1. Acceptance of Terms
               </h2>
               <p className="text-muted-foreground">
-                By accessing and using this website, you accept and agree to be
-                bound by the terms and provision of this agreement. If you do
-                not agree to abide by the above, please do not use this service.
+                By accessing and using this website, you accept and agree to be bound by the terms
+                and provision of this agreement. If you do not agree to abide by the above, please
+                do not use this service.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
                 )}
               >
                 2. Use License
               </h2>
               <p className="text-muted-foreground">
-                Permission is granted to temporarily download one copy of the
-                materials on this website for personal, non-commercial
-                transitory viewing only. This is the grant of a license, not a
-                transfer of title, and under this license you may not:
+                Permission is granted to temporarily download one copy of the materials on this
+                website for personal, non-commercial transitory viewing only. This is the grant of a
+                license, not a transfer of title, and under this license you may not:
               </p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
                 <li>Modify or copy the materials</li>
-                <li>
-                  Use the materials for any commercial purpose or for any public
-                  display
-                </li>
-                <li>
-                  Attempt to reverse engineer any software contained on the
-                  website
-                </li>
-                <li>
-                  Remove any copyright or other proprietary notations from the
-                  materials
-                </li>
+                <li>Use the materials for any commercial purpose or for any public display</li>
+                <li>Attempt to reverse engineer any software contained on the website</li>
+                <li>Remove any copyright or other proprietary notations from the materials</li>
               </ul>
             </section>
 
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
                 )}
               >
                 3. Disclaimer
               </h2>
               <p className="text-muted-foreground">
-                The materials on this website are provided on an &apos;as
-                is&apos; basis. We make no warranties, expressed or implied, and
-                hereby disclaim and negate all other warranties including,
-                without limitation, implied warranties or conditions of
-                merchantability, fitness for a particular purpose, or
-                non-infringement of intellectual property or other violation of
-                rights.
+                The materials on this website are provided on an &apos;as is&apos; basis. We make no
+                warranties, expressed or implied, and hereby disclaim and negate all other
+                warranties including, without limitation, implied warranties or conditions of
+                merchantability, fitness for a particular purpose, or non-infringement of
+                intellectual property or other violation of rights.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
                 )}
               >
                 4. Limitations
               </h2>
               <p className="text-muted-foreground">
-                In no event shall we or our suppliers be liable for any damages
-                (including, without limitation, damages for loss of data or
-                profit, or due to business interruption) arising out of the use
-                or inability to use the materials on this website, even if we or
-                an authorized representative have been notified orally or in
-                writing of the possibility of such damage.
+                In no event shall we or our suppliers be liable for any damages (including, without
+                limitation, damages for loss of data or profit, or due to business interruption)
+                arising out of the use or inability to use the materials on this website, even if we
+                or an authorized representative have been notified orally or in writing of the
+                possibility of such damage.
               </p>
             </section>
 
             <section className="space-y-4">
               <h2
                 className={cn(
-                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider",
+                  "text-xl sm:text-2xl font-display font-semibold uppercase tracking-wider"
                 )}
               >
                 5. Contact Information
               </h2>
               <p className="text-muted-foreground">
-                If you have any questions about these Terms of Service, please
-                contact us at{" "}
+                If you have any questions about these Terms of Service, please contact us at{" "}
                 <a
                   href="mailto:contact@jacksdevfolio.com"
-                  className="text-foreground underline hover:text-accent transition-colors"
+                  className="text-foreground underline hover:text-brand transition-colors"
                 >
                   contact@jacksdevfolio.com
                 </a>

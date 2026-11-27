@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import Script from "next/script";
 import dynamic from "next/dynamic";
-import {
-  Space_Grotesk,
-  Outfit,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
+import type { ReactNode } from "react";
 
 import "./globals.css";
 
-
-import { ThemeProvider } from "@/components/theme-provider";
-import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
-import { MainNavbar } from "@/components/navigation/main-navbar";
 import { CookieConsent } from "@/components/cookie-consent";
+import { MainNavbar } from "@/components/navigation/main-navbar";
+import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { SITE_CONFIG } from "@/lib/config";
 import { cn } from "@/lib/utils";
 
-const TopBanner = dynamic(() => import("@/components/navigation/top-banner").then(mod => ({ default: mod.TopBanner })), { ssr: true });
+const TopBanner = dynamic(
+  () => import("@/components/navigation/top-banner").then((mod) => ({ default: mod.TopBanner })),
+  { ssr: true }
+);
 
 import "lenis/dist/lenis.css";
 
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
     template: "%s · Jack",
   },
   description:
-    "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends. Passionate about clean code, performance, and full-stack engineering.",
+    "16-year-old full stack developer from Scotland, UK, shipping real products. Crafting end-to-end solutions from robust backends to polished frontends.",
   keywords: [
     "Jack",
     "Full stack developer",
@@ -89,14 +88,11 @@ export const metadata: Metadata = {
   authors: [{ name: "Jack", url: "https://github.com/Jack5237" }],
   creator: "Jack",
   publisher: "Jack",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://www.jacksdevfolio.com",
-  ),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.jacksdevfolio.com"),
   openGraph: {
     title: "Jack - Full Stack Developer Portfolio",
     description:
-      "Full stack developer from Scotland, UK. Crafting end-to-end solutions with React, Next.js, TypeScript, and modern web technologies. Expert in responsive design and performance optimization.",
+      "16-year-old full stack developer from Scotland, UK, shipping real products with React, Next.js, TypeScript, and modern web technologies. Expert in responsive design and performance optimization.",
     url: "/",
     siteName: "Jack's Developer Portfolio",
     locale: "en_GB",
@@ -116,8 +112,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Jack - Full stack developer",
-    description:
-      "Full stack developer from Scotland, UK. Crafting end-to-end solutions from robust backends to polished frontends.",
+    description: "16-year-old full stack developer from Scotland, UK, shipping real products.",
     creator: "@Jack1168556",
     images: ["/images/brand/avatarImg.png"],
   },
@@ -177,7 +172,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     ],
     email: "contact@jacksdevfolio.com",
     description:
-      "Full stack developer from Scotland, UK. Specializes in React, Next.js, TypeScript, and Node.js. Crafting end-to-end solutions from robust backends to polished frontends.",
+      "16-year-old full stack developer from Scotland, UK. Specializes in React, Next.js, TypeScript, and Node.js. Crafting end-to-end solutions from robust backends to polished frontends.",
     knowsAbout: [
       "React",
       "Next.js",
@@ -201,7 +196,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         "bg-background text-foreground",
         spaceGrotesk.variable,
         outfit.variable,
-        plusJakarta.variable,
+        plusJakarta.variable
       )}
     >
       <head>
@@ -286,15 +281,9 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           }}
         />
       </head>
-      <body
-        className="min-h-screen bg-background font-body text-foreground antialiased"
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
-        >
-          <TopBanner />
+      <body className="min-h-screen bg-background font-body text-foreground antialiased">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
+          <TopBanner email={SITE_CONFIG.email} socialLinks={SITE_CONFIG.social} />
           <MainNavbar />
           <SmoothScrollProvider>{children}</SmoothScrollProvider>
           <CookieConsent />

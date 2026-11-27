@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import type { ReactNode } from "react";
 
 /**
  * Props for the ThemeProvider component, matching next-themes API.
@@ -34,14 +34,9 @@ export const ThemeProvider = ({
   children,
   attribute = "class",
   defaultTheme = "system",
-  enableSystem = true
+  enableSystem = true,
 }: ThemeProviderProps) => (
-  <NextThemesProvider
-    attribute={attribute}
-    defaultTheme={defaultTheme}
-    enableSystem={enableSystem}
-  >
+  <NextThemesProvider attribute={attribute} defaultTheme={defaultTheme} enableSystem={enableSystem}>
     {children}
   </NextThemesProvider>
 );
-

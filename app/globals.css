@@ -4,7 +4,7 @@
 
 /* Ensure base styles are always loaded */
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
@@ -23,6 +23,7 @@ body {
   --accent: 0 0% 92%;
   --accent-foreground: 0 0% 8%;
   --ring: 0 0% 65%;
+  --brand: 221 69% 54%;
 }
 
 /* Light mode theme variables */
@@ -34,6 +35,7 @@ body {
   --accent: 0 0% 8%;
   --accent-foreground: 0 0% 98%;
   --ring: 0 0% 35%;
+  --brand: 221 69% 54%;
 }
 
 * {
@@ -73,7 +75,6 @@ main {
     transform: translateY(0) scale(1);
   }
 }
-
 
 /* Smooth height transition for expanded content */
 .blog-expand-container {
@@ -119,7 +120,7 @@ main {
 }
 
 .prose summary::after {
-  content: '+';
+  content: "+";
   color: hsl(var(--muted-foreground));
   font-weight: 400;
   font-size: 1.1rem;
@@ -127,7 +128,7 @@ main {
 }
 
 .prose details[open] summary::after {
-  content: '−';
+  content: "−";
 }
 
 .prose details > *:not(summary) {

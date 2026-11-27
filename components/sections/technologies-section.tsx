@@ -1,7 +1,8 @@
+import { ScrollSlide } from "@/components/ui/scroll-slide";
 import type { Technology } from "@/lib/content";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
-import { ScrollSlide } from "@/components/ui/scroll-slide";
+import { Cpu } from "lucide-react";
 
 const logger = getWebLogger();
 logger.info("Initialized technologies section module", {
@@ -20,23 +21,24 @@ interface TechnologiesSectionProps {
  * @param props - Technology data to present.
  * @returns The technologies section markup.
  */
-export const TechnologiesSection = ({
-  technologies,
-}: TechnologiesSectionProps) => {
+export const TechnologiesSection = ({ technologies }: TechnologiesSectionProps) => {
   logger.debug("Rendering technologies section", {
     section: "Technologies",
     total: technologies.length,
   });
 
   // Group technologies by category
-  const grouped = technologies.reduce((acc, tech) => {
-    const category = tech.category || "Other";
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(tech);
-    return acc;
-  }, {} as Record<string, Technology[]>);
+  const grouped = technologies.reduce(
+    (acc, tech) => {
+      const category = tech.category || "Other";
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(tech);
+      return acc;
+    },
+    {} as Record<string, Technology[]>
+  );
 
   const categories = Object.keys(grouped).sort().slice(0, 6); // Limit to 6 categories
 
@@ -44,7 +46,8 @@ export const TechnologiesSection = ({
     <section className="space-y-5 sm:space-y-6 md:space-y-8 py-10 sm:py-12 md:py-16 lg:py-20">
       <ScrollSlide>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.4rem] text-muted-foreground">
+          <h2 className="flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.4rem] text-muted-foreground">
+            <Cpu aria-hidden="true" className="size-4 text-brand" />
             Technologies Learned
           </h2>
           <div className="text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.4rem] text-muted-foreground">
@@ -56,7 +59,7 @@ export const TechnologiesSection = ({
         {categories.map((category, index) => {
           // Alternate alignment: even index (0, 2, 4...) = left (right-aligned tags), odd index (1, 3, 5...) = right (left-aligned tags)
           const isLeftColumn = index % 2 === 0;
-          
+
           return (
             <ScrollSlide
               key={category}
@@ -66,16 +69,20 @@ export const TechnologiesSection = ({
                 "hover:border-foreground"
               )}
             >
-              <h3 className={cn(
-                "mb-2 sm:mb-3 text-[10px] sm:text-xs uppercase tracking-[0.35rem] sm:tracking-[0.4rem] text-muted-foreground transition-colors group-hover:text-accent",
-                isLeftColumn ? "text-right" : "text-left"
-              )}>
+              <h3
+                className={cn(
+                  "mb-2 sm:mb-3 text-[10px] sm:text-xs uppercase tracking-[0.35rem] sm:tracking-[0.4rem] text-muted-foreground transition-colors group-hover:text-brand",
+                  isLeftColumn ? "text-right" : "text-left"
+                )}
+              >
                 {category}
               </h3>
-              <div className={cn(
-                "flex flex-wrap gap-1.5 sm:gap-2",
-                isLeftColumn ? "justify-end" : "justify-start"
-              )}>
+              <div
+                className={cn(
+                  "flex flex-wrap gap-1.5 sm:gap-2",
+                  isLeftColumn ? "justify-end" : "justify-start"
+                )}
+              >
                 {grouped[category].map((tech) => {
                   const TagComponent = tech.href ? "a" : "span";
                   return (
@@ -86,7 +93,7 @@ export const TechnologiesSection = ({
                       rel={tech.href ? "noreferrer" : undefined}
                       className={cn(
                         "rounded-full border border-foreground/15 bg-muted/50 px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] uppercase tracking-[0.1rem] sm:tracking-[0.15rem] transition-all",
-                        "hover:border-foreground hover:bg-foreground hover:text-background",
+                        "hover:border-brand hover:bg-brand hover:text-white",
                         tech.href && "cursor-pointer"
                       )}
                     >

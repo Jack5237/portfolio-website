@@ -24,6 +24,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
+    ...["sponsors", "sponsorship"].map((page) => ({
+      url: `${BASE_URL}/${page}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
     // /connect and /developers are noindexed thin pages, so they stay out of the sitemap
     ...["privacy", "terms", "cookies"].map((page) => ({
       url: `${BASE_URL}/${page}`,

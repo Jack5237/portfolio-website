@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import type { Project } from "@/lib/content";
 import { DecryptedText } from "@/components/ui/decrypted-text";
 import { ScrollSlide } from "@/components/ui/scroll-slide";
+import type { Project } from "@/lib/content";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
+import { ArrowUpRight, FolderGit2 } from "lucide-react";
+import { useState } from "react";
 
 const logger = getWebLogger();
 logger.info("Initialized projects section module", { section: "Projects" });
@@ -39,12 +40,14 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
       id="projects"
     >
       <div className="flex items-center justify-between">
-        <div className="text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.4rem] text-muted-foreground whitespace-nowrap">
+        <div className="flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.4rem] text-muted-foreground whitespace-nowrap">
+          <FolderGit2 aria-hidden="true" className="size-4 text-brand" />
           Featured Projects
         </div>
         <div className="flex items-center gap-3">
           {!isExpanded && projects.length > 4 && (
-            <button type="button"
+            <button
+              type="button"
               onClick={() => setIsExpanded(true)}
               className="text-[10px] sm:text-xs uppercase tracking-[0.2rem] sm:tracking-[0.25rem] text-foreground hover:text-muted-foreground transition-colors underline underline-offset-4 decoration-foreground/30 hover:decoration-foreground"
             >
@@ -62,9 +65,7 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
           const isLeftAligned = index % 2 === 0;
           // Alternate slide direction: left-aligned slides from left, right-aligned slides from right
           const slideDirection = isLeftAligned ? "left" : "right";
-          const projectKey = `${project.href ?? "project"}-${
-            project.title
-          }-${index}`;
+          const projectKey = `${project.href ?? "project"}-${project.title}-${index}`;
 
           return (
             <ScrollSlide
@@ -78,17 +79,15 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                 className={cn(
                   "group relative border-t border-foreground/15 pt-6 sm:pt-8 md:pt-10 transition-colors",
                   "hover:border-foreground",
-                  index === displayedProjects.length - 1 && !isExpanded
-                    ? "border-b pb-8"
-                    : "",
+                  index === displayedProjects.length - 1 && !isExpanded ? "border-b pb-8" : ""
                 )}
               >
                 <div
                   className={cn(
-                    "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground transition-colors group-hover:text-accent",
+                    "flex flex-col gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm uppercase tracking-[0.3rem] sm:tracking-[0.35rem] text-muted-foreground transition-colors group-hover:text-brand",
                     isLeftAligned
                       ? "md:flex-row md:items-center md:justify-between"
-                      : "md:flex-row-reverse md:items-center md:justify-between",
+                      : "md:flex-row-reverse md:items-center md:justify-between"
                   )}
                 >
                   <span>{project.category}</span>
@@ -98,17 +97,20 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                   className={cn(
                     "flex flex-col gap-3 sm:gap-4 md:gap-6 mt-4 sm:mt-5 md:mt-6",
                     "md:items-start md:justify-between",
-                    isLeftAligned ? "md:flex-row" : "md:flex-row-reverse",
+                    isLeftAligned ? "md:flex-row" : "md:flex-row-reverse"
                   )}
                 >
                   <a
                     href={project.href}
                     target="_blank"
                     rel="noreferrer"
+                    aria-label={`${project.title} (opens in a new tab)`}
                     className={cn(
-                      "block text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-accent flex-1",
-                      // Mobile: always left-aligned, Desktop: alternate between left and right
-                      isLeftAligned ? "text-left" : "text-left md:text-right",
+                      "group/title flex items-center gap-3 sm:gap-4 text-[clamp(1.5rem,3.5vw,3rem)] sm:text-[clamp(1.75rem,4vw,3.75rem)] font-display font-bold uppercase leading-tight transition-colors hover:text-brand flex-1",
+                      // Mobile: always left-aligned; desktop alternates and the icon sits on the outer side
+                      isLeftAligned
+                        ? "text-left"
+                        : "text-left md:flex-row-reverse md:justify-start md:text-right"
                     )}
                   >
                     <DecryptedText
@@ -120,13 +122,20 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                       parentClassName="block"
                       encryptedClassName="opacity-70"
                     />
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className={cn(
+                        "size-[0.6em] shrink-0 -translate-x-2 text-brand opacity-0 transition-all duration-300 group-hover/title:translate-x-0 group-hover/title:opacity-100 motion-reduce:transition-none",
+                        !isLeftAligned && "md:translate-x-2"
+                      )}
+                    />
                   </a>
                   {project.description && (
                     <p
                       className={cn(
                         "text-xs sm:text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex-1 md:max-w-xs",
                         "text-left",
-                        isLeftAligned ? "md:text-right" : "md:text-left",
+                        isLeftAligned ? "md:text-right" : "md:text-left"
                       )}
                     >
                       {project.description}
@@ -140,7 +149,8 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
       </div>
       {!isExpanded && projects.length > 4 && (
         <div className="flex justify-center pt-8 sm:pt-12">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => setIsExpanded(true)}
             className="text-xs sm:text-sm uppercase tracking-[0.4rem] sm:tracking-[0.5rem] text-muted-foreground hover:text-foreground transition-colors border border-foreground/10 px-6 py-2 sm:px-8 sm:py-3 hover:border-foreground/30"
           >
@@ -150,12 +160,11 @@ export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
       )}
       {isExpanded && (
         <div className="flex justify-center pt-8 sm:pt-12">
-          <button type="button"
+          <button
+            type="button"
             onClick={() => {
               setIsExpanded(false);
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth" });
+              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
             }}
             className="text-xs sm:text-sm uppercase tracking-[0.4rem] sm:tracking-[0.5rem] text-muted-foreground hover:text-foreground transition-colors border border-foreground/10 px-6 py-2 sm:px-8 sm:py-3 hover:border-foreground/30"
           >

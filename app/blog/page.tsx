@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import { getAllBlogPosts } from "@/lib/blog";
+import type { Metadata } from "next";
 import BlogClient from "./blog-client";
 
 export const metadata: Metadata = {

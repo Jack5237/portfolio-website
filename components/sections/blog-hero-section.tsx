@@ -1,10 +1,10 @@
 "use client";
 
-import { DecryptedText } from "@/components/ui/decrypted-text";
 import { MasonryBackground } from "@/components/background/masonry-background";
 import { Button } from "@/components/ui/button";
-import { getWebLogger } from "@/lib/logger";
+import { DecryptedText } from "@/components/ui/decrypted-text";
 import { MASONRY_ITEMS } from "@/lib/content";
+import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 
 const logger = getWebLogger();
@@ -22,7 +22,7 @@ export const BlogHeroSection = () => {
    */
   const scrollToBlogs = () => {
     // Find the search/tags section or first blog post
-    const searchSection = document.querySelector('[data-blog-content]');
+    const searchSection = document.querySelector("[data-blog-content]");
     if (searchSection) {
       searchSection.scrollIntoView({ behavior: "smooth", block: "start" });
       logger.debug("Scrolled to blog content", { section: "BlogHero" });
@@ -71,12 +71,14 @@ export const BlogHeroSection = () => {
 
             {/* Compact description */}
             <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground md:text-base max-w-2xl">
-              Exploring the latest in web development, sharing insights from building scalable applications, and documenting the journey of continuous learning in tech.
+              Exploring the latest in web development, sharing insights from building scalable
+              applications, and documenting the journey of continuous learning in tech.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-3 pt-2 sm:pt-3">
-              <button type="button"
+              <button
+                type="button"
                 onClick={scrollToBlogs}
                 className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-muted-foreground hover:text-background h-12 px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem]"
               >

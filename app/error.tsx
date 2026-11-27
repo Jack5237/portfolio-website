@@ -19,7 +19,8 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
         <p className="text-muted-foreground text-lg">
           An unexpected error occurred. Please try again.
         </p>
-        <button type="button"
+        <button
+          type="button"
           onClick={reset}
           className="inline-flex items-center justify-center rounded-full font-medium transition-colors bg-foreground text-background hover:bg-muted-foreground h-10 px-8 text-sm uppercase tracking-[0.2rem]"
         >

@@ -1,10 +1,10 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const accept = request.headers.get('accept') || '';
+  const accept = request.headers.get("accept") || "";
   const requestPath = request.nextUrl.pathname;
 
-  if (accept.includes('text/markdown')) {
+  if (accept.includes("text/markdown")) {
     const markdown = `# 404 - Page Not Found
 
 The page you requested does not exist: **${requestPath}**
@@ -51,9 +51,9 @@ Having trouble? Reach out to [contact@jacksdevfolio.com](mailto:contact@jacksdev
     return new NextResponse(markdown, {
       status: 404,
       headers: {
-        'Content-Type': 'text/markdown; charset=utf-8',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Vary': 'Accept, Accept-Encoding',
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Vary: "Accept, Accept-Encoding",
       },
     });
   }
@@ -62,11 +62,11 @@ Having trouble? Reach out to [contact@jacksdevfolio.com](mailto:contact@jacksdev
 }
 
 export async function POST(request: NextRequest) {
-  return new NextResponse(JSON.stringify({ error: 'Not Found', status: 404 }), {
+  return new NextResponse(JSON.stringify({ error: "Not Found", status: 404 }), {
     status: 404,
     headers: {
-      'Content-Type': 'application/json',
-      'Vary': 'Accept',
+      "Content-Type": "application/json",
+      Vary: "Accept",
     },
   });
 }

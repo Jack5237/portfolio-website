@@ -1,6 +1,8 @@
 import CalendlyEmbed from "@/components/sections/calendly-embed";
 import ContactForm from "@/components/sections/contact-form";
 import { Footer } from "@/components/sections/footer";
+import { SponsorCta } from "@/components/sections/sponsor-cta";
+import { SITE_CONFIG } from "@/lib/config";
 import { Calendar } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -22,6 +24,12 @@ export const metadata: Metadata = {
     "development quote",
     "work together",
   ],
+  alternates: { canonical: "/contact" },
+  twitter: {
+    card: "summary",
+    title: "Contact Jack - Hire a Full Stack Developer",
+    description: "Send a project enquiry or book a free 30-minute consultation.",
+  },
   openGraph: {
     title: "Contact Jack - Schedule a Consultation",
     description: "Ready to work together? Send a message or book a free 30-minute call.",
@@ -87,14 +95,8 @@ export default function ContactPage() {
         </div>
       </main>
 
-      <Footer
-        email={CONTACT_EMAIL}
-        socialLinks={{
-          twitter: "https://x.com/Jack1168556",
-          github: "https://github.com/Jack5237",
-          linkedin: "https://www.linkedin.com/in/jack-dev-a732b4397",
-        }}
-      />
+      <SponsorCta />
+      <Footer email={CONTACT_EMAIL} socialLinks={SITE_CONFIG.social} />
     </>
   );
 }

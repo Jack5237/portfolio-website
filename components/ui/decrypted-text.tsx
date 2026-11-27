@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
 interface DecryptedTextProps {
   /**
@@ -56,7 +56,7 @@ export const DecryptedText = ({
   parentClassName,
   encryptedClassName,
   animateOn = "hover",
-  revealDirection = "center"
+  revealDirection = "center",
 }: DecryptedTextProps) => {
   const [displayText, setDisplayText] = useState(text);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -158,7 +158,8 @@ export const DecryptedText = ({
                     if (revealDirection === "left") {
                       if (index <= iteration) return text[index];
                     } else if (revealDirection === "right") {
-                      if (text.length - 1 - index <= iteration) return text[text.length - 1 - index];
+                      if (text.length - 1 - index <= iteration)
+                        return text[text.length - 1 - index];
                     } else {
                       // center - reveal from both ends
                       const center = Math.floor(text.length / 2);
@@ -231,4 +232,3 @@ export const DecryptedText = ({
     </span>
   );
 };
-

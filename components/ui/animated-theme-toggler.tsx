@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { useCallback, useEffect, useState } from "react"
-import { useTheme } from "next-themes"
-import { Moon, Sun } from "lucide-react"
-import { flushSync } from "react-dom"
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useCallback, useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"button"> {
-  duration?: number
+  duration?: number;
 }
 
 export const AnimatedThemeToggler = ({
@@ -16,59 +16,55 @@ export const AnimatedThemeToggler = ({
   duration = 400,
   ...props
 }: AnimatedThemeTogglerProps) => {
-  const { setTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   const toggleTheme = useCallback(() => {
-    if (!resolvedTheme) return
+    if (!resolvedTheme) return;
 
-    const viewportWidth = window.visualViewport?.width ?? window.innerWidth
-    const viewportHeight =
-      window.visualViewport?.height ?? window.innerHeight
+    const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
+    const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
 
-    const x = viewportWidth / 2
-    const y = viewportHeight / 2
+    const x = viewportWidth / 2;
+    const y = viewportHeight / 2;
 
-    const maxRadius = Math.hypot(x, y)
+    const maxRadius = Math.hypot(x, y);
 
-    const newTheme = resolvedTheme === "dark" ? "light" : "dark"
+    const newTheme = resolvedTheme === "dark" ? "light" : "dark";
 
     const applyTheme = () => {
-      setTheme(newTheme)
-    }
+      setTheme(newTheme);
+    };
 
     if (typeof document.startViewTransition !== "function") {
-      applyTheme()
-      return
+      applyTheme();
+      return;
     }
 
     const transition = document.startViewTransition(() => {
-      flushSync(applyTheme)
-    })
+      flushSync(applyTheme);
+    });
 
-    const ready = transition?.ready
+    const ready = transition?.ready;
     if (ready && typeof ready.then === "function") {
       ready.then(() => {
         document.documentElement.animate(
           {
-            clipPath: [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${maxRadius}px at ${x}px ${y}px)`,
-            ],
+            clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${maxRadius}px at ${x}px ${y}px)`],
           },
           {
             duration,
             easing: "ease-in-out",
             pseudoElement: "::view-transition-new(root)",
           }
-        )
-      })
+        );
+      });
     }
-  }, [resolvedTheme, setTheme, duration])
+  }, [resolvedTheme, setTheme, duration]);
 
   if (!mounted) {
     return (
@@ -86,7 +82,7 @@ export const AnimatedThemeToggler = ({
         <Moon className="h-4 w-4 sm:h-5 sm:w-5 text-foreground" />
         <span className="sr-only">Toggle theme</span>
       </button>
-    )
+    );
   }
 
   return (
@@ -110,5 +106,5 @@ export const AnimatedThemeToggler = ({
       )}
       <span className="sr-only">Toggle theme</span>
     </button>
-  )
-}
+  );
+};

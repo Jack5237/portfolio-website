@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
 import type { MasonryItem } from "@/lib/content";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 interface MasonryBackgroundProps {
   readonly items: readonly MasonryItem[];
@@ -69,14 +69,13 @@ export const MasonryBackground = ({
               "relative overflow-hidden rounded-sm transition-all duration-700",
               isVisible ? "opacity-[0.03]" : "opacity-0",
               scaleOnHover && "hover:scale-[0.98]",
-              blurToFocus && "blur-sm hover:blur-0",
+              blurToFocus && "blur-sm hover:blur-0"
             )}
             style={{
               height: `${item.height}px`,
               transitionDelay: `${index * (stagger * 1000)}ms`,
               transform: isVisible ? "translateY(0)" : getInitialTransform(),
-              transition:
-                "opacity 0.7s ease, transform 0.7s ease, filter 0.3s ease",
+              transition: "opacity 0.7s ease, transform 0.7s ease, filter 0.3s ease",
             }}
           >
             <Image
@@ -85,7 +84,7 @@ export const MasonryBackground = ({
               fill
               className={cn(
                 "object-cover grayscale transition-all duration-300",
-                scaleOnHover && "hover:scale-[0.98]",
+                scaleOnHover && "hover:scale-[0.98]"
               )}
               loading="lazy"
               sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"

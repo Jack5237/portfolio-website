@@ -28,6 +28,7 @@ const config: Config = {
           foreground: "hsl(var(--accent-foreground))",
         },
         ring: "hsl(var(--ring))",
+        brand: "hsl(var(--brand))",
       },
       fontFamily: {
         // Display headings with fallback

@@ -67,28 +67,32 @@ export const FEATURED_PROJECTS: Project[] = [
     category: "Software Studio",
     discipline: "Full Stack Development",
     href: "https://www.caledonia-systems.com/",
-    description: "Scottish software studio building fast, reliable web products and systems for modern businesses.",
+    description:
+      "Scottish software studio building fast, reliable web products and systems for modern businesses.",
   },
   {
     title: "portfolio website",
     category: "Personal Portfolio",
     discipline: "Full Stack Development",
     href: "https://github.com/Jack5237/portfolio-website",
-    description: "A modern portfolio showcasing projects and skills with smooth animations and dark mode support.",
+    description:
+      "A modern portfolio showcasing projects and skills with smooth animations and dark mode support.",
   },
   {
     title: "Z3D.AI",
     category: "AI Model Maker",
     discipline: "Full Stack Development",
     href: "https://z3d.ai",
-    description: "AI-powered platform for creating and managing 3D models with intuitive tools and real-time collaboration.",
+    description:
+      "AI-powered platform for creating and managing 3D models with intuitive tools and real-time collaboration.",
   },
   {
     title: "Rust-central",
     category: "Game-Server Management",
     discipline: "Full Stack Development",
     href: "https://rust-central.xyz",
-    description: "Centralized management platform for Rust game servers with analytics, monitoring, and player management.",
+    description:
+      "Centralized management platform for Rust game servers with analytics, monitoring, and player management.",
   },
   {
     title: "Serva Discord",
@@ -102,29 +106,33 @@ export const FEATURED_PROJECTS: Project[] = [
     category: "Electrical Simulator",
     discipline: "Full Stack Development",
     href: "https://www.rustrician.io",
-    description: "Full stack Rust electrical circuit simulator for planning and testing in-game wiring layouts.",
+    description:
+      "Full stack Rust electrical circuit simulator for planning and testing in-game wiring layouts.",
   },
   // — Expanded —
   {
     title: "SQA Sprint",
     category: "Study Tool",
     discipline: "Full Stack Development",
-    href: "https://sqa-spint.vercel.app",
-    description: "Sprint through SQA past papers. Timed practice with real PDFs — set your pace, auto-scroll through questions, then mark your answers.",
+    href: "https://sqa-sprint.jacksdevfolio.com",
+    description:
+      "Sprint through SQA past papers. Timed practice with real PDFs — set your pace, auto-scroll through questions, then mark your answers.",
   },
   {
     title: "Imposter Online",
     category: "Word Imposter Game",
     discipline: "Full Stack Development",
     href: "https://wordimposter.online",
-    description: "Multiplayer word guessing game with real-time gameplay, chat features, and competitive rankings.",
+    description:
+      "Multiplayer word guessing game with real-time gameplay, chat features, and competitive rankings.",
   },
   {
     title: "Zero Creativity",
     category: "Design Portfolio",
     discipline: "Frontend Development",
     href: "https://zerocreativity.systems/",
-    description: "Creative design portfolio showcasing brand identity, web design, and visual communication projects.",
+    description:
+      "Creative design portfolio showcasing brand identity, web design, and visual communication projects.",
   },
   {
     title: "Volt-base",
@@ -138,9 +146,25 @@ export const FEATURED_PROJECTS: Project[] = [
     category: "Educational Platform",
     discipline: "Full Stack Development",
     href: "https://byte-com-course-website.onrender.com",
-    description: "Platform enabling educators to create, manage, and share online courses with interactive content delivery.",
+    description:
+      "Platform enabling educators to create, manage, and share online courses with interactive content delivery.",
   },
 ];
+
+/**
+ * A company that sponsors or partners with Jack's work.
+ */
+export interface Sponsor {
+  readonly name: string;
+  readonly description: string;
+  readonly href: string;
+  /** Path under /public or absolute URL to the logo. */
+  readonly logo?: string;
+  readonly tier: "Sponsor" | "Technology Partner";
+}
+
+/** Add real sponsors here; the /sponsors page renders an empty state while this is empty. */
+export const SPONSORS: Sponsor[] = [];
 
 export const TECHNOLOGIES_LEARNED: Technology[] = [
   // Core Languages - Top section with more items

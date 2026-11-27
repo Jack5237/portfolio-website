@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { Mail, ExternalLink, Share2, Copy, X, Check } from "lucide-react";
-import { getWebLogger } from "@/lib/logger";
 import { SITE_CONFIG } from "@/lib/config";
+import { getWebLogger } from "@/lib/logger";
+import { Check, Copy, ExternalLink, Mail, Share2, X } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 const logger = getWebLogger();
 logger.info("Initialized connect section module", { component: "ConnectSection" });
@@ -35,7 +35,7 @@ const SOCIAL_LINKS: ConnectLink[] = [
 
 const handleShareX = (url: string) => {
   const text =
-    "Check out my portfolio - Full stack developer from Scotland crafting end-to-end solutions.";
+    "Check out my portfolio - 16-year-old full stack developer from Scotland shipping end-to-end solutions.";
   window.open(
     `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
     "_blank"
@@ -54,19 +54,15 @@ export const ConnectSection = () => {
   const [showShare, setShowShare] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const url =
-    typeof window !== "undefined"
-      ? window.location.href
-      : "https://www.jacksdevfolio.com/connect";
+    typeof window !== "undefined" ? window.location.href : "https://www.jacksdevfolio.com/connect";
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 w-full max-w-lg">
       {/* Title & Description */}
       <div className="text-center">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-          Jack
-        </h1>
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Jack</h1>
         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-          Full stack developer from Scotland, UK. Let's build something great.
+          16-year-old full stack developer from Scotland, UK. Let's build something great.
         </p>
       </div>
 
@@ -99,7 +95,7 @@ export const ConnectSection = () => {
           {/* Email Button - Full Width */}
           <a
             href={`mailto:${SITE_CONFIG.email}?subject=Let's%20collaborate`}
-            className="sm:col-span-2 rounded-lg border-2 border-accent bg-accent/10 px-4 py-3 text-center font-medium text-sm text-accent transition-all duration-300 hover:bg-accent hover:text-background flex items-center justify-center gap-1.5"
+            className="sm:col-span-2 rounded-lg border-2 border-brand bg-brand/10 px-4 py-3 text-center font-medium text-sm text-brand transition-all duration-300 hover:bg-brand hover:text-white flex items-center justify-center gap-1.5"
           >
             <Mail className="h-4 w-4" />
             Get in Touch
@@ -135,9 +131,7 @@ export const ConnectSection = () => {
               Share
             </button>
 
-            <p className="text-xs text-muted-foreground">
-              Scan QR code or share!
-            </p>
+            <p className="text-xs text-muted-foreground">Scan QR code or share!</p>
 
             {showShare && (
               <div className="absolute top-full mt-2 left-0 sm:left-auto sm:right-0 bg-background border border-foreground/20 rounded-lg shadow-lg z-50 min-w-52 w-full sm:w-auto">
@@ -150,8 +144,7 @@ export const ConnectSection = () => {
                   }}
                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                 >
-                  <X className="h-3.5 w-3.5 shrink-0" />
-                  X / Twitter
+                  <X className="h-3.5 w-3.5 shrink-0" />X / Twitter
                 </button>
                 <button
                   type="button"
