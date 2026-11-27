@@ -2,7 +2,6 @@ import { Footer } from "@/components/sections/footer";
 import { SponsorCta } from "@/components/sections/sponsor-cta";
 import { Button } from "@/components/ui/button";
 import { SITE_CONFIG } from "@/lib/config";
-import { FEATURED_PROJECTS } from "@/lib/content";
 import { Dish, Laptop, Loupe, Plot, Terminal } from "@lucasmarkes/hairline/react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -61,12 +60,9 @@ const TILES = [
   },
 ];
 
-const WAYS = ["Hardware", "Dev tools & credits", "Collabs & content"];
-
 export default function SponsorshipPage() {
   const email = SITE_CONFIG.email;
   const mailto = `mailto:${email}?subject=${encodeURIComponent("Sponsorship enquiry")}`;
-  const shipped = FEATURED_PROJECTS.length;
 
   return (
     <>
@@ -103,51 +99,35 @@ export default function SponsorshipPage() {
           className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5"
         >
           <article
-            className={`${CARD} flex flex-col items-center justify-center gap-5 text-center sm:col-span-2 md:row-span-2 md:p-8`}
+            className={`${CARD} flex flex-col items-center justify-center gap-4 border-brand/20 bg-gradient-to-br from-brand/10 via-transparent to-transparent text-center sm:col-span-2 md:row-span-2 md:p-8`}
           >
-            <div className="pointer-events-auto w-44 opacity-80 md:w-52">
+            <div className="w-40 opacity-80 md:w-44">
               <Laptop intensity={0.6} />
             </div>
-            <div className="max-w-md">
-              <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-                What I&apos;m building
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-                AI tooling, game-server platforms, Discord tools and education software, shipped end
-                to end:{" "}
-                <strong className="text-foreground">interface, backend and infrastructure</strong>.
-              </p>
-            </div>
-            <div className="flex flex-col items-center gap-5">
-              <ul className="flex flex-wrap justify-center gap-2">
-                {WAYS.map((way) => (
-                  <li
-                    key={way}
-                    className="rounded-full border border-foreground/15 px-3 py-1 text-[10px] uppercase tracking-[0.15rem] text-muted-foreground"
-                  >
-                    {way}
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <Button asChild className="text-[10px] font-semibold uppercase tracking-[0.2rem]">
-                  <Link href="/#work">View featured projects</Link>
-                </Button>
-                <p className="text-xs uppercase tracking-[0.15rem] text-muted-foreground">
-                  <span className="font-display text-xl font-bold text-brand">{shipped}+</span>{" "}
-                  shipped
-                </p>
-              </div>
-            </div>
+            <h2 className="font-display text-2xl font-semibold sm:text-3xl">
+              What I&apos;m <span className="text-brand">building</span>
+            </h2>
+            <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
+              AI tooling, game-server platforms, Discord tools and education software, shipped end
+              to end:{" "}
+              <strong className="text-foreground">interface, backend and infrastructure</strong>.
+              Open to hardware, dev tools and collabs.
+            </p>
+            <Button asChild className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2rem]">
+              <Link href="/#work">View featured projects</Link>
+            </Button>
           </article>
 
           {TILES.map(({ Figure, title, text }) => (
-            <article key={title} className={`${CARD} min-h-48`}>
-              <div className="-mr-2 ml-auto w-24 opacity-80">
+            <article
+              key={title}
+              className={`${CARD} flex flex-col items-center justify-center gap-2 text-center transition-colors hover:border-brand/40`}
+            >
+              <div className="w-20 opacity-80">
                 <Figure intensity={0.6} />
               </div>
-              <h3 className="mt-2 font-display text-base font-semibold">{title}</h3>
-              <p className="mt-1.5 text-pretty text-sm leading-relaxed text-muted-foreground">
+              <h3 className="font-display text-base font-semibold">{title}</h3>
+              <p className="text-pretty text-xs leading-relaxed text-muted-foreground sm:text-sm">
                 {text}
               </p>
             </article>
