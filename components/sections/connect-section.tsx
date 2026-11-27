@@ -120,9 +120,8 @@ export const ConnectSection = () => {
             <Image
               src="/images/qr-code.png"
               alt="QR code linking to jacksdevfolio.com/connect"
-              width={128}
-              height={128}
-              className="h-32 w-32"
+              width={140}
+              height={140}
             />
           </div>
         </div>
