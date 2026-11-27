@@ -103,12 +103,12 @@ export default function SponsorshipPage() {
           className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5"
         >
           <article
-            className={`${CARD} flex flex-col justify-between gap-10 sm:col-span-2 md:row-span-2`}
+            className={`${CARD} flex flex-col items-center justify-center gap-5 text-center sm:col-span-2 md:row-span-2 md:p-8`}
           >
-            <div className="pointer-events-auto absolute right-6 top-5 hidden w-56 opacity-70 md:block">
+            <div className="pointer-events-auto w-44 opacity-80 md:w-52">
               <Laptop intensity={0.6} />
             </div>
-            <div className="relative max-w-sm">
+            <div className="max-w-md">
               <h2 className="font-display text-2xl font-semibold sm:text-3xl">
                 What I&apos;m building
               </h2>
@@ -118,8 +118,8 @@ export default function SponsorshipPage() {
                 <strong className="text-foreground">interface, backend and infrastructure</strong>.
               </p>
             </div>
-            <div className="relative space-y-4">
-              <ul className="flex flex-wrap gap-2">
+            <div className="flex flex-col items-center gap-5">
+              <ul className="flex flex-wrap justify-center gap-2">
                 {WAYS.map((way) => (
                   <li
                     key={way}
@@ -129,7 +129,7 @@ export default function SponsorshipPage() {
                   </li>
                 ))}
               </ul>
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center justify-center gap-4">
                 <Button asChild className="text-[10px] font-semibold uppercase tracking-[0.2rem]">
                   <Link href="/#work">View featured projects</Link>
                 </Button>
