@@ -1,73 +1,100 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "a11y": {
-        "recommended": true
-      },
-      "style": {
-        "recommended": true
-      },
-      "performance": {
-        "recommended": true
-      },
-      "nursery": {
-        "recommended": true
-      }
-    },
-    "ignore": [
-      "node_modules",
-      ".next",
-      ".vinext",
-      ".cloudflare",
-      ".git",
-      "dist",
-      "build",
-      "out"
-    ]
-  },
-  "formatter": {
-    "enabled": true,
-    "formatWithErrors": false,
-    "ignore": [
-      "node_modules",
-      ".next",
-      ".vinext",
-      ".cloudflare",
-      ".git",
-      "dist",
-      "build",
-      "out"
-    ],
-    "indentWidth": 2,
-    "indentStyle": "space",
-    "lineWidth": 100
-  },
-  "javascript": {
-    "formatter": {
-      "enabled": true,
-      "lineWidth": 100,
-      "indentWidth": 2,
-      "indentStyle": "space",
-      "quoteStyle": "double",
-      "quoteProperties": "asNeeded",
-      "semicolons": "always",
-      "arrowParentheses": "always",
-      "bracketSpacing": true,
-      "bracketSameLine": false,
-      "trailingCommas": "es5"
-    }
-  },
-  "json": {
-    "formatter": {
-      "enabled": true,
-      "indentWidth": 2,
-      "indentStyle": "space"
-    }
-  }
+	"$schema": "https://biomejs.dev/schemas/2.6.8/schema.json",
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "recommended",
+			"a11y": {
+				"preset": "recommended",
+				"noSvgWithoutTitle": "off",
+				"noStaticElementInteractions": "warn"
+			},
+			"style": {
+				"preset": "recommended"
+			},
+			"performance": {
+				"preset": "recommended",
+				"noImgElement": "warn"
+			},
+			"nursery": {
+				"preset": "recommended"
+			},
+			"correctness": {
+				"noUnusedVariables": "warn",
+				"noUnusedFunctionParameters": "warn",
+				"useHookAtTopLevel": "warn"
+			},
+			"suspicious": {
+				"useIterableCallbackReturn": "warn"
+			},
+			"complexity": {
+				"useOptionalChain": "warn"
+			}
+		},
+		"includes": [
+			"**",
+			"!**/node_modules",
+			"!**/.next",
+			"!**/.vinext",
+			"!**/.cloudflare",
+			"!**/.wrangler",
+			"!**/.git",
+			"!**/dist",
+			"!**/build",
+			"!**/out"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"includes": [
+			"**",
+			"!**/node_modules",
+			"!**/.next",
+			"!**/.vinext",
+			"!**/.cloudflare",
+			"!**/.wrangler",
+			"!**/.git",
+			"!**/dist",
+			"!**/build",
+			"!**/out"
+		],
+		"indentWidth": 2,
+		"indentStyle": "space",
+		"lineWidth": 100
+	},
+	"javascript": {
+		"formatter": {
+			"enabled": true,
+			"lineWidth": 100,
+			"indentWidth": 2,
+			"indentStyle": "space",
+			"quoteStyle": "double",
+			"quoteProperties": "asNeeded",
+			"semicolons": "always",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": false,
+			"trailingCommas": "es5"
+		}
+	},
+	"json": {
+		"formatter": {
+			"enabled": true,
+			"indentWidth": 2,
+			"indentStyle": "space"
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	}
 }

@@ -16,7 +16,7 @@ const REQUIRED_MESSAGES: Record<string, string> = {
 const FIELD_CLASS = cn(
   "w-full bg-background border border-foreground/15 px-3 sm:px-4 py-2.5",
   "text-base sm:text-sm text-foreground placeholder:text-muted-foreground/50",
-  "focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand/40",
+  "focus:outline-hidden focus:border-brand focus:ring-1 focus:ring-brand/40",
   "transition-colors duration-200 hover:border-foreground/25"
 );
 const LABEL_CLASS = "block text-sm font-medium text-foreground";
@@ -211,7 +211,7 @@ export default function ContactForm() {
 
           {/* Status Messages */}
           {error && (
-            <div className="p-2.5 bg-red-500/10 border border-red-500/30 rounded">
+            <div className="p-2.5 bg-red-500/10 border border-red-500/30 rounded-sm">
               <p className="text-[10px] sm:text-xs text-red-500">{error}</p>
             </div>
           )}

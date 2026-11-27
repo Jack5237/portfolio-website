@@ -76,11 +76,11 @@ export const BackToHome = ({ className }: BackToHomeProps) => {
         </Button>
       </Link>
       <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px] text-muted-foreground">
-        <kbd className="px-1.5 py-0.5 rounded border border-foreground/20 bg-muted/50 font-mono text-[9px] sm:text-[10px]">
+        <kbd className="px-1.5 py-0.5 rounded-sm border border-foreground/20 bg-muted/50 font-mono text-[9px] sm:text-[10px]">
           Ctrl
         </kbd>
         <span className="text-muted-foreground/50">+</span>
-        <kbd className="px-1.5 py-0.5 rounded border border-foreground/20 bg-muted/50 font-mono text-[9px] sm:text-[10px]">
+        <kbd className="px-1.5 py-0.5 rounded-sm border border-foreground/20 bg-muted/50 font-mono text-[9px] sm:text-[10px]">
           ⌫
         </kbd>
       </div>

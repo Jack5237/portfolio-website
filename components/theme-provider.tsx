@@ -14,7 +14,7 @@ interface ThemeProviderProps {
   /**
    * HTML attribute to use for theme switching (e.g., "class", "data-theme").
    */
-  readonly attribute?: string;
+  readonly attribute?: "class" | "data-theme";
   /**
    * Default theme to apply on initial load.
    */

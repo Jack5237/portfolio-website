@@ -114,7 +114,7 @@ export const TopBanner = ({ email, socialLinks }: { email: string; socialLinks?:
                     target="_blank"
                     rel="noopener noreferrer"
                     title={label}
-                    className="flex h-7 w-7 items-center justify-center rounded-full sm:h-8 sm:w-8 text-muted-foreground outline-none transition-all hover:-translate-y-0.5 hover:bg-foreground/10 hover:text-brand focus-visible:outline-2 focus-visible:outline-foreground motion-reduce:transform-none"
+                    className="flex h-7 w-7 items-center justify-center rounded-full sm:h-8 sm:w-8 text-muted-foreground outline-hidden transition-all hover:-translate-y-0.5 hover:bg-foreground/10 hover:text-brand focus-visible:outline-2 focus-visible:outline-foreground motion-reduce:transform-none"
                   >
                     <Icon className="h-4 w-4" aria-hidden="true" />
                     <span className="sr-only">{label} (opens in a new tab)</span>
@@ -143,7 +143,7 @@ export const TopBanner = ({ email, socialLinks }: { email: string; socialLinks?:
           <span className="hidden shrink-0 text-muted-foreground sm:inline">New Post:</span>
           <Link
             href="/blog"
-            className="group flex min-h-8 min-w-0 items-center gap-1.5 rounded-sm outline-none transition-colors hover:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+            className="group flex min-h-8 min-w-0 items-center gap-1.5 rounded-xs outline-hidden transition-colors hover:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
           >
             <span className="truncate group-hover:underline">
               <span className="sm:hidden">New post</span>
@@ -159,7 +159,7 @@ export const TopBanner = ({ email, socialLinks }: { email: string; socialLinks?:
         {/* Right - email */}
         <a
           href={`mailto:${email}?subject=Let's%20collaborate`}
-          className="group -mr-2 flex h-7 w-7 items-center sm:h-8 justify-center gap-1.5 rounded-full text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-foreground sm:w-auto sm:px-2 sm:hover:bg-foreground/10"
+          className="group -mr-2 flex h-7 w-7 items-center sm:h-8 justify-center gap-1.5 rounded-full text-muted-foreground outline-hidden transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-foreground sm:w-auto sm:px-2 sm:hover:bg-foreground/10"
         >
           <Mail
             aria-hidden="true"

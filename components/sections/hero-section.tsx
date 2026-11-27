@@ -89,7 +89,7 @@ export const HeroSection = () => {
                     element.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
-                className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-brand hover:text-white h-10 sm:h-11 md:h-12 px-5 sm:px-7 md:px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem] whitespace-nowrap flex-shrink-0"
+                className="inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-background hover:bg-brand hover:text-white h-10 sm:h-11 md:h-12 px-5 sm:px-7 md:px-8 text-xs sm:text-sm uppercase tracking-[0.2rem] sm:tracking-[0.25rem] whitespace-nowrap flex-shrink-0"
               >
                 See Projects
               </button>

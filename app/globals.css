@@ -1,6 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+@plugin "@tailwindcss/typography";
+
+/* Tailwind 4 dropped container config and defaults borders to currentColor. */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before {
+    border-color: hsl(var(--foreground) / 0.15);
+  }
+}
 
 /* Ensure base styles are always loaded */
 html {

@@ -1,13 +1,6 @@
-/**
- * @description Configures PostCSS to process Tailwind directives for the monochrome portfolio.
- */
-"use strict";/**
- * @description Configures PostCSS to process Tailwind directives for the monochrome portfolio.
- */
+/** Tailwind 4 ships its own PostCSS plugin (autoprefixing is built in). */
 module.exports = {
   plugins: {
-    tailwindcss: {},
-    autoprefixer: {}
-  }
+    "@tailwindcss/postcss": {},
+  },
 };
-

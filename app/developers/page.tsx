@@ -30,7 +30,7 @@ export default function DevelopersPage() {
         <h2 className="text-2xl font-bold mb-4">API Endpoints</h2>
 
         <div className="space-y-6">
-          <div className="border border-foreground/20 rounded p-6">
+          <div className="border border-foreground/20 rounded-sm p-6">
             <h3 className="text-xl font-semibold mb-2">GET /api/content</h3>
             <p className="text-muted-foreground mb-4">
               Retrieve portfolio information including profile, projects, technologies, and social
@@ -46,7 +46,7 @@ export default function DevelopersPage() {
             </div>
           </div>
 
-          <div className="border border-foreground/20 rounded p-6">
+          <div className="border border-foreground/20 rounded-sm p-6">
             <h3 className="text-xl font-semibold mb-2">GET /api/health</h3>
             <p className="text-muted-foreground mb-4">
               Health check endpoint. Returns service status and available APIs.
@@ -61,7 +61,7 @@ export default function DevelopersPage() {
             </div>
           </div>
 
-          <div className="border border-foreground/20 rounded p-6">
+          <div className="border border-foreground/20 rounded-sm p-6">
             <h3 className="text-xl font-semibold mb-2">GET /api/blog</h3>
             <p className="text-muted-foreground mb-4">
               Retrieve all published blog posts with metadata.
@@ -76,7 +76,7 @@ export default function DevelopersPage() {
             </div>
           </div>
 
-          <div className="border border-foreground/20 rounded p-6">
+          <div className="border border-foreground/20 rounded-sm p-6">
             <h3 className="text-xl font-semibold mb-2">POST /api/contact</h3>
             <p className="text-muted-foreground mb-4">Submit a contact form message.</p>
             <div className="text-sm">

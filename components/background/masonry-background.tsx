@@ -66,10 +66,10 @@ export const MasonryBackground = ({
             key={item.id}
             suppressHydrationWarning
             className={cn(
-              "relative overflow-hidden rounded-sm transition-all duration-700",
+              "relative overflow-hidden rounded-xs transition-all duration-700",
               isVisible ? "opacity-[0.03]" : "opacity-0",
               scaleOnHover && "hover:scale-[0.98]",
-              blurToFocus && "blur-sm hover:blur-0"
+              blurToFocus && "blur-xs hover:blur-0"
             )}
             style={{
               height: `${item.height}px`,

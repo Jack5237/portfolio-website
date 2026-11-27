@@ -49,7 +49,7 @@ export default function SponsorsPage() {
                   href={sponsor.href}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="group flex h-full flex-col gap-4 rounded-xl border border-foreground/15 bg-muted/10 p-5 sm:p-6 transition-colors hover:border-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="group flex h-full flex-col gap-4 rounded-xl border border-foreground/15 bg-muted/10 p-5 sm:p-6 transition-colors hover:border-brand focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <div className="flex h-12 items-center">
                     {sponsor.logo ? (

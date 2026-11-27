@@ -62,7 +62,7 @@ export function BannerImage({ src, alt, className, imageClassName, priority }: B
           <dialog
             open
             aria-label={alt}
-            className="fixed inset-0 z-[100] m-0 flex h-full max-h-none w-full max-w-none items-center justify-center bg-black/85 p-4 text-foreground backdrop-blur-sm sm:p-8"
+            className="fixed inset-0 z-[100] m-0 flex h-full max-h-none w-full max-w-none items-center justify-center bg-black/85 p-4 text-foreground backdrop-blur-xs sm:p-8"
           >
             <button
               type="button"

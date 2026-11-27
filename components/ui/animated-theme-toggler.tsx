@@ -73,7 +73,7 @@ export const AnimatedThemeToggler = ({
         className={cn(
           "rounded-full p-2",
           "transition-all duration-300 ease-in-out",
-          "hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-foreground/20",
+          "hover:bg-foreground/10 focus:outline-hidden focus:ring-2 focus:ring-foreground/20",
           className
         )}
         disabled
@@ -92,7 +92,7 @@ export const AnimatedThemeToggler = ({
       className={cn(
         "rounded-full p-2",
         "transition-all duration-300 ease-in-out",
-        "hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-foreground/20",
+        "hover:bg-foreground/10 focus:outline-hidden focus:ring-2 focus:ring-foreground/20",
         className
       )}
       aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}

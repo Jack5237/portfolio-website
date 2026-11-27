@@ -8,13 +8,12 @@ import {
   Coffee,
   Copy,
   Link,
-  Linkedin,
   Maximize2,
   Minimize2,
   Share2,
-  Twitter,
   X,
 } from "lucide-react";
+import { LinkedinIcon, XIcon } from "@/components/ui/brand-icons";
 import NextLink from "next/link";
 import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -241,7 +240,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
             <div className="pointer-events-auto relative">
               {/* Share popover */}
               {dockShareOpen && expandedPost && (
-                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-background border border-foreground/20 rounded-sm shadow-lg z-50 min-w-[160px]">
+                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-background border border-foreground/20 rounded-xs shadow-lg z-50 min-w-[160px]">
                   <button
                     type="button"
                     onClick={() => {
@@ -251,7 +250,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                     }}
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   >
-                    <Twitter size={13} /> Twitter / X
+                    <XIcon size={13} /> Twitter / X
                   </button>
                   <button
                     type="button"
@@ -263,7 +262,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                     }
                     className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                   >
-                    <Linkedin size={13} /> LinkedIn
+                    <LinkedinIcon size={13} /> LinkedIn
                   </button>
                   <button
                     type="button"
@@ -395,7 +394,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
               className={cn(
                 "w-full px-4 py-3 bg-transparent border-b border-foreground/20",
                 "text-sm sm:text-base text-foreground placeholder:text-muted-foreground/50",
-                "focus:outline-none focus:border-foreground transition-colors",
+                "focus:outline-hidden focus:border-foreground transition-colors",
                 "tracking-wide"
               )}
             />
@@ -445,7 +444,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                     <BannerImage
                       src={post.bannerImage}
                       alt={post.title}
-                      className="aspect-[3/1] min-h-40 rounded-sm"
+                      className="aspect-[3/1] min-h-40 rounded-xs"
                       imageClassName="grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-focus-visible:grayscale-0 group-focus-visible:opacity-100"
                     />
                   ) : (
@@ -569,7 +568,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                               share
                             </button>
                             {shareOpen === `expanded-${post.id}` && (
-                              <div className="absolute bottom-full mb-2 right-0 sm:right-0 left-auto max-[400px]:right-auto max-[400px]:left-0 bg-background border border-foreground/20 rounded-sm z-50 shadow-lg shadow-foreground/10 min-w-[160px]">
+                              <div className="absolute bottom-full mb-2 right-0 sm:right-0 left-auto max-[400px]:right-auto max-[400px]:left-0 bg-background border border-foreground/20 rounded-xs z-50 shadow-lg shadow-foreground/10 min-w-[160px]">
                                 {/* Twitter */}
                                 <button
                                   type="button"
@@ -582,7 +581,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  <Twitter className="h-3.5 w-3.5 shrink-0" />
+                                  <XIcon className="h-3.5 w-3.5 shrink-0" />
                                   Twitter / X
                                 </button>
                                 {/* LinkedIn */}
@@ -596,7 +595,7 @@ const BlogClient = ({ posts }: BlogClientProps) => {
                                   }}
                                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                                 >
-                                  <Linkedin className="h-3.5 w-3.5 shrink-0" />
+                                  <LinkedinIcon className="h-3.5 w-3.5 shrink-0" />
                                   LinkedIn
                                 </button>
                                 {/* Reddit */}
