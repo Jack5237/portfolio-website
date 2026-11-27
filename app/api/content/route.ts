@@ -6,7 +6,6 @@ export async function GET(request: NextRequest) {
   const accept = request.headers.get("accept") || "";
 
   // Determine requested format
-  const wantsJson = accept.includes("application/json");
   const wantsText = accept.includes("text/plain");
   const wantsMarkdown = accept.includes("text/markdown");
 

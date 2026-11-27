@@ -99,7 +99,7 @@ const StrokeText = ({
       } catch {
         return;
       }
-      if (!bbox || !bbox.width) return;
+      if (!bbox?.width) return;
 
       const pad = Math.max(Number(strokeWidth) || 1, numFontSize * 0.1);
       const next: DOMRect = {

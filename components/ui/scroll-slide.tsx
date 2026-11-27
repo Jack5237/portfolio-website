@@ -56,7 +56,6 @@ export const ScrollSlide = ({
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // biome-ignore lint/complexity/noForEach: readability only, behaviour identical
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Add delay if specified

@@ -66,7 +66,6 @@ function DockItem({
       onBlur={() => isHovered.set(0)}
       onClick={onClick}
       className={`dock-item ${className}`}
-      // biome-ignore lint/a11y/useSemanticElements: custom dialog/button widget with explicit ARIA and keyboard handling
       tabIndex={0}
       role="button"
       aria-label={label}

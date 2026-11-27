@@ -61,7 +61,7 @@ Having trouble? Reach out to [contact@jacksdevfolio.com](mailto:contact@jacksdev
   return new NextResponse(null, { status: 404 });
 }
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   return new NextResponse(JSON.stringify({ error: "Not Found", status: 404 }), {
     status: 404,
     headers: {

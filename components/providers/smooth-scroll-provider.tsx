@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { getLogger } from "@/lib/logger";
@@ -17,7 +16,6 @@ export const SmoothScrollProvider = ({
 }: {
   readonly children: React.ReactNode;
 }) => {
-  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

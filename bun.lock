@@ -8,7 +8,6 @@
         "@lucasmarkes/hairline": "^0.5.1",
         "@radix-ui/react-dropdown-menu": "^2.2.1",
         "@radix-ui/react-slot": "^1.5.0",
-        "@vinext/cloudflare": "^1.4.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "gray-matter": "^4.0.3",
@@ -91,8 +90,6 @@
     "@cloudflare/workerd-linux-arm64": ["@cloudflare/workerd-linux-arm64@1.20261127.1", "", { "os": "linux", "cpu": "arm64" }, "sha512-x/MJ8Vd+Q9VamNtj3pFRJZdZc9r3HcSqOpU6XfhcOTFuQEpA9t/0/DWdP27NrzxKNdHV5139XYxUw+x/oGY/Kw=="],
 
     "@cloudflare/workerd-windows-64": ["@cloudflare/workerd-windows-64@1.20261127.1", "", { "os": "win32", "cpu": "x64" }, "sha512-ebko9XaZy6iqDHLr4WH2dC01Hf8L8xQe2GxBwqdsUfAmhMPGbnk33GtvR5FFaae+CPCPiU/H2TY1WeJ8cNSKdQ=="],
-
-    "@cloudflare/workers-response-store": ["@cloudflare/workers-response-store@1.2.0", "", {}, "sha512-bFW0NV7i6qThxp6AhVPQ80VMouuO537RPDS+mYCLtJjKlKudgQTt34QE87/plaZBXDjEjxyLCK/+PYYTA5ZD4w=="],
 
     "@cspotcode/source-map-support": ["@cspotcode/source-map-support@0.8.1", "", { "dependencies": { "@jridgewell/trace-mapping": "0.3.9" } }, "sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw=="],
 
@@ -413,8 +410,6 @@
     "@unpic/react": ["@unpic/react@1.0.2", "", { "dependencies": { "@unpic/core": "^1.0.3" }, "peerDependencies": { "next": "^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "react": "^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0" }, "optionalPeers": ["next"] }, "sha512-5RmRfELwTF8w+4zjtQGqjpvX+RU2VLvis3xDCS1O2uWk0PZN2cvatL+3/KAR3mshAuRrkFGTX1XwyAezSXaoCA=="],
 
     "@vercel/og": ["@vercel/og@1.0.3", "", { "dependencies": { "@resvg/resvg-wasm": "2.4.1", "satori": "0.33.5" }, "optionalDependencies": { "sharp": "^0.35.3" } }, "sha512-/iYJ34PDu4lty1TXdL86qHEw8viveHTllG1PWLuJX8tSFfqKL7kyVJeUORJmQ250bHB0h+alcalXUlza3c/NSA=="],
-
-    "@vinext/cloudflare": ["@vinext/cloudflare@1.4.0", "", { "dependencies": { "@cloudflare/workers-response-store": "1.2.0" }, "peerDependencies": { "@cloudflare/vite-plugin": "*", "cf": "*", "vinext": "^1.4.6" }, "optionalPeers": ["@cloudflare/vite-plugin", "cf"], "bin": { "vinext-cloudflare": "dist/cli.js", "@vinext/cloudflare": "dist/cli.js" } }, "sha512-w18+vC3NeaBZEQ45JzE78o4DlpW1Vaun77GI5CpGM0QLMka+Rr40OZvphA1bOsSK0uC7heuuiOK4dsvm9V1uRg=="],
 
     "@vinext/types": ["@vinext/types@1.0.2", "", {}, "sha512-ORcuy4DNiT2EFsLsCh2FtZz1I7Q3HGf1PSu80ALqwlq+en7UJeLKQE7FmKgvW0cJL79GvZuZe4jddzGpqDMw/Q=="],
 

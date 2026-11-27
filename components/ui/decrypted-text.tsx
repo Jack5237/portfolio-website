@@ -140,7 +140,6 @@ export const DecryptedText = ({
     if (animateOn === "view" && !isRevealed && elementRef.current) {
       const observer = new IntersectionObserver(
         (entries) => {
-          // biome-ignore lint/complexity/noForEach: readability only, behaviour identical
           entries.forEach((entry) => {
             if (entry.isIntersecting && !isRevealed && !isAnimating) {
               setIsAnimating(true);
