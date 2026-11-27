@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { SITE_CONFIG } from "@/lib/config";
 import { FEATURED_PROJECTS } from "@/lib/content";
 import { Dish, Laptop, Loupe, Plot, Terminal } from "@lucasmarkes/hairline/react";
-import { Code2, Megaphone, Rocket, Users } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -36,30 +35,27 @@ export const metadata: Metadata = {
   },
 };
 
-const CARD = "relative overflow-hidden rounded-2xl border border-foreground/15 bg-muted/10 p-5";
+const CARD =
+  "relative overflow-hidden rounded-2xl border border-foreground/15 bg-muted/10 p-5 md:p-6";
 
 const TILES = [
   {
     Figure: Dish,
-    Icon: Megaphone,
     title: "Real visibility",
     text: "Your logo and link on the Sponsors page, plus home and project placement.",
   },
   {
     Figure: Loupe,
-    Icon: Code2,
     title: "Honest exposure",
     text: "Your product used in real builds and write-ups, never scripted ads.",
   },
   {
     Figure: Terminal,
-    Icon: Users,
     title: "Dev feedback",
     text: "Daily hands-on input from someone shipping on your platform.",
   },
   {
     Figure: Plot,
-    Icon: Rocket,
     title: "Early alignment",
     text: "Back a builder who is already shipping and grow with the projects.",
   },
@@ -102,19 +98,21 @@ export default function SponsorshipPage() {
           </div>
         </header>
 
-        <section aria-label="Why sponsor" className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+        <section
+          aria-label="Why sponsor"
+          className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5"
+        >
           <article
-            className={`${CARD} flex min-h-64 flex-col justify-between gap-6 sm:col-span-2 md:row-span-2`}
+            className={`${CARD} flex min-h-72 flex-col justify-between gap-8 sm:col-span-2 md:row-span-2`}
           >
-            <Laptop
-              className="pointer-events-auto absolute -right-4 -top-2 hidden w-56 opacity-70 md:block"
-              intensity={0.6}
-            />
-            <div className="relative max-w-sm">
-              <h2 className="font-display text-xl font-semibold sm:text-2xl">
+            <div className="pointer-events-auto absolute right-6 top-6 hidden w-64 opacity-70 md:block">
+              <Laptop intensity={0.6} />
+            </div>
+            <div className="relative max-w-md">
+              <h2 className="font-display text-2xl font-semibold sm:text-3xl">
                 What I&apos;m building
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
                 AI tooling, game-server platforms, Discord tools and education software, shipped end
                 to end:{" "}
                 <strong className="text-foreground">interface, backend and infrastructure</strong>.
@@ -143,17 +141,15 @@ export default function SponsorshipPage() {
             </div>
           </article>
 
-          {TILES.map(({ Figure, Icon, title, text }) => (
-            <article key={title} className={CARD}>
-              <Figure
-                className="pointer-events-auto absolute right-2 top-2 w-24 opacity-80"
-                intensity={0.6}
-              />
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand/15 text-brand">
-                <Icon className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <h3 className="mt-4 font-display text-base font-semibold">{title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{text}</p>
+          {TILES.map(({ Figure, title, text }) => (
+            <article key={title} className={`${CARD} min-h-56`}>
+              <div className="-ml-2 w-28 opacity-80">
+                <Figure intensity={0.6} />
+              </div>
+              <h3 className="mt-2 font-display text-base font-semibold">{title}</h3>
+              <p className="mt-1.5 text-pretty text-sm leading-relaxed text-muted-foreground">
+                {text}
+              </p>
             </article>
           ))}
         </section>
