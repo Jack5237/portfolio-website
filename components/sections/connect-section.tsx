@@ -5,6 +5,7 @@ import { SITE_CONFIG } from "@/lib/config";
 import { getWebLogger } from "@/lib/logger";
 import { Check, Copy, Globe, Mail, Share2 } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -116,9 +117,13 @@ export const ConnectSection = () => {
         {/* QR Code */}
         <div className="flex flex-col items-center">
           <div className="rounded-lg border border-foreground/20 bg-white p-3">
-            <div className="w-32 h-32 flex items-center justify-center text-xs text-muted-foreground">
-              QR Code
-            </div>
+            <Image
+              src="/images/qr-code.png"
+              alt="QR code linking to jacksdevfolio.com/connect"
+              width={128}
+              height={128}
+              className="h-32 w-32"
+            />
           </div>
         </div>
 
