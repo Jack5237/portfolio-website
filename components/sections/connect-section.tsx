@@ -122,6 +122,7 @@ export const ConnectSection = () => {
               alt="QR code linking to jacksdevfolio.com/connect"
               width={140}
               height={140}
+              className="h-[68px] w-[68px]"
             />
           </div>
         </div>
