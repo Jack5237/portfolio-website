@@ -1,8 +1,10 @@
 "use client";
 
+import { DiscordIcon, GithubIcon, LinkedinIcon, XIcon } from "@/components/ui/brand-icons";
 import { SITE_CONFIG } from "@/lib/config";
 import { getWebLogger } from "@/lib/logger";
-import { Check, Copy, ExternalLink, Mail, Share2, X } from "lucide-react";
+import { Check, Copy, Globe, Mail, Share2 } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -12,24 +14,29 @@ logger.info("Initialized connect section module", { component: "ConnectSection" 
 interface ConnectLink {
   label: string;
   href: string;
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 const SOCIAL_LINKS: ConnectLink[] = [
   {
     label: "GitHub",
     href: SITE_CONFIG.social.github,
+    Icon: GithubIcon,
   },
   {
     label: "LinkedIn",
     href: SITE_CONFIG.social.linkedin,
+    Icon: LinkedinIcon,
   },
   {
-    label: "Twitter",
+    label: "X / Twitter",
     href: SITE_CONFIG.social.twitter,
+    Icon: XIcon,
   },
   {
     label: "Discord",
     href: SITE_CONFIG.social.discord,
+    Icon: DiscordIcon,
   },
 ];
 
@@ -76,10 +83,11 @@ export const ConnectSection = () => {
             href="/"
             className="rounded-lg border border-foreground/20 bg-background px-4 py-3 text-center font-medium text-sm transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background flex items-center justify-center gap-1.5"
           >
+            <Globe className="h-4 w-4" />
             Main Website
           </Link>
 
-          {SOCIAL_LINKS.map((link) => (
+          {SOCIAL_LINKS.map(({ Icon, ...link }) => (
             <a
               key={link.href}
               href={link.href}
@@ -87,8 +95,8 @@ export const ConnectSection = () => {
               rel="noopener noreferrer"
               className="rounded-lg border border-foreground/20 bg-background px-4 py-3 text-center font-medium text-sm transition-all duration-300 hover:border-foreground hover:bg-foreground hover:text-background flex items-center justify-center gap-1.5"
             >
+              <Icon className="h-4 w-4" />
               {link.label}
-              <ExternalLink className="h-3.5 w-3.5" />
             </a>
           ))}
 
@@ -144,7 +152,7 @@ export const ConnectSection = () => {
                   }}
                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                 >
-                  <X className="h-3.5 w-3.5 shrink-0" />X / Twitter
+                  <XIcon className="h-3.5 w-3.5 shrink-0" />X / Twitter
                 </button>
                 <button
                   type="button"
@@ -154,7 +162,7 @@ export const ConnectSection = () => {
                   }}
                   className="flex items-center gap-3 w-full px-3 py-2 text-xs hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground"
                 >
-                  <ExternalLink className="h-3.5 w-3.5 shrink-0" />
+                  <LinkedinIcon className="h-3.5 w-3.5 shrink-0" />
                   LinkedIn
                 </button>
 
