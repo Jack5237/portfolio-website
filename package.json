@@ -37,7 +37,7 @@
     "vinext": "^1.4.6"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.8",
+    "@biomejs/biome": "^2.6.9",
     "@cloudflare/vite-plugin": "^2.0.0-rc.6",
     "@tailwindcss/postcss": "^4.3.5",
     "@tailwindcss/typography": "^0.5.20",
