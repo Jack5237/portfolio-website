@@ -122,7 +122,7 @@ export const FEATURED_PROJECTS: Project[] = [
     title: "Imposter Online",
     category: "Word Imposter Game",
     discipline: "Full Stack Development",
-    href: "https://wordimposter.online",
+    href: "https://wordimposter.jacksdevfolio.com/",
     description:
       "Multiplayer word guessing game with real-time gameplay, chat features, and competitive rankings.",
   },
@@ -140,6 +140,13 @@ export const FEATURED_PROJECTS: Project[] = [
     discipline: "Backend Development",
     href: "https://github.com/Jack5237/Volt-base_v2",
     description: "A Bun-first Discord bot starter template.",
+  },
+  {
+    title: "wi-system",
+    category: "Agent Memory Engine",
+    discipline: "Backend Development",
+    href: "https://github.com/Jack5237/wi-system",
+    description: "A drop-in knowledge memory engine for agentic projects.",
   },
   {
     title: "byte.com",

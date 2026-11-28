@@ -6,7 +6,7 @@ import type { Project } from "@/lib/content";
 import { getWebLogger } from "@/lib/logger";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, FolderGit2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const logger = getWebLogger();
 logger.info("Initialized projects section module", { section: "Projects" });
@@ -23,8 +23,20 @@ interface ProjectsSectionProps {
  * @param props - Project data to present.
  * @returns The projects section markup.
  */
-export const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
+export const ProjectsSection = ({ projects: initialProjects }: ProjectsSectionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [projects, setProjects] = useState(initialProjects);
+
+  // Shuffle after mount (not during render) so SSR and hydration markup match.
+  useEffect(() => {
+    const shuffled = [...initialProjects];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    setProjects(shuffled);
+  }, [initialProjects]);
+
   const displayedProjects = isExpanded ? projects : projects.slice(0, 4);
 
   logger.debug("Rendering projects section", {
